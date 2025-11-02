@@ -11,13 +11,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["enviar"])) {
        $email = mysqli_real_escape_string($conexion, $_POST["email"]); 
 
     // 2. Buscar usuario por EMAIL en BD (usando nombreUsuario como email)
-    $consulta_user = "SELECT idUsuario FROM usuarios WHERE nombreUsuario = '$email'";
+    $consulta_user = "SELECT codUsuario FROM usuarios WHERE nombreUsuario = '$email'";
     $resultado = mysqli_query($conexion, $consulta_user);
 
     }
     if ($resultado && mysqli_num_rows($resultado) > 0) {
         $usuario = mysqli_fetch_assoc($resultado);
-        $user_id = $usuario['idUsuario'];
+        $user_id = $usuario['codUsuario'];
 
         // Generar, guardar y enviar el TOKEN
         if (generar_y_enviar_token($conexion, $user_id, $email)) {
