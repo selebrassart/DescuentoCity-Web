@@ -31,12 +31,19 @@ include("../../conexionBD.php");
                     <label>Email</label><br>
                     <input type="email" name="email" class="input-form" placeholder="Email" required ><br> 
                     <label>Contraseña</label><br>
-                    <input type="password" name="clave" class="input-form" placeholder="Contraseña" required ><br> 
+                    <input type="password" name="clave" class="input-form" placeholder="Contraseña" required ><br>
+                     <div class="mb-3"> 
+                        <span class="small text-muted">¿Olvidó su contraseña? </span>
+                         <a href="/Descuento-City/views/auth/restablecer-contraseña.php" class="enlace-restablecer">
+                                      Click aquí
+                         </a>
+                     </div>
                 </div>
                 <input type="submit" name="confirm" value="Iniciar Sesion" class="button-form">
-                <p>¿No tiene cuenta?</p>
-                <button class="button-form-login"><a href="/Descuento-City/views/auth/registro.php">Crear una</a></button>
-            </form>
+                 <p>¿No tiene cuenta?<a href="/Descuento-City/views/auth/registro.php" class="text-primary">  Crear una
+                 </a> </p>
+                  
+                </form>
 
             <?php
             // Sistema de alertas categorizado
