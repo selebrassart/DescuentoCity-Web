@@ -75,4 +75,52 @@ function cambiarEstado($conexion,$codPromo,$accion){
     return false;
 }
 
+
+function subirCategoria($codCliente,$conexion){
+
+    $codCliente = $codCliente;
+    
+    // Obtener categoría actual del cliente
+    $consultaCategoria = "SELECT categoriaCliente FROM usuarios WHERE codUsuario='$codCliente'";
+    $resultadoCategoria = mysqli_query($conexion,$consultaCategoria);
+    $categoriaActual = mysqli_fetch_assoc($resultadoCategoria)["categoriaCliente"];
+    
+    // Conslto cantidad usos aceptados de un cliente
+    $consulta = "SELECT COUNT(*) AS totalUsos FROM uso_promociones WHERE codCliente='$codCliente' AND estado='aceptada'";
+    $resultado = mysqli_query($conexion,$consulta);
+    $totalUsos = mysqli_fetch_assoc($resultado)["totalUsos"];
+
+    $nuevaCategoria = $categoriaActual; 
+    
+    //defino valores 
+    if($totalUsos >= 2 && $categoriaActual != 'premium'){
+        $nuevaCategoria = 'premium';
+    }
+    elseif($totalUsos >= 1 && $categoriaActual == 'inicial'){
+        $nuevaCategoria = 'medium';
+    }
+    
+    if($nuevaCategoria != $categoriaActual){
+        $consultaUpdate = "UPDATE usuarios SET categoriaCliente='$nuevaCategoria' WHERE codUsuario ='$codCliente'";
+        $resultado = mysqli_query($conexion,$consultaUpdate);
+                // Retornar información del cambio
+        
+        return [
+            'actualizado' => true,
+            'categoria_anterior'=>$categoriaActual,
+            'categoria_nueva' => $nuevaCategoria,
+            'total_usos' => $totalUsos
+        ];
+    }
+    
+    // Si no hubo cambios
+    return [
+        'actualizado' => false,
+        'categoria_anterior'=>$categoriaActual,
+        'categoria_nueva' => $nuevaCategoria,
+        'total_usos' => $totalUsos
+    ];
+    }
+    
+
 ?>
