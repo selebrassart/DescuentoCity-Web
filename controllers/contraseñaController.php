@@ -7,36 +7,45 @@ require("../funciones/funcionPasswordReset.php");
 
 //Aca recibo el email para luego enviar token en pagina views/reestablecerContraseña.php
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["enviar"])) {
+    // Mensaje genérico por seguridad
+    $mensaje_seguro = "Si la dirección de email es correcta, recibirá un código de restablecimiento en breve.";
+    $email = '';
+
     if (!empty($_POST["email"])) {
-       $email = mysqli_real_escape_string($conexion, $_POST["email"]); 
+        // Escapar el email para evitar inyecciones SQL
+        $email = mysqli_real_escape_string($conexion, $_POST["email"]); 
 
-    // 2. Buscar usuario por EMAIL en BD (usando nombreUsuario como email)
-    $consulta_user = "SELECT codUsuario FROM usuarios WHERE nombreUsuario = '$email'";
-    $resultado = mysqli_query($conexion, $consulta_user);
+        // Buscar usuario por email (nombreUsuario)
+        $consulta_user = "SELECT codUsuario FROM usuarios WHERE nombreUsuario = '$email'";
+        $resultado = mysqli_query($conexion, $consulta_user);
 
-    }
-    if ($resultado && mysqli_num_rows($resultado) > 0) {
-        $usuario = mysqli_fetch_assoc($resultado);
-        $user_id = $usuario['codUsuario'];
+        if ($resultado && mysqli_num_rows($resultado) > 0) {
+            $usuario = mysqli_fetch_assoc($resultado);
+            $user_id = $usuario['codUsuario'];
 
-        // Generar, guardar y enviar el TOKEN
-        if (generar_y_enviar_token($conexion, $user_id, $email)) {
-            $mensaje = "Se ha enviado un código de restablecimiento a su email.";
+            // Generar, guardar y enviar el TOKEN
+            if (generar_y_enviar_token($conexion, $user_id, $email)) {
+                $mensaje = "Se ha enviado un código de restablecimiento a su email.";
+            } else {
+                $mensaje = "Hubo un error al generar o enviar el token.";
+            }
+
         } else {
-            $mensaje = "Hubo un error.";
+            // Email no encontrado: mensaje genérico
+            $mensaje = $mensaje_seguro;
         }
 
     } else {
-      
-        $mensaje = "Si la dirección de email es correcta, recibirá un código de restablecimiento en breve.";
+        // Si el email estaba vacío, mostramos un warning más específico.
+        $_SESSION['mensaje_warning'] = "Debe ingresar un email para iniciar el proceso.";
     }
 
-    $_SESSION['mensaje_success'] = $mensaje;
     // Redirigir al formulario donde se ingresa el token y la nueva clave
-    header("Location: ../views/auth/nueva-contrasena.php"); 
+    header("Location: ../views/auth/nueva-contraseña.php"); 
     exit();
+}
 
-}  
+  
  //Ahora cuando ingresa LA NUEVA CONTRASEÑA (click en boton REESTABLECER en pagina views/nueva-contraseña.php)
  //donde el usuario ingresa el token recibido por mail y la nueva contraseña elegida
  elseif ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["restablecer"])) {
