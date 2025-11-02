@@ -2,13 +2,50 @@
 
 //HOME DECUENTO CITY
 
-include("conexionBD.php");
+include("conexionBD.php");    
 
-$sql_locales = "SELECT * FROM locales WHERE estadoLocal = 'activo' LIMIT 6"; 
+include("includes/header.php");
+
+
+$rubroSeleccionado = $_POST['rubro'] ?? '';
+$nombreSeleccionado = $_POST['local'] ?? '';
+
+
+// cONSULTAS AUXILIARES (para llenar los selects)
+$sql_rubros = "SELECT DISTINCT rubroLocal FROM locales WHERE estadoLocal = 'activo'";
+$resultado_rubros = mysqli_query($conexion, $sql_rubros);
+
+$sql_nombres = "SELECT codLocal, nombreLocal FROM locales WHERE estadoLocal = 'activo'";
+$resultado_nombres = mysqli_query($conexion, $sql_nombres);
+
+// CONSULTA PRINCIPAL CON FILTROS 
+
+$sql_locales = "
+    SELECT 
+        l.codLocal, l.nombreLocal, l.ubicacionLocal, l.rubroLocal, i.rutaArchivo AS logo
+    FROM 
+        locales l
+    LEFT JOIN 
+        imagenes i ON i.idIdentidad = l.codLocal AND i.tipoImg = 'logo' AND i.tipoIdentidad = 'local'
+    WHERE 
+        l.estadoLocal = 'activo'
+";
+
+
+if (!empty($rubroSeleccionado)) {
+    $sql_locales .= " AND l.rubroLocal = '{$rubroSeleccionado}'";
+}
+if (!empty($nombreSeleccionado)) {
+    $sql_locales .= " AND l.codLocal = '{$nombreSeleccionado}'";
+}
+
+$sql_locales .= " ORDER BY l.nombreLocal ASC";
+
 $resultado_locales = mysqli_query($conexion, $sql_locales);
-
-
 ?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,12 +53,13 @@ $resultado_locales = mysqli_query($conexion, $sql_locales);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/Descuento-City/assets/css/estilos.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     <title>Descuento City</title>
     <link rel="icon" type="image/png" href="assets/img/logo-ventana/logo-fondo-b-circular.png"/>
 
 </head>
 <body>
-    <?php include("includes/header.php");?>
+
 
     <!-- CARRUSEL -->
 
@@ -52,24 +90,89 @@ $resultado_locales = mysqli_query($conexion, $sql_locales);
         </button>
     </div>
 
-    <!-- LOCALES -->
+    <h2 class="text-center mb-4">NUESTROS LOCALES</h2>
+
+
+    <!-- Buscador -->
+    <div class="container-fluid w-50">
+        <form class="d-flex" role="search" onsubmit="return false;">
+            <input class="form-control me-2" type="search" id="buscar" onkeyup="filtrarLocales(this.value);" placeholder="Buscar locales..." aria-label="Search"/>
+            <button class="btn btn-outline-primary" type="button" onclick="filtrarLocales(document.getElementById('buscar').value);">
+                <i class="bi bi-search"></i>
+            </button>
+        </form>
+    </div>
+    </div>
+
+
+    <div class="container my-4">
+    <!--  filtros -->
+    <form class="row mb-4" method="POST">
+    
+    <div class="col-md-6 mb-2">
+        <select name="local" class="form-select">
+            <option value="" hidden selected>Buscar por local</option>
+            <option value="">Todos los locales</option>
+            <?php 
+           
+            while ($local = mysqli_fetch_assoc($resultado_nombres)) { 
+            
+                $selected = ($nombreSeleccionado == $local['codLocal']) ? 'selected' : '';
+            ?>
+                <option value="<?= $local['codLocal'] ?>" <?= $selected ?>>
+                    <?= $local['nombreLocal'] ?>
+                </option>
+            <?php } ?>
+        </select>
+    </div>
+
+    <div class="col-md-6 mb-2">
+        <select name="rubro" class="form-select">
+            <option value="" hidden selected>Buscar por rubro</option>
+            <option value="">Todos los rubros</option>
+            <?php 
+        
+            while ($rubro = mysqli_fetch_assoc($resultado_rubros)) { 
+                $selected = ($rubroSeleccionado == $rubro['rubroLocal']) ? 'selected' : '';
+            ?>
+                <option value="<?= $rubro['rubroLocal'] ?>" <?= $selected ?>>
+                    <?= $rubro['rubroLocal'] ?>
+                </option>
+            <?php } ?>
+        </select>
+    </div>
+       
+    <div class="col-12 text-center mt-3">
+        <button type="button" class="btn btn-outline-secondary me-2" onclick="limpiarTodosFiltros()">
+            <i class="bi bi-arrow-clockwise"></i> Borrar Filtros
+        </button>
+        <button type="submit" class="btn btn-primary">
+            <i class="bi bi-search"></i> Filtrar
+        </button>
+    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <!--  RESULTADOS LOCALES -->
     <section class="locales" id="locales">        
         <div class="container">
-
-
-            <!-- FALTARIA BUSCADOR. -->
-            <!-- promocionesUsuarios , localesUsuarios , novedaesUsurios tienen que ir en views/auth. Cambiar rutas-->
-
-
-
-
-
-            <h2 class="text-center mb-4">Locales Participantes</h2>
-
+            <!-- Mensaje de búsqueda -->
+            <div id="mensaje-busqueda" class="alert alert-info text-center" style="display: none;">
+                <i class="bi bi-search"></i> Mostrando resultados para: <span id="termino-busqueda"></span>
+            </div>
+            
+            <!-- Mensaje de no encontrado -->
+            <div id="mensaje-no-encontrado" class="alert alert-warning text-center" style="display: none;">
+                <i class="bi bi-exclamation-triangle"></i> No se encontraron locales que coincidan con la búsqueda.
+            </div>
+            
         <?php
-            if ($resultado_locales && mysqli_num_rows($resultado_locales) > 0) {
-                echo '<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">';
-                
+            if ($resultado_locales && mysqli_num_rows($resultado_locales) > 0) { ?>
+                <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+                <?php
                 while ($local = mysqli_fetch_assoc($resultado_locales)) {
                     // Consulta para obtener la imagen del local
                     $codLocal = $local['codLocal'];
@@ -77,36 +180,39 @@ $resultado_locales = mysqli_query($conexion, $sql_locales);
                     $resultado_imagen = mysqli_query($conexion, $sql_imagen);
                     $imagen = mysqli_fetch_assoc($resultado_imagen);
                     $rutaImagen = $imagen ? $imagen['rutaArchivo'] : '/Descuento-City/assets/img/default-local.jpg';
-                    
-                    echo '<div class="col">';
-                    echo '  <div class="card h-100 shadow-sm">';
-                    echo '    <img src="' . htmlspecialchars($rutaImagen) . '" class="card-img-top" alt="Logo ' . htmlspecialchars($local['nombreLocal']) . '" style="height: 200px; object-fit: cover;">';
-                    echo '    <div class="card-body">';
-                    echo '      <h5 class="card-title">' . htmlspecialchars($local['nombreLocal']) . '</h5>';
-                    echo '      <p class="card-text">';
-                    echo '        <small class="text-muted"><i class="bi bi-geo-alt"></i> ' . htmlspecialchars($local['ubicacionLocal']) . '</small><br>';
-                    echo '        <small class="text-muted"><i class="bi bi-tag"></i> ' . htmlspecialchars($local['rubroLocal']) . '</small><br>';
-                    echo '        <small class="text-muted"><i class="bi bi-tag"></i> #' . htmlspecialchars($local['codLocal']) . '</small>';
-                    echo '      </p>';
-                    echo '    </div>';
-                    echo '  </div>';
-                    echo '</div>';
+                    ?>
+                    <div class="col-lg-3 col-md-4 col-sm-6">
+                        <div class="card h-100 shadow-sm">
+                            <div class="card-header bg-light p-3" style="min-height: 120px; display: flex; align-items: center; justify-content: center;">
+                                <img src="<?= htmlspecialchars($rutaImagen) ?>" class="img-fluid" alt="Logo <?= htmlspecialchars($local['nombreLocal']) ?>" style="max-height: 100px; max-width: 100%; object-fit: contain;">
+                            </div>
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title"><?= htmlspecialchars($local['nombreLocal']) ?></h5>
+                                <p class="card-text">
+                                    <small class="text-muted"><i class="bi bi-geo-alt"></i> <?= htmlspecialchars($local['ubicacionLocal']) ?></small><br>
+                                    <small class="text-muted"><i class="bi bi-tag"></i> <?= htmlspecialchars($local['rubroLocal']) ?></small><br>
+                                    <small class="text-muted"><i class="bi bi-tag"></i> #<?= htmlspecialchars($local['codLocal']) ?></small>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <?php
                 }
+                ?>
+                </div>
                 
-                echo '</div>';
+                <!-- Botón "Ver más locales" fuera de las cards -->
+                <div class="text-center mt-4">
+                    <a href="/Descuento-City/localesUsuarios.php" class="btn btn-primary btn-lg">
+                        Ver más locales <i class="bi bi-arrow-right ms-2"></i>
+                    </a>
+                </div>
                 
-                // Botón "Ver más locales" fuera de las cards
-                echo '<div class="text-center mt-4">';
-                echo '  <a href="/Descuento-City/localesUsuarios.php" class="btn btn-primary btn-lg">';
-                echo '    Ver más locales <i class="bi bi-arrow-right ms-2"></i>';
-                echo '  </a>';
-                echo '</div>';
-                
-            } else { 
-                echo '<div class="text-center">';
-                echo '  <p class="text-muted">No hay locales disponibles en este momento.</p>';
-                echo '</div>';
-            }?>
+            <?php } else { ?>
+                <div class="text-center">
+                    <p class="text-muted">No hay locales disponibles en este momento.</p>
+                </div>
+            <?php } ?>
         </div>
     </section>
 
@@ -150,8 +256,75 @@ $resultado_locales = mysqli_query($conexion, $sql_locales);
     include("includes/footer.php");
     ?>  
     
-
-    
+    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    
+    <script>
+        function filtrarLocales(termino) {
+            const cards = document.querySelectorAll('.locales .col');
+            const mensajeBusqueda = document.getElementById('mensaje-busqueda');
+            const mensajeNoEncontrado = document.getElementById('mensaje-no-encontrado');
+            const terminoBusqueda = document.getElementById('termino-busqueda');
+            let encontrados = 0;
+            
+            // Si el término está vacío, mostrar todos los locales
+            if (termino.trim() === '') {
+                cards.forEach(card => {
+                    card.style.display = 'block';
+                });
+                mensajeBusqueda.style.display = 'none';
+                mensajeNoEncontrado.style.display = 'none';
+                return;
+            }
+            
+            // Filtrar locales
+            cards.forEach(card => {
+                const titulo = card.querySelector('.card-title').textContent.toLowerCase();
+                const ubicacion = card.querySelector('.bi-geo-alt').parentNode.textContent.toLowerCase();
+                const rubro = card.querySelector('.bi-tag').parentNode.textContent.toLowerCase();
+                const codigo = card.querySelector('small:last-child').textContent.toLowerCase();
+                
+                const textoCompleto = titulo + ' ' + ubicacion + ' ' + rubro + ' ' + codigo;
+                
+                if (textoCompleto.includes(termino.toLowerCase())) {
+                    card.style.display = 'block';
+                    encontrados++;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+            
+            // Mostrar mensajes apropiados
+            if (encontrados > 0) {
+                terminoBusqueda.textContent = termino;
+                mensajeBusqueda.style.display = 'block';
+                mensajeNoEncontrado.style.display = 'none';
+            } else {
+                mensajeBusqueda.style.display = 'none';
+                mensajeNoEncontrado.style.display = 'block';
+            }
+        }
+        
+        function limpiarBusqueda() {
+            document.getElementById('buscar').value = '';
+            filtrarLocales('');
+        }
+        
+        function limpiarTodosFiltros() {
+            // Limpiar el buscador de texto
+            document.getElementById('buscar').value = '';
+            filtrarLocales('');
+            
+            // Redirigir a la página sin parámetros POST para limpiar los selects
+            window.location.href = window.location.pathname;
+        }
+        
+        // Auto-limpiar cuando se borre el input
+        document.getElementById('buscar').addEventListener('input', function(e) {
+            if (e.target.value === '') {
+                filtrarLocales('');
+            }
+        });
+    </script>
 </body>
 </html>

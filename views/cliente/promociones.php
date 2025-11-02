@@ -81,7 +81,16 @@ if (!$resultado_promos) {
 <body>
 <?php include("../../includes/cliente/clienteHeader.php"); ?>
 
-<img src="/Descuento-City/assets/img/promociones-portada.png" class="img-fluid" alt="...">
+<div class="position-relative">
+    <div class="portada-promociones">
+        <img src="/Descuento-City/assets/img/promociones-portada.png" class="img-fluid w-100" alt="Portada Novedades" style="height: 200px; object-fit: cover;">
+    </div>
+    <div class="breadcrumb-overlay position-absolute top-0 start-0 w-100 text-white p-3">
+        <div class="container">
+            <?php include '../../includes/breadcrumb.php'; ?>
+        </div>
+    </div>
+
 
 <div class="container my-4">
 
@@ -138,30 +147,32 @@ if (!$resultado_promos) {
     <?php } ?>
 
     <!-- Información de categoría del cliente -->
-    <div class="alert alert-light border border-primary  role="alert">
-        <?php
-        // Solo mostrar total de usos si no hubo actualización de categoría
-        if(!$resultado['actualizado']) { ?>
-            <div class='mb-2'>
-                <small class='text-muted'>
-                    <i class='bi bi-graph-up'></i> Total de usos: 
-                    <strong><?= $resultado['total_usos'] ?></strong>
-                </small>
+
+        <div class="alert alert-info border border-primary" role="alert">        
+            <?php
+            // Solo mostrar total de usos si no hubo actualización de categoría
+            if(!$resultado['actualizado']) { ?>
+                <div class='mb-2'>
+                    <small class='text-muted'>
+                        <i class='bi bi-graph-up'></i> Total de usos: 
+                        <strong><?= $resultado['total_usos'] ?></strong>
+                    </small>
+                </div>
+            <?php } ?>
+            <div class="d-flex align-items-center">
+                <?php 
+                $estilo_cliente = devolverCategoriaEstilo($categoria_cliente);
+                ?>
+                <i class="<?= $estilo_cliente['icon'] ?> <?= $estilo_cliente['color_text'] ?> me-2"></i>
+                <span>
+                    <strong>Tu categoría:</strong> 
+                    <span class="<?= $estilo_cliente['color_text'] ?>"><?= ucfirst($categoria_cliente) ?></span>
+                    - Puedes acceder a promociones de nivel: 
+                    <strong><?= implode(', ', array_map('ucfirst',$categorias_permitidas)) ?></strong>
+                </span>
             </div>
-        <?php } ?>
-        <div class="d-flex align-items-center">
-            <?php 
-            $estilo_cliente = devolverCategoriaEstilo($categoria_cliente);
-            ?>
-            <i class="<?= $estilo_cliente['icon'] ?> <?= $estilo_cliente['color_text'] ?> me-2"></i>
-            <span>
-                <strong>Tu categoría:</strong> 
-                <span class="<?= $estilo_cliente['color_text'] ?>"><?= ucfirst($categoria_cliente) ?></span>
-                - Puedes acceder a promociones: 
-                <strong><?= implode(', ', array_map('ucfirst',$categorias_permitidas)) ?></strong>
-            </span>
         </div>
-    </div>
+    
 
     <!-- Filtros -->
     <form class="row mb-3" method="GET">
@@ -182,18 +193,18 @@ if (!$resultado_promos) {
         if($resultado_promos && mysqli_num_rows($resultado_promos) > 0){
             while($promo = mysqli_fetch_assoc($resultado_promos)){
                 ?>
-                <div class="col-md-4 mb-3">
-                    <div class="card" style="width: 18rem;">
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card h-100 shadow-sm">
                         <?php if(!empty($promo["rutaArchivo"])):?>
-                        <img src="/Descuento-City/<?= htmlspecialchars($promo["rutaArchivo"]) ?>" class="card-img-top" alt="portada promocion" style="height: 200px; object-fit: cover;"> 
+                        <img src="/Descuento-City/<?= htmlspecialchars($promo["rutaArchivo"]) ?>" class="card-img-top img-fluid" alt="portada promocion" style="height: 250px; object-fit: cover; width: 100%;"> 
                         <?php else: ?>
-                            <div class="card-img-top d-flex align-items-center justify-content-center bg-light" style="height: 200px;">
+                            <div class="card-img-top d-flex align-items-center justify-content-center bg-light" style="height: 250px; width: 100%;">
                                 <span class="text-muted"><i class="bi bi-image"></i> Sin portada</span>
                             </div>
                         <?php endif; ?>
-                        <div class="card-body card-color">
+                        <div class="card-body d-flex flex-column">
                             <div class="d-flex justify-content-between align-items-start mb-2">
-                                <h5 class="card-title mb-0">
+                                <h5 class="card-title mb-0 flex-grow-1 me-2">
                                     <i class="bi bi-shop"></i> <?= htmlspecialchars($promo['nombreLocal']) ?>
                                 </h5>
                                 <?php 
@@ -231,10 +242,16 @@ if (!$resultado_promos) {
                                     <i class="bi bi-calendar3"></i> Hasta: <?=$promo['fechaHastaPromo'] ?> 
                                 </small>
                             </p>
-                            <form action="../../controllers/promocionesCtrl/usoPromocionController.php" method="POST">
-                                <input type="hidden" name="codPromo" value="<?= $promo['codPromo']?>">
-                                <input type="submit" class="btn btn-outline-success" name="usar" value="Usar promoción">       
-                            </form>
+                            <div class="mt-auto">
+                                <form action="../../controllers/promocionesCtrl/usoPromocionController.php" method="POST">
+                                    <input type="hidden" name="codPromo" value="<?= $promo['codPromo']?>">
+                                    <div class="d-grid">
+                                        <button type="submit" class="btn btn-outline-success" name="usar">
+                                            <i class="bi bi-percent"></i> Usar promoción
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
