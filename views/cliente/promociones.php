@@ -6,6 +6,7 @@ session_start();
 include("../../conexionBD.php");
 
 require("../../funciones/funcionesCliente.php");
+require("../../funciones/funcionesSQL.php");
 
 date_default_timezone_set('America/Argentina/Buenos_Aires');
 
@@ -116,35 +117,48 @@ if (!$resultado_promos) {
     }
     ?>
 
+    <?php
+    $resultado = subirCategoria($codCliente, $conexion);
+
+    if($resultado['actualizado']) { 
+        // Obtener estilos para categorías
+        $estilo_anterior = devolverCategoriaEstilo($resultado['categoria_anterior']);
+        $estilo_nueva = devolverCategoriaEstilo($resultado['categoria_nueva']);
+        ?>
+        <div class='alert alert-success alert-dismissible fade show' role='alert'>
+            <strong>¡Felicitaciones!</strong> Has subido de 
+            <span class='badge <?= $estilo_anterior['badge_class'] ?>'>
+                <i class="<?= $estilo_anterior['icon'] ?>"></i> <?= ucfirst($resultado['categoria_anterior']) ?>
+            </span> a 
+            <span class='badge <?= $estilo_nueva['badge_class'] ?>'>
+                <i class="<?= $estilo_nueva['icon'] ?>"></i> <?= ucfirst($resultado['categoria_nueva']) ?>
+            </span>
+            <button type='button' class='btn-close' data-bs-dismiss='alert'></button>
+        </div>
+    <?php } ?>
+
     <!-- Información de categoría del cliente -->
-    <div class="alert alert-light border border-primary" role="alert">
+    <div class="alert alert-light border border-primary  role="alert">
+        <?php
+        // Solo mostrar total de usos si no hubo actualización de categoría
+        if(!$resultado['actualizado']) { ?>
+            <div class='mb-2'>
+                <small class='text-muted'>
+                    <i class='bi bi-graph-up'></i> Total de usos: 
+                    <strong><?= $resultado['total_usos'] ?></strong>
+                </small>
+            </div>
+        <?php } ?>
         <div class="d-flex align-items-center">
             <?php 
-            $icono_cliente = '';
-            $color_cliente = '';
-
-            if($categoria_cliente == 'premium'){
-
-                $icono_cliente = 'bi bi-gem text-warning';
-                $color_cliente = 'text-warning';
-            }
-            elseif($categoria_cliente == 'medium'){
-                $icono_cliente = 'bi bi-star-fill text-info';
-                $color_cliente = 'text-info';
-
-            }
-            elseif($categoria_cliente == 'inicial'){
-                $icono_cliente = 'bi bi-circle-fill text-secondary';
-
-            }
-
+            $estilo_cliente = devolverCategoriaEstilo($categoria_cliente);
             ?>
-            <i class="<?= $icono_cliente ?> me-2"></i>
+            <i class="<?= $estilo_cliente['icon'] ?> <?= $estilo_cliente['color_text'] ?> me-2"></i>
             <span>
                 <strong>Tu categoría:</strong> 
-                <span class="<?= $color_cliente ?>"><?= ucfirst($categoria_cliente) ?></span>
+                <span class="<?= $estilo_cliente['color_text'] ?>"><?= ucfirst($categoria_cliente) ?></span>
                 - Puedes acceder a promociones: 
-                <strong><?= implode(', ', array_map('ucfirst', $categorias_permitidas)) ?></strong>
+                <strong><?= implode(', ', array_map('ucfirst',$categorias_permitidas)) ?></strong>
             </span>
         </div>
     </div>
