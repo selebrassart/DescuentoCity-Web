@@ -15,6 +15,7 @@ include("../../conexionBD.php");
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     <title>Descuento City</title>
     <link rel="icon" type="image/png" href="assets/img/logo-ventana/logo-fondo-b-circular.png"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </head>
 <body>
     <?php include("../../includes/header.php");?>
@@ -30,8 +31,22 @@ include("../../conexionBD.php");
                 <div  class="datos-container">
                     <label>Email</label><br>
                     <input type="email" name="email" class="input-form" placeholder="Email" required ><br> 
-                    <label>Contraseña</label><br>
-                    <input type="password" name="clave" class="input-form" placeholder="Contraseña" required ><br>
+                    <div class="mb-3">
+            <label for="clave" class="form-label">Contraseña</label>
+            <div class="input-group"> 
+                <input type="password" 
+                       name="clave" 
+                       id="clave" 
+                       class="form-control" 
+                       placeholder="Contraseña" 
+                       required>
+                
+                <button class="btn btn-outline-secondary toggle-password" type="button" data-target="clave">
+                    <i class="bi bi-eye-slash-fill"></i> 
+                </button>
+            </div>
+        </div>
+                    
                      <div class="mb-3"> 
                         <span class="small text-muted">¿Olvidó su contraseña? </span>
                          <a href="/Descuento-City/views/auth/restablecer-contraseña.php" class="enlace-restablecer">
@@ -87,8 +102,34 @@ include("../../conexionBD.php");
             ?>
         </div>
     </div>
+
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const toggleButtons = document.querySelectorAll('.toggle-password');
+
+        toggleButtons.forEach(button => {
+            button.addEventListener('click', function () {
+                const targetId = this.dataset.target; 
+                const passwordInput = document.getElementById(targetId);
+                const icon = this.querySelector('i');
+
+                // Alternar el atributo 'type' y el ícono
+                if (passwordInput.getAttribute('type') === 'password') {
+                    passwordInput.setAttribute('type', 'text');
+                    icon.classList.remove('bi-eye-slash-fill');
+                    icon.classList.add('bi-eye-fill');
+                } else {
+                    passwordInput.setAttribute('type', 'password');
+                    icon.classList.remove('bi-eye-fill');
+                    icon.classList.add('bi-eye-slash-fill');
+                }
+            });
+        });
+    });
+</script>
 </body>
 </html>
 
