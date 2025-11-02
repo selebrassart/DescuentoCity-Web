@@ -189,15 +189,15 @@ if (!$resultado_promos) {
                                 $color = '';
                                 $icono = '';
                                 switch($categoria_promo) {
-                                    case 'premium':
+                                    case 'Premium':
                                         $color = 'bg-warning text-dark';
                                         $icono = 'bi bi-gem';
                                         break;
-                                    case 'medium':
+                                    case 'Medium':
                                         $color= 'bg-info';
                                         $icono = 'bi bi-star-fill';
                                         break;
-                                    case 'inicial':
+                                    case 'Inicial':
                                     default:
                                         $color = 'bg-secondary';
                                         $icono = 'bi bi-circle-fill';

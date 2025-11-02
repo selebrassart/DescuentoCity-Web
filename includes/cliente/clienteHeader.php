@@ -19,6 +19,7 @@
             <ul class="header__nav-list">
                 <li class="header__nav-item"><a href="#inicio">Inicio</a></li>
                 <li class="header__nav-item"><a href="/Descuento-City/views/cliente/promociones.php">Promociones</a></li>
+                <li class="header__nav-item"><a href="/Descuento-City/views/cliente/novedades.php">Novedades</a></li>
                 <li class="header__nav-item"><a href=/Descuento-City/views/cliente/misUsoPromociones.php>Uso de promociones</a></li>
                 <li class="header__nav-item"><a href="#contacto">contacto</a></li>
                 <li class="header__nav-item"><a href="/Descuento-City/views/auth/logout.php">Cerrar sesion</a></li>

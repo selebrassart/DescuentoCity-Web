@@ -123,7 +123,6 @@ if ($codLocal >= 0) {
 
                 <input class="button-form" type="submit" name="confirm" value="Guardar cambios">
             </form>
-
         </div>
     </div>
     
