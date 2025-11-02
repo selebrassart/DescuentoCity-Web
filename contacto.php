@@ -1,27 +1,53 @@
 <?php
-
 session_start();
+include("conexionBD.php");
 
-include ("conexionBD.php");
+// Debug - Puedes descomentar esta línea para ver el contenido de la sesión
+// echo "<pre>SESSION: "; var_dump($_SESSION); echo "</pre>";
 
 ?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/Descuento-City/assets/css/estilos.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    <title>Contacto</title>
-    <link rel="icon" type="image/png" href="assets/img/logo-ventana/logo-fondo-b-circular.png"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <title>Contacto - Descuento City</title>
+    <link rel="icon" type="image/png" href="/Descuento-City/assets/img/logo-ventana/logo-fondo-b-circular.png"/>
 </head>
 <body>
-    
-    <?php include("includes/header.php"); ?>
+
+<?php
+// Verificar si el usuario está logueado y qué tipo de usuario es
+$usuario_logueado = isset($_SESSION['usuario_logueado']) && $_SESSION['usuario_logueado'] === true;
+$tipo_usuario = isset($_SESSION['tipoUsuario']) ? $_SESSION['tipoUsuario'] : null;
+
+if ($usuario_logueado && $tipo_usuario) {
+    switch ($tipo_usuario) {
+        case 'admin':
+            include("includes/admin/adminHeader.php");
+            break;
+        case 'dueño':
+            include("includes/dueño/dueñoHeader.php");
+            break;
+        case 'cliente':
+            include("includes/cliente/clienteHeader.php");
+            break;
+        default:
+            include("includes/header.php");
+            break;
+    }
+} else {
+    include("includes/header.php");
+}
+?>
     <!--ruta de navegacion -->
     <div class="container mt-3 small">
             <?php include 'includes/breadcrumb.php'; ?> 
-        </div>
+    </div>
         
 
 
@@ -57,6 +83,9 @@ include ("conexionBD.php");
     }
     ?>
 
+
+
+    <!-- formulario contacto -->
     <div class="container my-5">
         <div class="row justify-content-center">
             <div class="col-md-8 col-lg-6">
@@ -95,7 +124,8 @@ include ("conexionBD.php");
 
 <?php include("includes/footer.php"); ?>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>

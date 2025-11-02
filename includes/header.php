@@ -3,14 +3,6 @@
 
 
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Descuento City</title>
-</head>
-<body>
     <header class="header">
         <div class="header_log-container">
             <a href="/Descuento-City/index.php"><img src="/Descuento-City/assets/img/logo/LOGO1.png" alt="logo"></a>
@@ -21,9 +13,7 @@
                 <li class="header__nav-item"><a href="/Descuento-City/promocionesUsuario.php">Promociones</a></li>
                 <li class="header__nav-item"><a href="/Descuento-City/novedadesUsuarios.php">Novedades</a></li>
                 <li class="header__nav-item"><a href="/Descuento-City/contacto.php">Contacto</a></li>
-                <li class="header__nav-item login"><a href="/Descuento-City/views/auth/login.php">Inicio Sesion</a></li>
+                <li class="header__nav-item login"><a href="/Descuento-City/views/auth/login.php">Iniciar Sesión</a></li>
             </ul>  
         </nav>
     </header>
-</body>
-</html>

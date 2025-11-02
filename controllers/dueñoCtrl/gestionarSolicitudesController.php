@@ -66,7 +66,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         //Consulo usos de cliente
         if($nuevo_estado != "eliminada"){
 
-            $consultaUsos = "SELECT * FROM uso_promociones codCliente WHERE'$codCliente' AND codPromo ='$codPromo'";
+            $consultaUsos = "SELECT * FROM uso_promociones WHERE codCliente='$codCliente' AND codPromo='$codPromo'";
             $resultadoUso = mysqli_query($conexion,$consultaUsos);
             if($resultadoUso && mysqli_num_rows($resultadoUso)){
 
