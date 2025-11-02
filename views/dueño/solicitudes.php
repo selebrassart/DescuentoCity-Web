@@ -106,7 +106,6 @@ include("../../conexionBD.php");?>
 
     echo "<div class='table-responsive'>";
 
-    // Mover el badge aquí y hacerlo más pequeño
     echo "<div class='d-flex justify-content-center align-items-center mb-2'>";
     echo "<div class='badge bg-primary text-white fs-6 px-2 py-1'>";
     echo "<i class='bi bi-shop me-1'></i>" . htmlspecialchars($nombreLocal);

@@ -10,7 +10,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["usar"])){
     $codPromo = $_POST["codPromo"] ?? '';
 
 
-
     //Si usuario no inicio sesion.
     if(!isset($_SESSION["codUsuario"])){
         $_SESSION["mensaje_warning"] = "Debes iniciar sesión para utilizar una promoción";
@@ -36,6 +35,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["usar"])){
 
         if($resultadoSolicitud){
 
+            $consultaInsertUso = "INSERT INTO uso_promociones (codCliente,codPromo) VALUES ('$codCliente','$codPromo')";
+            $resultadoInsertUso = mysqli_query($conexion,$consultaInsertUso);
+
+
             $_SESSION["mensaje_exito"] = "Solicitud de uso de descuento enviada con exito.";
 
         }else{
@@ -44,17 +47,17 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["usar"])){
     }
     elseif($uso['estado'] === 'pendiente'){
 
-        $_SESSION["mensaje_warning"] = "La solicitud ya fue enviada anteriormente.Espere que sea aceptada";
+        $_SESSION["mensaje_warning"] = "La solicitud ya fue enviada anteriormente.Espere que sea aceptada.";
 
     }
     elseif($uso['estado'] === 'aceptada'){
 
-        $_SESSION["mensaje_warning"] = "Promocion ya en uso";
+        $_SESSION["mensaje_warning"] = "Promocion ya en uso.";
 
     }
     elseif($uso['estado'] === 'rechazada'){
 
-        $_SESSION["mensaje_warning"] = "Uso de promocion rechazado";
+        $_SESSION["mensaje_warning"] = "Uso de promocion rechazado.";
 
     }
 
@@ -68,5 +71,7 @@ else {
     header("location:../../views/cliente/promociones.php");
     exit();
 }
+
+mysqli_close($conexion);
 
 ?>
