@@ -60,20 +60,16 @@ if (!$resultado_promos) {
 <body>
 <?php include("includes/header.php"); ?>
 
-<!--Para q las rutas queden sobre la imagen en la esquina superior izquierda.-->
-<div class="portada-promociones position-relative"> 
-
-    <img src="/Descuento-City/assets/img/promociones-portada.png" class="img-fluid" alt="">
-
-    <div class="breadcrumb-overlay position-absolute top-0 start-0 w-100 text-white p-3">
-        
-        <div class="container small">
-            <?php include 'includes/breadcrumb.php'; ?> 
+<!-- Hero Section con breadcrumb superpuesto -->
+    <div class="position-relative">
+        <div class="portada-promociones">
+            <img src="/Descuento-City/assets/img/promociones-portada.png" class="img-fluid w-100" alt="Portada Promociones" style="height: 300px; object-fit: cover;">
         </div>
-        
-    </div>
-    
-</div>
+        <div class="breadcrumb-overlay position-absolute top-0 start-0 w-100 text-white p-3">
+            <div class="container">
+                <?php include 'includes/breadcrumb.php'; ?>
+            </div>
+        </div>
 
 <div class="container my-4">
 
