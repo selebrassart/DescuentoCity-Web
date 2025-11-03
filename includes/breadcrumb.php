@@ -2,17 +2,19 @@
 // obtiene la ruta en la q estamos con la var global $_server['request_uri']
 $path = trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/');
 
-// Definir una lista de elementos que deben ser ignorados en el Breadcrumb (ignorar carpeta rais descuento_city y index)
+// Definir una lista de elementos que deben ser ignorados en el Breadcrumb
 $ignore_segments = [
     'index.php',
     'index.html',
     'descuento-city',
     'views',
     'auth',
+    'cliente',
+    'dueño',
+    'admin',
 ];
 
 $segments = array_filter(explode('/', $path));
-
 
 $segments_filtrados = [];
 foreach ($segments as $segment) {
@@ -25,8 +27,7 @@ foreach ($segments as $segment) {
 $segments = $segments_filtrados; // lista limpia
 
 // Si no hay segmentos filtrados, raíz (Home)
-if (empty($segments)) { // como active HOme
- 
+if (empty($segments)) {
     echo '<nav style="--bs-breadcrumb-divider: \'>\';" aria-label="breadcrumb">';
     echo '<ol class="breadcrumb">';
     echo '<li class="breadcrumb-item active" aria-current="page">Home</li>';
@@ -35,16 +36,90 @@ if (empty($segments)) { // como active HOme
     return;
 }
 
+// Función para crear enlaces inteligentes
+function crear_enlace_breadcrumb($segments, $index) {
+    global $path;
+    
+    // Si estamos en una página de cliente, dueño o admin, crear enlaces apropiados
+    if (strpos($path, 'views/cliente') !== false) {
+        // Para páginas de cliente, enlazar a secciones de cliente
+        switch(strtolower($segments[$index])) {
+            case 'locales':
+                return '/Descuento-City/views/cliente/locales.php';
+            case 'promociones':
+                return '/Descuento-City/views/cliente/promociones.php';
+            case 'novedades':
+                return '/Descuento-City/views/cliente/novedades.php';
+            default:
+                return '/Descuento-City/index.php';
+        }
+    } elseif (strpos($path, 'views/dueño') !== false || strpos($path, 'views/due') !== false) {
+        // Para páginas de dueño
+        switch(strtolower($segments[$index])) {
+            case 'mis_promos':
+            case 'promociones':
+                return '/Descuento-City/views/dueño/mis_promos.php';
+            case 'solicitudes':
+                return '/Descuento-City/views/dueño/solicitudes.php';
+            default:
+                return '/Descuento-City/index.php';
+        }
+    } elseif (strpos($path, 'views/admin') !== false) {
+        // Para páginas de admin
+        switch(strtolower($segments[$index])) {
+            case 'locales':
+                return '/Descuento-City/views/admin/locales/locales.php';
+            case 'promociones':
+                return '/Descuento-City/views/admin/promociones/promociones.php';
+            case 'novedades':
+                return '/Descuento-City/views/admin/novedades/novedades.php';
+            case 'dueños':
+                return '/Descuento-City/views/admin/dueños/dueños.php';
+            default:
+                return '/Descuento-City/index.php';
+        }
+    } else {
+        // Para páginas públicas
+        switch(strtolower($segments[$index])) {
+            case 'locales':
+                return '/Descuento-City/localesUsuarios.php';
+            case 'promociones':
+                return '/Descuento-City/promocionesUsuario.php';
+            case 'novedades':
+                return '/Descuento-City/novedadesUsuarios.php';
+            case 'contacto':
+                return '/Descuento-City/contacto.php';
+            default:
+                return '/Descuento-City/index.php';
+        }
+    }
+}
+
 //componente de Bootstrap
 echo '<nav style="--bs-breadcrumb-divider: \'>\';" aria-label="breadcrumb">';
 echo '<ol class="breadcrumb">';
 
-echo '<li class="breadcrumb-item"><a href="/Descuento-City/index.php">Home</a></li>';
+// Enlace de Home específico según el tipo de usuario
+$home_link = '/Descuento-City/index.php'; // Por defecto
+if (isset($_SESSION['tipoUsuario'])) {
+    switch($_SESSION['tipoUsuario']) {
+        case 'cliente':
+            $home_link = '/Descuento-City/views/cliente/locales.php';
+            break;
+        case 'dueño':
+            $home_link = '/Descuento-City/views/dueño/mis_promos.php';
+            break;
+        case 'admin':
+            $home_link = '/Descuento-City/views/admin/dueños/dueños.php';
+            break;
+    }
+}
 
-$current_path = '';
+echo '<li class="breadcrumb-item"><a href="' . $home_link . '">Home</a></li>';
+
 $total_segments = count($segments);
 
- //recorre los segmentos restantes (que serán las migas reales)
+//recorre los segmentos restantes (que serán las migas reales)
 foreach ($segments as $index => $segment) {
     
     $segment_limpio = str_replace(array('.php', '.html', '-'), ' ', $segment);
@@ -60,8 +135,8 @@ foreach ($segments as $index => $segment) {
         
     } else {
         // NO ES EL ÚLTIMO: Estilo ENLACE
-        $current_path .= '/' . $segment;
-        echo '<li class="breadcrumb-item"><a href="' . htmlspecialchars($current_path) . '">' . htmlspecialchars($segment_display) . '</a></li>';
+        $enlace = crear_enlace_breadcrumb($segments, $index);
+        echo '<li class="breadcrumb-item"><a href="' . htmlspecialchars($enlace) . '">' . htmlspecialchars($segment_display) . '</a></li>';
     }
 }
 

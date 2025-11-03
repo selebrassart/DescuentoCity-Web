@@ -2,6 +2,9 @@
 session_start();
 include("conexionBD.php");
 
+// Variable para breadcrumb
+$breadcrumb_titulo_activo = 'Contacto';
+
 // Debug - Puedes descomentar esta línea para ver el contenido de la sesión
 // echo "<pre>SESSION: "; var_dump($_SESSION); echo "</pre>";
 

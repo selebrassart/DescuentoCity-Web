@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 30-10-2025 a las 23:18:19
+-- Tiempo de generación: 03-11-2025 a las 03:26:38
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -48,7 +48,10 @@ INSERT INTO `imagenes` (`IdImg`, `tipoImg`, `nombreImg`, `rutaArchivo`, `tipoIde
 (4, 'logo', '1761150592_e9820a99.png', 'uploads/logos/1761150592_e9820a99.png', 'local', 21, '2025-10-22 13:29:52'),
 (5, 'portada', '1761348924_promoMC.png', 'uploads/fondoPromo/1761348924_promoMC.png', 'promocion', 5, '2025-10-24 20:35:24'),
 (6, 'portada', '1761845356_wilsonPromo.webp', 'uploads/fondoPromo/1761845356_wilsonPromo.webp', 'promocion', 6, '2025-10-30 14:29:16'),
-(7, 'portada', '1761854477_wilson2.webp', 'uploads/fondoPromo/1761854477_wilson2.webp', 'promocion', 9, '2025-10-30 17:01:17');
+(7, 'portada', '1761854477_wilson2.webp', 'uploads/fondoPromo/1761854477_wilson2.webp', 'promocion', 9, '2025-10-30 17:01:17'),
+(8, 'portada', '1762091964_novedadPortada.jpg', 'uploads/fondoNovedad/1762091964_novedadPortada.jpg', 'novedad', 1, '2025-11-02 10:59:24'),
+(9, 'portada', '1762099106_28ca201e.png', 'uploads/fondoNovedad/1762099106_28ca201e.png', 'novedad', 2, '2025-11-02 12:58:26'),
+(10, 'portada', '1762135545_novedadPortada.jpg', 'uploads/fondoPromo/1762135545_novedadPortada.jpg', 'promocion', 11, '2025-11-02 23:05:45');
 
 -- --------------------------------------------------------
 
@@ -70,7 +73,7 @@ CREATE TABLE `locales` (
 --
 
 INSERT INTO `locales` (`codLocal`, `nombreLocal`, `ubicacionLocal`, `rubroLocal`, `codUsuario`, `estadoLocal`) VALUES
-(19, 'Babolat', 'P3 - L10', 'Indumentaria', 13, 'activo'),
+(19, 'Babolat', 'P3 - L22', 'Indumentaria', 13, 'activo'),
 (20, 'Mc Donald', 'P3 - L2', 'Gastronomia', 10, 'activo'),
 (21, 'Head', 'P1 - L10', 'Indumentaria', 15, 'activo'),
 (22, 'Wilson', 'P6 - L7', 'Indumentaria', 8, 'activo');
@@ -83,10 +86,35 @@ INSERT INTO `locales` (`codLocal`, `nombreLocal`, `ubicacionLocal`, `rubroLocal`
 
 CREATE TABLE `novedades` (
   `codNovedad` int(11) NOT NULL,
+  `tituloNovedad` varchar(64) NOT NULL,
   `textoNovedad` text NOT NULL,
   `fechaDesdeNovedad` date NOT NULL,
   `fechaHastaNovedad` date NOT NULL,
-  `tipoUsuario` enum('inicial','medium','premium') NOT NULL
+  `categoriaCliente` enum('inicial','medium','premium') NOT NULL,
+  `estado` enum('activa','eliminada') NOT NULL DEFAULT 'activa'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `novedades`
+--
+
+INSERT INTO `novedades` (`codNovedad`, `tituloNovedad`, `textoNovedad`, `fechaDesdeNovedad`, `fechaHastaNovedad`, `categoriaCliente`, `estado`) VALUES
+(1, 'Mira todos los descuentos de hallowen', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam ut commodi mollitia aliquam numquam labore accusantium repellendus delectus, quidem beatae voluptatibus similique sint dicta quos placeat quasi atque at et.', '2025-11-02', '2025-11-28', 'medium', 'activa'),
+(2, 'Proximante descuentos en todos los locales', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam ut commodi mollitia aliquam numquam labore accusantium repellendus delectus, quidem beatae voluptatibus similique sint dicta quos placeat quasi atque at et.\r\nLorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam ut commodi mollitia aliquam numquam labore accusantium repellendus delectus, quidem beatae voluptatibus similique sint dicta quos placeat quasi atque at et.', '2025-11-02', '2025-11-28', 'premium', 'eliminada'),
+(3, '', 'dfdsfsdfdsfdsfsd', '2025-11-02', '2025-10-31', 'medium', 'eliminada');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `password_resets`
+--
+
+CREATE TABLE `password_resets` (
+  `id` int(11) NOT NULL,
+  `idUsuario` int(11) NOT NULL,
+  `reset_token_hash` varchar(255) NOT NULL,
+  `reset_token_expire` datetime NOT NULL,
+  `creado_en` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -135,7 +163,10 @@ CREATE TABLE `solicitudes_descuentos` (
 
 INSERT INTO `solicitudes_descuentos` (`id_solicitud`, `codCliente`, `codPromo`, `fecha_solicitud`, `estado`) VALUES
 (15, 2, 9, '2025-10-30 17:58:56', 'eliminada'),
-(16, 2, 6, '2025-10-30 17:58:58', 'aceptada');
+(16, 2, 6, '2025-10-30 17:58:58', 'aceptada'),
+(21, 17, 5, '2025-11-02 16:45:27', 'aceptada'),
+(22, 17, 9, '2025-11-02 16:47:23', 'aceptada'),
+(23, 2, 5, '2025-11-02 19:48:33', 'pendiente');
 
 -- --------------------------------------------------------
 
@@ -157,7 +188,10 @@ CREATE TABLE `uso_promociones` (
 
 INSERT INTO `uso_promociones` (`idUso`, `codCliente`, `codPromo`, `fechaUsoPromo`, `estado`) VALUES
 (10, 2, 9, '2025-10-30 18:00:06', 'rechazada'),
-(11, 2, 6, '2025-10-30 18:00:09', 'aceptada');
+(11, 2, 6, '2025-10-30 18:00:09', 'aceptada'),
+(18, 17, 5, '2025-11-02 16:45:27', 'aceptada'),
+(19, 17, 9, '2025-11-02 16:47:23', 'aceptada'),
+(20, 2, 5, '2025-11-02 19:48:33', 'enviada');
 
 -- --------------------------------------------------------
 
@@ -189,9 +223,10 @@ INSERT INTO `usuarios` (`codUsuario`, `nombreUsuario`, `claveUsuario`, `tipoUsua
 (11, 'niike@dc.com', '$2y$10$U2BUjqbkE1NK7zrrLnsYnudpTYFn80237hdd8DBnudf0w1XWJeVLu', 'dueño', 'inicial', 'activo', 'b45517d9d19ee7f9f531bae54fed1ef6', '2025-10-21 15:09:20'),
 (12, 'adidas@gmail.com', '$2y$10$OBQDi38RIP9jpSOdi7IcmeoDcISN0AdkqgeBEUWidLOGGaphLpruC', 'dueño', 'inicial', 'activo', '04dbe3dc6ba5018f3bf8d8b1eee0cc52', '2025-10-21 23:58:11'),
 (13, 'babolat@dc.com', '$2y$10$QYQcb5Uo/WiZZpIygZkx.ehvHNdAiu/7GZa3FCSVqeQNEMJDHbSBy', 'dueño', 'inicial', 'activo', '725d8f61565ee7cd607e6701e413d707', '2025-10-22 01:40:10'),
-(14, 'prince@dc.com', '$2y$10$9vNSnygFnRqEmscc6qFXOe5kGmovK0tUsD6Tb5DlnSzedZuCZl6vG', 'dueño', 'inicial', 'eliminado', 'c3ccfe4b33819e49f8717fcf4a9012f2', '2025-10-22 01:41:26'),
+(14, 'prince@dc.com', '$2y$10$9vNSnygFnRqEmscc6qFXOe5kGmovK0tUsD6Tb5DlnSzedZuCZl6vG', 'dueño', 'inicial', 'activo', 'c3ccfe4b33819e49f8717fcf4a9012f2', '2025-10-22 01:41:26'),
 (15, 'head@dc.com', '$2y$10$HLAs57Akxs2c78WDebtY5.HnHdqoC0auwXAwpp7v6uNy2.gI6pDDq', 'dueño', 'inicial', 'activo', '811bb65cb991850e3ef806894d2f471d', '2025-10-22 01:41:43'),
-(16, 'gabilovato2@gmail.com', '$2y$10$/iwCg69xzMzHqcEtDEP8bu5l281ApK.Sx3nRCsgZQpuqdI2bdI5hq', 'cliente', 'medium', 'activo', NULL, '2025-10-20 22:09:05');
+(16, 'gabilovato2@gmail.com', '$2y$10$/iwCg69xzMzHqcEtDEP8bu5l281ApK.Sx3nRCsgZQpuqdI2bdI5hq', 'cliente', 'medium', 'activo', NULL, '2025-10-20 22:09:05'),
+(17, 'pruebaC@gmail.com', '$2y$10$/iwCg69xzMzHqcEtDEP8bu5l281ApK.Sx3nRCsgZQpuqdI2bdI5hq', 'cliente', 'premium', 'activo', NULL, '2025-10-20 22:09:05');
 
 --
 -- Índices para tablas volcadas
@@ -253,7 +288,7 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `imagenes`
 --
 ALTER TABLE `imagenes`
-  MODIFY `IdImg` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `IdImg` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `locales`
@@ -265,31 +300,31 @@ ALTER TABLE `locales`
 -- AUTO_INCREMENT de la tabla `novedades`
 --
 ALTER TABLE `novedades`
-  MODIFY `codNovedad` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `codNovedad` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `promociones`
 --
 ALTER TABLE `promociones`
-  MODIFY `codPromo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `codPromo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de la tabla `solicitudes_descuentos`
 --
 ALTER TABLE `solicitudes_descuentos`
-  MODIFY `id_solicitud` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id_solicitud` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT de la tabla `uso_promociones`
 --
 ALTER TABLE `uso_promociones`
-  MODIFY `idUso` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `idUso` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `codUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `codUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- Restricciones para tablas volcadas

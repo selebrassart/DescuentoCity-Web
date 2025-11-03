@@ -7,7 +7,25 @@ if (session_status() === PHP_SESSION_NONE) {
 <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm fixed-top" style="z-index:1050;">
   <div class="container">
     <!-- LOGO -->
-    <a class="navbar-brand fw-bold d-flex align-items-center" href="/Descuento-City/index.php">
+    <a class="navbar-brand fw-bold d-flex align-items-center" href="<?php 
+      if (isset($_SESSION['tipoUsuario'])) {
+        switch($_SESSION['tipoUsuario']) {
+          case 'cliente':
+            echo '/Descuento-City/views/cliente/promociones.php';
+            break;
+          case 'dueño':
+            echo '/Descuento-City/views/dueño/mis_promos.php';
+            break;
+          case 'admin':
+            echo '/Descuento-City/views/admin/dueños/dueños.php';
+            break;
+          default:
+            echo '/Descuento-City/index.php';
+        }
+      } else {
+        echo '/Descuento-City/index.php';
+      }
+    ?>">
       <img src="/Descuento-City/assets/img/logo/LOGO1.png" alt="Descuento City" width="120" class="me-2">
     </a>
 

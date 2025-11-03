@@ -49,5 +49,7 @@ require("../../funciones/funcionesMail.php");
 
         <a href="../../index.php">Volver al inicio</a>
     </div>
+
+    <?php include("../../includes/footer.php"); ?>
 </body>
 </html>

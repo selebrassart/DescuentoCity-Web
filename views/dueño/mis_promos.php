@@ -2,6 +2,12 @@
 
 session_start();
 
+// Verificar que el usuario esté logueado y sea dueño
+if (!isset($_SESSION['tipoUsuario']) || $_SESSION['tipoUsuario'] !== 'dueño') {
+    header('Location: ../../views/auth/login.php');
+    exit();
+}
+
 include("../../conexionBD.php");
 
 ?>
@@ -140,86 +146,146 @@ include("../../conexionBD.php");
     }
     echo "</div><br>";?>
 
+    <!-- Mensajes de alerta -->
+    <div class="container">
+        <?php
+        // Sistema de mensajes organizados
+        if(isset($_SESSION['mensaje_exito'])){
+            echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>";
+            echo "<i class='bi bi-check-circle'></i> ".$_SESSION['mensaje_exito'];
+            echo "<button type='button' class='btn-close' data-bs-dismiss='alert'></button>";
+            echo "</div>";
+            unset($_SESSION['mensaje_exito']);
+        }
+        if(isset($_SESSION['mensaje_error'])){
+            echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>";
+            echo "<i class='bi bi-exclamation-circle-fill'></i> ".$_SESSION['mensaje_error'];
+            echo "<button type='button' class='btn-close' data-bs-dismiss='alert'></button>";
+            echo "</div>";
+            unset($_SESSION['mensaje_error']);
+        }
+        if(isset($_SESSION['mensaje_warning'])){
+            echo "<div class='alert alert-warning alert-dismissible fade show' role='alert'>";
+            echo "<i class='bi bi-exclamation-triangle-fill'></i> ".$_SESSION['mensaje_warning'];
+            echo "<button type='button' class='btn-close' data-bs-dismiss='alert'></button>";
+            echo "</div>";
+            unset($_SESSION['mensaje_warning']);
+        }
+        if(isset($_SESSION['mensaje_info'])){
+            echo "<div class='alert alert-info alert-dismissible fade show' role='alert'>";
+            echo "<i class='bi bi-info-circle-fill'></i> ".$_SESSION['mensaje_info'];
+            echo "<button type='button' class='btn-close' data-bs-dismiss='alert'></button>";
+            echo "</div>";
+            unset($_SESSION['mensaje_info']);
+        }
+        
+        // Compatibilidad con mensaje simple
+        if(isset($_SESSION["mensaje"])){
+            echo "<div class='alert alert-info alert-dismissible fade show' role='alert'>";
+            echo "<i class='bi bi-info-circle-fill'></i> " . $_SESSION['mensaje'];
+            echo "<button type='button' class='btn-close' data-bs-dismiss='alert'></button>";
+            echo "</div>";
+            unset($_SESSION['mensaje']);
+        }
+        ?>
+    </div>
 
-    <div class="main-center">
-        <div class="form__container-promociones">
-            <form class="form-promociones" action="../../controllers/dueñoCtrl/promocionesDueñoController.php" method="POST" enctype="multipart/form-data">
-                <h2>Crear promocion</h2>
+    <!-- Formulario de crear promoción -->
+    <div class="container my-5">
+        <div class="row justify-content-center">
+            <div class="col-md-10 col-lg-8">
 
-                <!-- Descripcion promo / BD = textPromo -->
-                <label>Descripcion</label><br>
-                <input type="text" name="textoPromo" required><br>
+                <h1 class="text-center mb-4">Crear Promoción</h1>
 
-                <!-- Fecha Desde  -->
-                <label>Fecha Desde :</label>
-                <input type="date" name="fechaDesdePromo" required>
-
-                <!-- Fecha Hasta  -->
-                <label>Fecha Hasta :</label>
-                <input type="date" name="fechaHastaPromo" required><br>
-
-                <!-- Dias de semana que estara disponible  -->
-                <label>Disponibilidad semanal:</label><br>
-
-                <!-- Permitir seleccionar todos los dias -->
-                Seleccionar todo <input type="checkbox" id="seleccionarTodos" value="semCompleta"><br>
-
-                <!-- Dias semana individual -->
-                Lunes  <input type="checkbox" name="diasSemana[]" value="Lunes"><br>
-                Martes<input type="checkbox" name="diasSemana[]" value="Martes"><br>
-                Miercoles<input type="checkbox" name="diasSemana[]" value="Miércoles"><br>
-                Jueves<input type="checkbox" name="diasSemana[]" value="Jueves"><br>
-                Viernes<input type="checkbox" name="diasSemana[]" value="Viernes"><br>
-                Sabado<input type="checkbox" name="diasSemana[]" value="Sábado"><br>
-                Domingos<input type="checkbox" name="diasSemana[]" value="Domingo"><br>
-
-                <!-- Seleccionar categoria cliente -->
-                <label>Categoria cliente</label><br>
-                <select name="categoriaCliente">
-                    <option value="inicial">Inicial</option>
-                    <option value="medium" >Medium</option>
-                    <option value="premium">Premium</option>
-                </select><br>
-
-                <label>Imagen promocion</label><br>
-                <input type="file" name="imgPromo" accept="image/*" ><br>
-
-                <input class="button-form" type="submit" name="confirm" value="Crear promocion">
-            </form>
-            <?php
-
-            // Sistema de mensajes organizados
-            if(isset($_SESSION['mensaje_exito'])){
-                echo "<div class='alert alert-success'><p>".$_SESSION['mensaje_exito']."</p></div>";
-                unset($_SESSION['mensaje_exito']);
-            }
-            
-            if(isset($_SESSION['mensaje_error'])){
-                echo "<div class='alert alert-danger'><p>".$_SESSION['mensaje_error']."</p></div>";
-                unset($_SESSION['mensaje_error']);
-            }
-            
-            if(isset($_SESSION['mensaje_warning'])){
-                echo "<div class='alert alert-warning'><p>".$_SESSION['mensaje_warning']."</p></div>";
-                unset($_SESSION['mensaje_warning']);
-            }
-            
-            if(isset($_SESSION['mensaje_info'])){
-                echo "<div class='alert alert-info'><p>".$_SESSION['mensaje_info']."</p></div>";
-                unset($_SESSION['mensaje_info']);
-            }
-
-            // Mensaje legacy (por compatibilidad)
-            if(isset($_SESSION['mensaje'])){
-                echo "<div class='alert alert-success'><p>".$_SESSION['mensaje']."</p></div>";
-                unset($_SESSION['mensaje']);
-            }
-
-            ?>
+                <form action="../../controllers/dueñoCtrl/promocionesDueñoController.php" method="POST" enctype="multipart/form-data" class="p-4 border rounded shadow-sm bg-white">
+                    
+                    <div class="input-group mb-3">
+                        <span class="input-group-text"><i class="bi bi-text-paragraph"></i></span>
+                        <input type="text" class="form-control" name="textoPromo" placeholder="Descripción de la promoción" aria-label="Descripción" required>
+                    </div>
+                    
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="fechaDesde" class="form-label"><i class="bi bi-calendar-check"></i> Fecha Desde</label>
+                            <input type="date" class="form-control" name="fechaDesdePromo" id="fechaDesde" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="fechaHasta" class="form-label"><i class="bi bi-calendar-x"></i> Fecha Hasta</label>
+                            <input type="date" class="form-control" name="fechaHastaPromo" id="fechaHasta" required>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label fw-bold"><i class="bi bi-calendar-week"></i> Disponibilidad Semanal</label>
+                        
+                        <div class="form-check mb-2">
+                            <input class="form-check-input" type="checkbox" id="seleccionarTodos" value="semCompleta">
+                            <label class="form-check-label fw-bold" for="seleccionarTodos">
+                                Seleccionar todos los días
+                            </label>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="diasSemana[]" value="Lunes" id="lunes">
+                                    <label class="form-check-label" for="lunes">Lunes</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="diasSemana[]" value="Martes" id="martes">
+                                    <label class="form-check-label" for="martes">Martes</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="diasSemana[]" value="Miércoles" id="miercoles">
+                                    <label class="form-check-label" for="miercoles">Miércoles</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="diasSemana[]" value="Jueves" id="jueves">
+                                    <label class="form-check-label" for="jueves">Jueves</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="diasSemana[]" value="Viernes" id="viernes">
+                                    <label class="form-check-label" for="viernes">Viernes</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="diasSemana[]" value="Sábado" id="sabado">
+                                    <label class="form-check-label" for="sabado">Sábado</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="diasSemana[]" value="Domingo" id="domingo">
+                                    <label class="form-check-label" for="domingo">Domingo</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="input-group mb-3">
+                        <span class="input-group-text"><i class="bi bi-star"></i></span>
+                        <select class="form-select" name="categoriaCliente" aria-label="Categoría Cliente" required>
+                            <option value="">Seleccionar categoría de cliente</option>
+                            <option value="inicial">Inicial</option>
+                            <option value="medium">Medium</option>
+                            <option value="premium">Premium</option>
+                        </select>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="imgPromo" class="form-label"><i class="bi bi-image"></i> Imagen de la Promoción</label>
+                        <input type="file" class="form-control" name="imgPromo" id="imgPromo" accept="image/*">
+                        <div class="form-text">Selecciona una imagen para la promoción (JPG, PNG, GIF)</div>
+                    </div>
+                    
+                    <div class="d-grid">
+                        <button type="submit" name="confirm" class="btn btn-primary btn-lg">Crear Promoción</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 
-    <script>
+<script>
     // Selecciona el checkbox de "seleccionar todos"
     const seleccionarTodos = document.getElementById('seleccionarTodos');
     // Selecciona todos los checkbox de los días
@@ -230,12 +296,10 @@ include("../../conexionBD.php");
     });
 </script>
 
-
+<?php include("../../includes/footer.php"); ?>
 
 </body>
 </html>
-
-<?php
 
 mysqli_close($conexion);
 

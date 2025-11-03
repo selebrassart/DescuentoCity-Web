@@ -47,25 +47,70 @@ $total_paginas = ceil($total_registros / $cant_por_pag);
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <title>Novedades - Admin</title>
-    <link rel="icon" type="image/png" href="assets/img/logo-ventana/logo-fondo-b-circular.png"/>
+    <link rel="icon" type="image/png" href="/Descuento-City/assets/img/logo-ventana/logo-fondo-b-circular.png"/>
 </head>
 <body>
-    <?php include("../../../includes/admin/adminHeader.php");?>
+    <?php include("../../../includes/navbar.php");?>
 
-    <div class="table-responsive">
-        <table class='tabla table table-striped'>
-            <caption>Novedades Activas</caption>
-            <thead>
-                <tr>
-                    <th>Codigo</th>
-                    <th>Descripcion</th>
-                    <th>Portada</th>
-                    <th>Fechas</th>
-                    <th>Categoria Cliente</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
+    <!-- Mensajes de alerta -->
+    <div class="container mt-3">
+        <?php
+        // Sistema de alertas categorizado
+        if(isset($_SESSION['mensaje_exito'])){
+            echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>";
+            echo "<i class='bi bi-check-circle'></i> ".$_SESSION['mensaje_exito'];
+            echo "<button type='button' class='btn-close' data-bs-dismiss='alert'></button>";
+            echo "</div>";
+            unset($_SESSION['mensaje_exito']);
+        }
+        if(isset($_SESSION['mensaje_error'])){
+            echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>";
+            echo "<i class='bi bi-exclamation-circle-fill'></i> ".$_SESSION['mensaje_error'];
+            echo "<button type='button' class='btn-close' data-bs-dismiss='alert'></button>";
+            echo "</div>";
+            unset($_SESSION['mensaje_error']);
+        }
+        if(isset($_SESSION['mensaje_warning'])){
+            echo "<div class='alert alert-warning alert-dismissible fade show' role='alert'>";
+            echo "<i class='bi bi-exclamation-triangle-fill'></i> ".$_SESSION['mensaje_warning'];
+            echo "<button type='button' class='btn-close' data-bs-dismiss='alert'></button>";
+            echo "</div>";
+            unset($_SESSION['mensaje_warning']);
+        }
+        if(isset($_SESSION['mensaje_info'])){
+            echo "<div class='alert alert-info alert-dismissible fade show' role='alert'>";
+            echo "<i class='bi bi-info-circle-fill'></i> ".$_SESSION['mensaje_info'];
+            echo "<button type='button' class='btn-close' data-bs-dismiss='alert'></button>";
+            echo "</div>";
+            unset($_SESSION['mensaje_info']);
+        }
+        
+        // Compatibilidad con mensaje simple
+        if(isset($_SESSION["mensaje"])){
+            echo "<div class='alert alert-info alert-dismissible fade show' role='alert'>";
+            echo "<i class='bi bi-info-circle-fill'></i> " . $_SESSION['mensaje'];
+            echo "<button type='button' class='btn-close' data-bs-dismiss='alert'></button>";
+            echo "</div>";
+            unset($_SESSION['mensaje']);
+        }
+        ?>
+    </div>
+
+    <div class="container mt-4">
+        <div class="table-responsive">
+            <table class='tabla table table-striped'>
+                <caption>Novedades Activas</caption>
+                <thead>
+                    <tr>
+                        <th>Codigo</th>
+                        <th>Descripcion</th>
+                        <th>Portada</th>
+                        <th>Fechas</th>
+                        <th>Categoria Cliente</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
                 <?php
                 while($nov = mysqli_fetch_assoc($listaNovedades)){
                     ?>
@@ -139,104 +184,80 @@ $total_paginas = ceil($total_registros / $cant_por_pag);
             </tbody>
         </table>
     </div>
-    <?php
-
-    mysqli_free_result($listaNovedades);
-
-    mysqli_close($conexion);
-
-    ?>
-    <div class='paginacion mt-3'>
+    
+    <div class='paginacion mt-3 text-center'>
     <?php
     for($i = 1;$i <= $total_paginas;$i++){
         if($pagina == $i){
-            echo $pagina . "";
+            echo "<span class='btn btn-primary btn-sm mx-1'>$pagina</span>";
         }
         else{
-            echo "<a href='novedades.php?pagina=$i' class='btn btn-outline-primary btn-sm mx-1' id='paginacion'>$i</a>";
+            echo "<a href='novedades.php?pagina=$i' class='btn btn-outline-primary btn-sm mx-1'>$i</a>";
         }
     }
     ?>
     </div>
-    <?php
-
-    // Sistema de alertas categorizado
-    if(isset($_SESSION['mensaje_exito'])){
-        echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>";
-        echo "<i class='bi bi-check-circle'></i> ".$_SESSION['mensaje_exito'];
-        echo "<button type='button' class='btn-close' data-bs-dismiss='alert'></button>";
-        echo "</div>";
-        unset($_SESSION['mensaje_exito']);
-    }
-    if(isset($_SESSION['mensaje_error'])){
-        echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>";
-        echo "<i class='bi bi-exclamation-circle-fill'></i> ".$_SESSION['mensaje_error'];
-        echo "<button type='button' class='btn-close' data-bs-dismiss='alert'></button>";
-        echo "</div>";
-        unset($_SESSION['mensaje_error']);
-    }
-    if(isset($_SESSION['mensaje_warning'])){
-        echo "<div class='alert alert-warning alert-dismissible fade show' role='alert'>";
-        echo "<i class='bi bi-exclamation-triangle-fill'></i> ".$_SESSION['mensaje_warning'];
-        echo "<button type='button' class='btn-close' data-bs-dismiss='alert'></button>";
-        echo "</div>";
-        unset($_SESSION['mensaje_warning']);
-    }
-    if(isset($_SESSION['mensaje_info'])){
-        echo "<div class='alert alert-info alert-dismissible fade show' role='alert'>";
-        echo "<i class='bi bi-info-circle-fill'></i> ".$_SESSION['mensaje_info'];
-        echo "<button type='button' class='btn-close' data-bs-dismiss='alert'></button>";
-        echo "</div>";
-        unset($_SESSION['mensaje_info']);
-    }
-    
-    // Compatibilidad con mensaje simple (por si algún controlador aún no está actualizado)
-    if(isset($_SESSION["mensaje"])){
-        echo "<div class='alert alert-info alert-dismissible fade show' role='alert'>";
-        echo "<i class='bi bi-info-circle-fill'></i> " . $_SESSION['mensaje'];
-        echo "<button type='button' class='btn-close' data-bs-dismiss='alert'></button>";
-        echo "</div>";
-        unset($_SESSION['mensaje']);
-    }
+    </div>
     ?>
     
 
-    <div class="main-center">
-        <div class="form__container-locales">
-            <h1>Crear novedad</h1>
-            <form class="form-locales" action="../../../controllers/novedadesCtrl/novedadesController.php" method="POST" enctype="multipart/form-data">
-                <!-- Título novedad -->
-                <label>Título de la novedad</label><br>
-                <input type="text" name="tituloNovedad" placeholder="Ej: Descuento especial en tecnología" required><br>
-                <!-- Texto novedad -->
-                <label>Descripción de la novedad</label><br>
-                <textarea name="textoNovedad" rows="5" cols="40" required></textarea><br>
-                <!-- Fecha inicio  -->
-                <label>Fecha de inicio de novedad</label><br>
-                <input type="date" name="fechaDesdeNovedad" required><br>
-                <!-- Fecha fin -->
-                <label>Fecha de finalización de novedad</label><br>
-                <input type="date" name="fechaHastaNovedad" required><br>
-                <!-- Categoria -->
-                <label>Dirigido a:</label><br>
-                <select name="categoriaCliente" required>
-                    <option value="">Seleccionar categoría</option>
-                    <option value="inicial">Inicial</option>
-                    <option value="medium">Medium</option>
-                    <option value="premium">Premium</option>
-                </select><br>
-                <!-- Imagen -->
-                <label>Imagen de la novedad</label><br>
-                <input class="input-img" type="file" name="imgNov" accept="image/*"><br>
+    <!-- Formulario de crear novedad -->
+    <div class="container my-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6">
 
-                <input class="button-form" type="submit" name="confirm" value="Crear Novedad">
-            </form>
+                <h1 class="text-center mb-4">Crear Novedad</h1>
+
+                <form action="../../../controllers/novedadesCtrl/novedadesController.php" method="POST" enctype="multipart/form-data" class="p-4 border rounded shadow-sm bg-white">
+                    
+                    <div class="input-group mb-3">
+                        <span class="input-group-text"><i class="bi bi-newspaper"></i></span>
+                        <input type="text" class="form-control" name="tituloNovedad" placeholder="Título de la novedad" aria-label="Título" required>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="textoNovedad" class="form-label"><i class="bi bi-text-paragraph"></i> Descripción de la novedad</label>
+                        <textarea class="form-control" name="textoNovedad" id="textoNovedad" rows="5" placeholder="Escribe la descripción de la novedad..." required></textarea>
+                    </div>
+                    
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="fechaDesde" class="form-label"><i class="bi bi-calendar-check"></i> Fecha de inicio</label>
+                            <input type="date" class="form-control" name="fechaDesdeNovedad" id="fechaDesde" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="fechaHasta" class="form-label"><i class="bi bi-calendar-x"></i> Fecha de finalización</label>
+                            <input type="date" class="form-control" name="fechaHastaNovedad" id="fechaHasta" required>
+                        </div>
+                    </div>
+                    
+                    <div class="input-group mb-3">
+                        <span class="input-group-text"><i class="bi bi-star"></i></span>
+                        <select class="form-select" name="categoriaCliente" aria-label="Categoría Cliente" required>
+                            <option value="">Dirigido a...</option>
+                            <option value="inicial">Inicial</option>
+                            <option value="medium">Medium</option>
+                            <option value="premium">Premium</option>
+                        </select>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="imgNov" class="form-label"><i class="bi bi-image"></i> Imagen de la novedad</label>
+                        <input type="file" class="form-control" name="imgNov" id="imgNov" accept="image/*">
+                        <div class="form-text">Selecciona una imagen para la novedad (JPG, PNG, GIF)</div>
+                    </div>
+                    
+                    <div class="d-grid">
+                        <button type="submit" name="confirm" class="btn btn-primary btn-lg">Crear Novedad</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 
+    <?php include("../../../includes/footer.php"); ?>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
-
-
 
 </body>
 </html>

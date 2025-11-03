@@ -85,16 +85,15 @@ if (!$resultado_promos) {
 <body>
 <?php include("includes/navbar.php"); ?>
 
-<!-- migas de pan superpuesto -->
-    <div class="position-relative">
-        <div class="portada-promociones">
-            <img src="/Descuento-City/assets/img/promociones-portada.png" class="img-fluid w-100" alt="Portada Promociones" style="height: 300px; object-fit: cover;">
-        </div>
-        <div class="breadcrumb-overlay position-absolute top-0 start-0 w-100 text-white p-3">
-            <div class="container">
-                <?php include 'includes/breadcrumb.php'; ?>
-        </div>
-    </div>
+<!-- Portada -->
+<div class="portada-promociones">
+    <img src="/Descuento-City/assets/img/promociones-portada.png" class="img-fluid w-100" alt="Portada Promociones" style="height: 300px; object-fit: cover;">
+</div>
+
+<!-- Breadcrumb debajo de la portada -->
+<div class="container mt-3">
+    <?php include 'includes/breadcrumb.php'; ?>
+</div>
 
     <!-- Buscador de promociones -->
     <div class="container my-4">

@@ -55,10 +55,57 @@ include("../../../conexionBD.php");
     <link rel="stylesheet" href="/Descuento-City/assets/css/estilos.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
-    <title>Promociones</title>
+    <title>Promociones - Admin</title>
+    <link rel="icon" type="image/png" href="/Descuento-City/assets/img/logo-ventana/logo-fondo-b-circular.png"/>
 </head>
 <body>
-    <?php include("../../../includes/admin/adminHeader.php");?>
+    <?php include("../../../includes/navbar.php");?>
+
+    <!-- Mensajes de alerta -->
+    <div class="container mt-3">
+        <?php
+        // Alertas organizadas por tipo
+        if(isset($_SESSION['mensaje_exito'])){
+            echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>";
+            echo "<i class='bi bi-check-circle'></i> ".$_SESSION['mensaje_exito'];
+            echo "<button type='button' class='btn-close' data-bs-dismiss='alert'></button>";
+            echo "</div>";
+            unset($_SESSION['mensaje_exito']);
+        }
+        if(isset($_SESSION['mensaje_error'])){
+            echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>";
+            echo "<i class='bi bi-exclamation-circle-fill'></i> ".$_SESSION['mensaje_error'];
+            echo "<button type='button' class='btn-close' data-bs-dismiss='alert'></button>";
+            echo "</div>";
+            unset($_SESSION['mensaje_error']);
+        }
+        if(isset($_SESSION['mensaje_warning'])){
+            echo "<div class='alert alert-warning alert-dismissible fade show' role='alert'>";
+            echo "<i class='bi bi-exclamation-triangle-fill'></i> ".$_SESSION['mensaje_warning'];
+            echo "<button type='button' class='btn-close' data-bs-dismiss='alert'></button>";
+            echo "</div>";
+            unset($_SESSION['mensaje_warning']);
+        }
+        if(isset($_SESSION['mensaje_info'])){
+            echo "<div class='alert alert-info alert-dismissible fade show' role='alert'>";
+            echo "<i class='bi bi-info-circle-fill'></i> ".$_SESSION['mensaje_info'];
+            echo "<button type='button' class='btn-close' data-bs-dismiss='alert'></button>";
+            echo "</div>";
+            unset($_SESSION['mensaje_info']);
+        }
+        
+        // Compatibilidad con mensaje simple
+        if(isset($_SESSION["mensaje"])){
+            echo "<div class='alert alert-info alert-dismissible fade show' role='alert'>";
+            echo "<i class='bi bi-info-circle-fill'></i> " . $_SESSION['mensaje'];
+            echo "<button type='button' class='btn-close' data-bs-dismiss='alert'></button>";
+            echo "</div>";
+            unset($_SESSION['mensaje']);
+        }
+        ?>
+    </div>
+
+    <div class="container mt-4">
     <?php
 
     //Lista promociones 
@@ -179,47 +226,10 @@ include("../../../conexionBD.php");
         }
     }
     echo "</div>";
-
-
-    // Sistema de alertas categorizado
-    if(isset($_SESSION['mensaje_exito'])){
-        echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>";
-        echo "<i class='bi bi-check-circle'></i> ".$_SESSION['mensaje_exito'];
-        echo "<button type='button' class='btn-close' data-bs-dismiss='alert'></button>";
-        echo "</div>";
-        unset($_SESSION['mensaje_exito']);
-    }
-    if(isset($_SESSION['mensaje_error'])){
-        echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>";
-        echo "<i class='bi bi-exclamation-circle-fill'></i> ".$_SESSION['mensaje_error'];
-        echo "<button type='button' class='btn-close' data-bs-dismiss='alert'></button>";
-        echo "</div>";
-        unset($_SESSION['mensaje_error']);
-    }
-    if(isset($_SESSION['mensaje_warning'])){
-        echo "<div class='alert alert-warning alert-dismissible fade show' role='alert'>";
-        echo "<i class='bi bi-exclamation-triangle-fill'></i> ".$_SESSION['mensaje_warning'];
-        echo "<button type='button' class='btn-close' data-bs-dismiss='alert'></button>";
-        echo "</div>";
-        unset($_SESSION['mensaje_warning']);
-    }
-    if(isset($_SESSION['mensaje_info'])){
-        echo "<div class='alert alert-info alert-dismissible fade show' role='alert'>";
-        echo "<i class='bi bi-info-circle-fill'></i> ".$_SESSION['mensaje_info'];
-        echo "<button type='button' class='btn-close' data-bs-dismiss='alert'></button>";
-        echo "</div>";
-        unset($_SESSION['mensaje_info']);
-    }
-    
-    // Compatibilidad con mensaje simple (por si algún controlador aún no está actualizado)
-    if(isset($_SESSION["mensaje"])){
-        echo "<div class='alert alert-info alert-dismissible fade show' role='alert'>";
-        echo "<i class='bi bi-info-circle-fill'></i> " . $_SESSION['mensaje'];
-        echo "<button type='button' class='btn-close' data-bs-dismiss='alert'></button>";
-        echo "</div>";
-        unset($_SESSION['mensaje']);
-    }
     ?>
+    </div> <!-- Cierre del contenedor principal -->
+
+    <?php include("../../../includes/footer.php"); ?>
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 

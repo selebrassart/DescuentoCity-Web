@@ -19,17 +19,15 @@ $breadcrumb_titulo_activo = 'Novedades';
 <body>
 <?php include("includes/navbar.php"); ?>
 
-    <!-- Hero Section con breadcrumb superpuesto -->
-    <div class="position-relative">
-        <div class="portada-novedades">
-            <img src="/Descuento-City/assets/img/novedades-portada.png" class="img-fluid w-100" alt="Portada Novedades" style="height: 300px; object-fit: cover;">
-        </div>
-        <div class="breadcrumb-overlay position-absolute top-0 start-0 w-100 text-white p-3">
-            <div class="container">
-                <?php include 'includes/breadcrumb.php'; ?>
-            </div>
-        </div>
-
+    <!-- Portada -->
+    <div class="portada-novedades">
+        <img src="/Descuento-City/assets/img/novedades-portada.png" class="img-fluid w-100" alt="Portada Novedades" style="height: 300px; object-fit: cover;">
+    </div>
+    
+    <!-- Breadcrumb debajo de la portada -->
+    <div class="container mt-3">
+        <?php include 'includes/breadcrumb.php'; ?>
+    </div>
 
     <!-- Contenido principal -->
     <div class="container my-5">

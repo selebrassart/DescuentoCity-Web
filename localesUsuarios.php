@@ -55,19 +55,16 @@ $resultado_locales = mysqli_query($conexion, $sql_locales);
 </head>
 <body>
 <?php include("includes/navbar.php"); ?>
- <!-- Hero Section con breadcrumb superpuesto -->
-    <div class="position-relative">
-        <div class="portada-locales">
-            <img src="/Descuento-City/assets/img/locales-portada.png" class="img-fluid w-100" alt="Portada Locales" style="height: 300px; object-fit: cover;">
-        </div>
-        <div class="breadcrumb-overlay position-absolute top-0 start-0 w-100 text-white p-3">
-            <div class="container">
-                <?php include 'includes/breadcrumb.php'; ?>
-            </div>
-        </div>
 
+<!-- Portada -->
+<div class="portada-locales">
+    <img src="/Descuento-City/assets/img/locales-portada.png" class="img-fluid w-100" alt="Portada Locales" style="height: 300px; object-fit: cover;">
 </div>
-    </div>
+
+<!-- Breadcrumb debajo de la portada -->
+<div class="container mt-3">
+    <?php include 'includes/breadcrumb.php'; ?>
+</div>
 
     <!-- Buscador de locales -->
     <div class="container my-4">

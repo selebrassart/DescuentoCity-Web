@@ -2,11 +2,15 @@
 
 <?php
 
-
 session_start();
 
-include("../../../conexionBD.php");
+// Verificar que el usuario esté logueado y sea admin
+if (!isset($_SESSION['tipoUsuario']) || $_SESSION['tipoUsuario'] !== 'admin') {
+    header('Location: ../../../views/auth/login.php');
+    exit();
+}
 
+include("../../../conexionBD.php");
 
 //llamo a funcion consultDueños.Donde selecciono dueños que esten pendientes.
 //$listaDueños = consultaDueños($conexion);
@@ -21,10 +25,57 @@ include("../../../conexionBD.php");
     <link rel="stylesheet" href="/Descuento-City/assets/css/estilos.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
-    <link rel="icon" type="image/png" href="assets/img/logo-ventana/logo-fondo-b-circular.png"/>
+    <title>Dueños - Admin</title>
+    <link rel="icon" type="image/png" href="/Descuento-City/assets/img/logo-ventana/logo-fondo-b-circular.png"/>
 </head>
 <body>
-    <?php include("../../../includes/admin/adminHeader.php");?>
+    <?php include("../../../includes/navbar.php");?>
+
+    <!-- Mensajes de alerta -->
+    <div class="container mt-3">
+        <?php
+        // Alertas organizadas por tipo
+        if(isset($_SESSION['mensaje_exito'])){
+            echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>";
+            echo "<i class='bi bi-check-circle'></i> ".$_SESSION['mensaje_exito'];
+            echo "<button type='button' class='btn-close' data-bs-dismiss='alert'></button>";
+            echo "</div>";
+            unset($_SESSION['mensaje_exito']);
+        }
+        if(isset($_SESSION['mensaje_error'])){
+            echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>";
+            echo "<i class='bi bi-exclamation-circle-fill'></i> ".$_SESSION['mensaje_error'];
+            echo "<button type='button' class='btn-close' data-bs-dismiss='alert'></button>";
+            echo "</div>";
+            unset($_SESSION['mensaje_error']);
+        }
+        if(isset($_SESSION['mensaje_warning'])){
+            echo "<div class='alert alert-warning alert-dismissible fade show' role='alert'>";
+            echo "<i class='bi bi-exclamation-triangle-fill'></i> ".$_SESSION['mensaje_warning'];
+            echo "<button type='button' class='btn-close' data-bs-dismiss='alert'></button>";
+            echo "</div>";
+            unset($_SESSION['mensaje_warning']);
+        }
+        if(isset($_SESSION['mensaje_info'])){
+            echo "<div class='alert alert-info alert-dismissible fade show' role='alert'>";
+            echo "<i class='bi bi-info-circle-fill'></i> ".$_SESSION['mensaje_info'];
+            echo "<button type='button' class='btn-close' data-bs-dismiss='alert'></button>";
+            echo "</div>";
+            unset($_SESSION['mensaje_info']);
+        }
+        
+        // Compatibilidad con mensaje simple
+        if(isset($_SESSION["mensaje"])){
+            echo "<div class='alert alert-info alert-dismissible fade show' role='alert'>";
+            echo "<i class='bi bi-info-circle-fill'></i> " . $_SESSION['mensaje'];
+            echo "<button type='button' class='btn-close' data-bs-dismiss='alert'></button>";
+            echo "</div>";
+            unset($_SESSION['mensaje']);
+        }
+        ?>
+    </div>
+
+    <div class="container mt-4">
 
 
     <?php
@@ -131,44 +182,7 @@ include("../../../conexionBD.php");
             }
         }
         echo "</div>";?>
+    </div> <!-- Cierre del contenedor principal -->
 
-        <!-- Sistema de mensajes organizados -->
-        <?php if(isset($_SESSION['mensaje_exito'])): ?>
-            <div class="alert alert-success">
-                <p><?= $_SESSION['mensaje_exito'] ?></p>
-            </div>
-            <?php unset($_SESSION['mensaje_exito']); ?>
-        <?php endif; ?>
-
-        <?php if(isset($_SESSION['mensaje_error'])): ?>
-            <div class="alert alert-danger">
-                <p><?= $_SESSION['mensaje_error'] ?></p>
-            </div>
-            <?php unset($_SESSION['mensaje_error']); ?>
-        <?php endif; ?>
-
-        <?php if(isset($_SESSION['mensaje_warning'])): ?>
-            <div class="alert alert-warning">
-                <p><?= $_SESSION['mensaje_warning'] ?></p>
-            </div>
-            <?php unset($_SESSION['mensaje_warning']); ?>
-        <?php endif; ?>
-
-        <?php if(isset($_SESSION['mensaje_info'])): ?>
-            <div class="alert alert-info">
-                <p><?= $_SESSION['mensaje_info'] ?></p>
-            </div>
-            <?php unset($_SESSION['mensaje_info']); ?>
-        <?php endif; ?>
-
-        <!-- Mensaje legacy (por compatibilidad) -->
-        <?php if(isset($_SESSION['mensaje'])): ?>
-            <div class="alert alert-success">
-                <p><?= $_SESSION['mensaje'] ?></p>
-            </div>
-            <?php unset($_SESSION['mensaje']); ?>
-        <?php endif; ?>
-</body>
-</html> 
-
-
+    <?php include("../../../includes/footer.php"); ?></body>
+</html>
