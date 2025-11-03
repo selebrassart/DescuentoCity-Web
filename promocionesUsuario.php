@@ -76,25 +76,24 @@ if (!$resultado_promos) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Promociones - Invitado</title>
+    <title>Promociones - Descuento City</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="assets/css/estilos.css">
-    <link rel="icon" type="image/png" href="assets/img/logo-ventana/logo-fondo-b-circular.png"/>
+    <link rel="stylesheet" href="/Descuento-City/assets/css/estilos.css">
+    <link rel="icon" type="image/png" href="/Descuento-City/assets/img/logo-ventana/logo-fondo-b-circular.png"/>
 </head>
 <body>
 <?php include("includes/navbar.php"); ?>
 
-<!-- migas de pan superpuesto -->
-    <div class="position-relative">
-        <div class="portada-promociones">
-            <img src="/Descuento-City/assets/img/promociones-portada.png" class="img-fluid w-100" alt="Portada Promociones" style="height: 300px; object-fit: cover;">
-        </div>
-        <div class="breadcrumb-overlay position-absolute top-0 start-0 w-100 text-white p-3">
-            <div class="container">
-                <?php include 'includes/breadcrumb.php'; ?>
-        </div>
-    </div>
+<!-- Portada -->
+<div class="portada-promociones">
+    <img src="/Descuento-City/assets/img/promociones-portada.png" class="img-fluid w-100" alt="Portada Promociones" style="height: 300px; object-fit: cover;">
+</div>
+
+<!-- Breadcrumb debajo de la portada -->
+<div class="container mt-3">
+    <?php include 'includes/breadcrumb.php'; ?>
+</div>
 
     <!-- Buscador de promociones -->
     <div class="container my-4">

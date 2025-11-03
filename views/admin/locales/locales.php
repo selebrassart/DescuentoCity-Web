@@ -15,11 +15,57 @@ require("../../../funciones/funcionesSQL.php");
     <link rel="stylesheet" href="/Descuento-City/assets/css/estilos.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
-    <title>Locales</title>
-    <link rel="icon" type="image/png" href="assets/img/logo-ventana/logo-fondo-b-circular.png"/>
+    <title>Locales - Admin</title>
+    <link rel="icon" type="image/png" href="/Descuento-City/assets/img/logo-ventana/logo-fondo-b-circular.png"/>
 </head>
 <body>
     <?php include("../../../includes/navbar.php");?>
+
+    <!-- Mensajes de alerta -->
+    <div class="container mt-3">
+        <?php
+        // Alertas organizadas por tipo
+        if(isset($_SESSION['mensaje_exito'])){
+            echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>";
+            echo "<i class='bi bi-check-circle'></i> ".$_SESSION['mensaje_exito'];
+            echo "<button type='button' class='btn-close' data-bs-dismiss='alert'></button>";
+            echo "</div>";
+            unset($_SESSION['mensaje_exito']);
+        }
+        if(isset($_SESSION['mensaje_error'])){
+            echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>";
+            echo "<i class='bi bi-exclamation-circle-fill'></i> ".$_SESSION['mensaje_error'];
+            echo "<button type='button' class='btn-close' data-bs-dismiss='alert'></button>";
+            echo "</div>";
+            unset($_SESSION['mensaje_error']);
+        }
+        if(isset($_SESSION['mensaje_warning'])){
+            echo "<div class='alert alert-warning alert-dismissible fade show' role='alert'>";
+            echo "<i class='bi bi-exclamation-triangle-fill'></i> ".$_SESSION['mensaje_warning'];
+            echo "<button type='button' class='btn-close' data-bs-dismiss='alert'></button>";
+            echo "</div>";
+            unset($_SESSION['mensaje_warning']);
+        }
+        if(isset($_SESSION['mensaje_info'])){
+            echo "<div class='alert alert-info alert-dismissible fade show' role='alert'>";
+            echo "<i class='bi bi-info-circle-fill'></i> ".$_SESSION['mensaje_info'];
+            echo "<button type='button' class='btn-close' data-bs-dismiss='alert'></button>";
+            echo "</div>";
+            unset($_SESSION['mensaje_info']);
+        }
+        
+        // Compatibilidad con mensaje simple
+        if(isset($_SESSION["mensaje"])){
+            echo "<div class='alert alert-info alert-dismissible fade show' role='alert'>";
+            echo "<i class='bi bi-info-circle-fill'></i> " . $_SESSION['mensaje'];
+            echo "<button type='button' class='btn-close' data-bs-dismiss='alert'></button>";
+            echo "</div>";
+            unset($_SESSION['mensaje']);
+        }
+        ?>
+    </div>
+
+    <div class="container mt-4">
 
     <?php
 
@@ -136,45 +182,53 @@ require("../../../funciones/funcionesSQL.php");
     }
     echo "</div><br>";
 
-    // Alertas organizadas por tipo
-    if(isset($_SESSION['mensaje_exito'])){
-        echo "<div class='alert alert-success'><i class='bi bi-check-circle'></i> ".$_SESSION['mensaje_exito']."</div>";
-        unset($_SESSION['mensaje_exito']);
-    }
-    if(isset($_SESSION['mensaje_error'])){
-        echo "<div class='alert alert-danger'><i class='bi bi-exclamation-circle-fill'></i> ".$_SESSION['mensaje_error']."</div>";
-        unset($_SESSION['mensaje_error']);
-    }
-    if(isset($_SESSION['mensaje_warning'])){
-        echo "<div class='alert alert-warning'><i class='bi bi-exclamation-triangle-fill'></i> ".$_SESSION['mensaje_warning']."</div>";
-        unset($_SESSION['mensaje_warning']);
-    }
-    if(isset($_SESSION['mensaje_info'])){
-        echo "<div class='alert alert-info'><i class='bi bi-info-circle-fill'></i> ".$_SESSION['mensaje_info']."</div>";
-        unset($_SESSION['mensaje_info']);
-    }
-
     ?>
+    </div> <!-- Cierre del contenedor principal -->
 
+    <!-- Formulario de crear local -->
+    <div class="container my-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6">
 
-    
-    <div class="main-center">
-        <div class="form__container-locales">
-            <h1>Crear local</h1>
-            <form class="form-locales" action="../../../controllers/localesCtrl/localesController.php" method="POST" enctype="multipart/form-data">
-                <label>Codigo Dueño</label><br>
-                <input type="text" name="codDueño" required><br>
-                <label >Nombre de local</label><br>
-                <input type="text" name= "nombreLocal" ><br>
-                <label >Rubro</label><br>
-                <input type="text" name="rubroLocal"><br>
-                <label>Ubicacion</label><br>
-                <input type="text" name="ubicacionLocal"><br>
-                <label>Logo</label><br>
-                <input class="input-img" type="file" name="imgLocal" accept="image/*"><br>
-                <input class="button-form" type="submit" name="confirm" value="Crear local">
-            </form>
+                <h1 class="text-center mb-4">Crear Local</h1>
+
+                <form action="../../../controllers/localesCtrl/localesController.php" method="POST" enctype="multipart/form-data" class="p-4 border rounded shadow-sm bg-white">
+                    
+                    <div class="input-group mb-3">
+                        <span class="input-group-text"><i class="bi bi-person-badge"></i></span>
+                        <input type="text" class="form-control" name="codDueño" placeholder="Código del Dueño" aria-label="Código Dueño" required>
+                    </div>
+                    
+                    <div class="input-group mb-3">
+                        <span class="input-group-text"><i class="bi bi-shop"></i></span>
+                        <input type="text" class="form-control" name="nombreLocal" placeholder="Nombre del local" aria-label="Nombre Local" required>
+                    </div>
+                    
+                    <div class="input-group mb-3">
+                        <span class="input-group-text"><i class="bi bi-tags"></i></span>
+                        <input type="text" class="form-control" name="rubroLocal" placeholder="Rubro del local" aria-label="Rubro" required>
+                    </div>
+                    
+                    <div class="input-group mb-3">
+                        <span class="input-group-text"><i class="bi bi-geo-alt"></i></span>
+                        <input type="text" class="form-control" name="ubicacionLocal" placeholder="Ubicación del local" aria-label="Ubicación" required>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="imgLocal" class="form-label"><i class="bi bi-image"></i> Logo del Local</label>
+                        <input type="file" class="form-control" name="imgLocal" id="imgLocal" accept="image/*" required>
+                        <div class="form-text">Selecciona una imagen para el logo del local (JPG, PNG, GIF)</div>
+                    </div>
+                    
+                    <div class="d-grid">
+                        <button type="submit" name="confirm" class="btn btn-primary btn-lg">Crear Local</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
+
+    <?php include("../../../includes/footer.php"); ?>
+    
 </body>
 </html>

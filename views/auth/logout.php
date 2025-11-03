@@ -14,27 +14,7 @@ session_start();
     <link rel="icon" type="image/png" href="/Descuento-City/assets/img/logo-ventana/logo-fondo-b-circular.png"/>
 </head>
 <body>
-    <?php 
-    // Verificar si el usuario está logueado y mostrar el header correspondiente
-    if(isset($_SESSION["tipoUsuario"])) {
-        switch($_SESSION["tipoUsuario"]) {
-            case "cliente":
-                include("../../includes/cliente/clienteHeader.php");
-                break;
-            case "dueño": 
-                include("../../includes/dueño/dueñoHeader.php");
-                break;
-            case "admin":
-                include("../../includes/admin/adminHeader.php");
-                break;
-            default:
-                include("../../includes/header.php");
-                break;
-        }
-    } else {
-        include("../../includes/header.php");
-    }
-    ?>
+    <?php include("../../includes/navbar.php"); ?>
 
     <div class="container my-5">
         <div class="row justify-content-center">

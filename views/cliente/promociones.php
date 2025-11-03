@@ -2,6 +2,11 @@
 
 session_start();
 
+// Verificar que el usuario esté logueado y sea cliente
+if (!isset($_SESSION['tipoUsuario']) || $_SESSION['tipoUsuario'] !== 'cliente') {
+    header('Location: ../../views/auth/login.php');
+    exit();
+}
 
 include("../../conexionBD.php");
 
@@ -9,6 +14,9 @@ require("../../funciones/funcionesCliente.php");
 require("../../funciones/funcionesSQL.php");
 
 date_default_timezone_set('America/Argentina/Buenos_Aires');
+
+// Variable para breadcrumb
+$breadcrumb_titulo_activo = 'Promociones';
 
 $hoy = date('Y-m-d');
 
@@ -76,21 +84,21 @@ if (!$resultado_promos) {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="/Descuento-City/assets/css/estilos.css">
-    <link rel="icon" type="image/png" href="assets/img/logo-ventana/logo-fondo-b-circular.png"/>
+    <link rel="icon" type="image/png" href="/Descuento-City/assets/img/logo-ventana/logo-fondo-b-circular.png"/>
 </head>
 <body>
-<?php include("../../includes/cliente/clienteHeader.php"); ?>
+<div class="main-content">
+<?php include("../../includes/navbar.php"); ?>
 
-<div class="position-relative">
-    <div class="portada-promociones">
-        <img src="/Descuento-City/assets/img/promociones-portada.png" class="img-fluid w-100" alt="Portada Novedades" style="height: 200px; object-fit: cover;">
-    </div>
-    <div class="breadcrumb-overlay position-absolute top-0 start-0 w-100 text-white p-3">
-        <div class="container">
-            <?php include '../../includes/breadcrumb.php'; ?>
-        </div>
-    </div>
+<!-- Portada -->
+<div class="portada-promociones">
+    <img src="/Descuento-City/assets/img/promociones-portada.png" class="img-fluid w-100" alt="Portada Promociones" style="height: 200px; object-fit: cover;">
+</div>
 
+<!-- Breadcrumb debajo de la portada -->
+<div class="container mt-3">
+    <?php include '../../includes/breadcrumb.php'; ?>
+</div>
 
 <div class="container my-4">
 
@@ -271,6 +279,7 @@ if (!$resultado_promos) {
         }
         ?>
     </div>
+</div>
 </div>
 
 <?php include("../../includes/footer.php"); ?>

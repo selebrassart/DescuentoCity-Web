@@ -2,7 +2,6 @@
 // localUpdate.php - form para editar local (corregido)
 session_start();
 require("../../../conexionBD.php");
-include("../../../includes/admin/adminHeader.php");
 
 
 $codLocal = isset($_GET['codLocal']) ? intval($_GET['codLocal']) : 0;
@@ -46,89 +45,121 @@ if ($codLocal >= 0) {
     <link rel="stylesheet" href="/Descuento-City/assets/css/estilos.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
-    <link rel="icon" type="image/png" href="assets/img/logo-ventana/logo-fondo-b-circular.png"/>
-    <title>Editar Local</title>
+    <title>Editar Local - Admin</title>
+    <link rel="icon" type="image/png" href="/Descuento-City/assets/img/logo-ventana/logo-fondo-b-circular.png"/>
 </head>
 <body>
-    <h1>Editar Local</h1>
+    <?php include("../../../includes/navbar.php");?>
 
-    <?php
-    // Sistema de alertas categorizado
-    if(isset($_SESSION['mensaje_exito'])){
-        echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>";
-        echo "<i class='bi bi-check-circle'></i> ".$_SESSION['mensaje_exito'];
-        echo "<button type='button' class='btn-close' data-bs-dismiss='alert'></button>";
-        echo "</div>";
-        unset($_SESSION['mensaje_exito']);
-    }
-    if(isset($_SESSION['mensaje_error'])){
-        echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>";
-        echo "<i class='bi bi-exclamation-circle-fill'></i> ".$_SESSION['mensaje_error'];
-        echo "<button type='button' class='btn-close' data-bs-dismiss='alert'></button>";
-        echo "</div>";
-        unset($_SESSION['mensaje_error']);
-    }
-    if(isset($_SESSION['mensaje_warning'])){
-        echo "<div class='alert alert-warning alert-dismissible fade show' role='alert'>";
-        echo "<i class='bi bi-exclamation-triangle-fill'></i> ".$_SESSION['mensaje_warning'];
-        echo "<button type='button' class='btn-close' data-bs-dismiss='alert'></button>";
-        echo "</div>";
-        unset($_SESSION['mensaje_warning']);
-    }
-    if(isset($_SESSION['mensaje_info'])){
-        echo "<div class='alert alert-info alert-dismissible fade show' role='alert'>";
-        echo "<i class='bi bi-info-circle-fill'></i> ".$_SESSION['mensaje_info'];
-        echo "<button type='button' class='btn-close' data-bs-dismiss='alert'></button>";
-        echo "</div>";
-        unset($_SESSION['mensaje_info']);
-    }
-    ?>
+    <!-- Mensajes de alerta -->
+    <div class="container mt-3">
+        <?php
+        // Alertas organizadas por tipo
+        if(isset($_SESSION['mensaje_exito'])){
+            echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>";
+            echo "<i class='bi bi-check-circle'></i> ".$_SESSION['mensaje_exito'];
+            echo "<button type='button' class='btn-close' data-bs-dismiss='alert'></button>";
+            echo "</div>";
+            unset($_SESSION['mensaje_exito']);
+        }
+        if(isset($_SESSION['mensaje_error'])){
+            echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>";
+            echo "<i class='bi bi-exclamation-circle-fill'></i> ".$_SESSION['mensaje_error'];
+            echo "<button type='button' class='btn-close' data-bs-dismiss='alert'></button>";
+            echo "</div>";
+            unset($_SESSION['mensaje_error']);
+        }
+        if(isset($_SESSION['mensaje_warning'])){
+            echo "<div class='alert alert-warning alert-dismissible fade show' role='alert'>";
+            echo "<i class='bi bi-exclamation-triangle-fill'></i> ".$_SESSION['mensaje_warning'];
+            echo "<button type='button' class='btn-close' data-bs-dismiss='alert'></button>";
+            echo "</div>";
+            unset($_SESSION['mensaje_warning']);
+        }
+        if(isset($_SESSION['mensaje_info'])){
+            echo "<div class='alert alert-info alert-dismissible fade show' role='alert'>";
+            echo "<i class='bi bi-info-circle-fill'></i> ".$_SESSION['mensaje_info'];
+            echo "<button type='button' class='btn-close' data-bs-dismiss='alert'></button>";
+            echo "</div>";
+            unset($_SESSION['mensaje_info']);
+        }
+        ?>
+    </div>
 
-    <div class="main-center">
-        <div class="form__container-locales">
-            <form class="form-locales" action="/Descuento-City/controllers/localesCtrl/localesUpdateController.php" method="POST" enctype="multipart/form-data">
-                <!-- Codigo Local -->
-                <input type="hidden" name="codLocal" value="<?php echo isset($local['codLocal']) ? htmlspecialchars($local['codLocal']) : ''; ?>">
-                <!-- Nombre Local -->
-                <label> Nombre de local </label><br>
-                <input type="text" name="nombreLocal" value="<?php echo isset($local['nombreLocal']) ? htmlspecialchars($local['nombreLocal']) : ''; ?>" ><br>
-                <!-- Rubro Local -->
-                <label>Rubro</label><br>
-                <input type="text" name="rubroLocal" value="<?php echo isset($local['rubroLocal']) ? htmlspecialchars($local['rubroLocal']) : ''; ?>" ><br>
-                <!-- Ubicacion Local -->
-                <label>Ubicacion</label><br>
-                <input type="text" name="ubicacionLocal" value="<?php echo isset($local['ubicacionLocal']) ? htmlspecialchars($local['ubicacionLocal']) : ''; ?>" ><br>
+    <!-- Formulario de editar local -->
+    <div class="container my-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6">
 
-                <!-- Logo actual -->
-                <label>Logo actual</label><br>
-                <?php
-                // ruta guardada en BD (por ejemplo "uploads/logos/nombre.jpg")
-                $ruta = $img["rutaArchivo"] ?? '';
+                <h1 class="text-center mb-4">Editar Local</h1>
 
-                // Construyo ruta absoluta segura usando DOCUMENT_ROOT + ruta relativa en BD
-                // Asegurate que la ruta en BD sea relativa a la raíz del proyecto (ej: "uploads/logos/xxx.png")
-                $rutaPublica = '/Descuento-City/' . ltrim($ruta, '/\\');
+                <form action="/Descuento-City/controllers/localesCtrl/localesUpdateController.php" method="POST" enctype="multipart/form-data" class="p-4 border rounded shadow-sm bg-white">
+                    
+                    <!-- Codigo Local (hidden) -->
+                    <input type="hidden" name="codLocal" value="<?php echo isset($local['codLocal']) ? htmlspecialchars($local['codLocal']) : ''; ?>">
+                    
+                    <div class="input-group mb-3">
+                        <span class="input-group-text"><i class="bi bi-shop"></i></span>
+                        <input type="text" class="form-control" name="nombreLocal" placeholder="Nombre del local" aria-label="Nombre Local" value="<?php echo isset($local['nombreLocal']) ? htmlspecialchars($local['nombreLocal']) : ''; ?>" required>
+                    </div>
+                    
+                    <div class="input-group mb-3">
+                        <span class="input-group-text"><i class="bi bi-tags"></i></span>
+                        <input type="text" class="form-control" name="rubroLocal" placeholder="Rubro del local" aria-label="Rubro" value="<?php echo isset($local['rubroLocal']) ? htmlspecialchars($local['rubroLocal']) : ''; ?>" required>
+                    </div>
+                    
+                    <div class="input-group mb-3">
+                        <span class="input-group-text"><i class="bi bi-geo-alt"></i></span>
+                        <input type="text" class="form-control" name="ubicacionLocal" placeholder="Ubicación del local" aria-label="Ubicación" value="<?php echo isset($local['ubicacionLocal']) ? htmlspecialchars($local['ubicacionLocal']) : ''; ?>" required>
+                    </div>
 
-                if (!empty($ruta)): ?>
-                    <img src="<?php echo htmlspecialchars($rutaPublica); ?>" alt="Logo del local" width="150" height="100" style="object-fit:cover;border-radius:8px;"><br>
-                <?php else: ?>
-                    <span style="color: gray;">Sin logo</span><br>
-                <?php endif; ?>
+                    <!-- Logo actual -->
+                    <div class="mb-3">
+                        <label class="form-label"><i class="bi bi-image"></i> Logo Actual</label>
+                        <div class="text-center p-3 border rounded bg-light">
+                            <?php
+                            // ruta guardada en BD (por ejemplo "uploads/logos/nombre.jpg")
+                            $ruta = $img["rutaArchivo"] ?? '';
 
-                <!-- Cambiar logo -->
-                <label>Cambiar Logo</label><br>
-                <input type="file" name="nuevoLogo" accept="image/*"><br>
+                            // Construyo ruta absoluta segura usando DOCUMENT_ROOT + ruta relativa en BD
+                            // Asegurate que la ruta en BD sea relativa a la raíz del proyecto (ej: "uploads/logos/xxx.png")
+                            $rutaPublica = '/Descuento-City/' . ltrim($ruta, '/\\');
 
-                <input type="hidden" name="existeLogo" value="<?php echo htmlspecialchars($ruta); ?>" >
+                            if (!empty($ruta)): ?>
+                                <img src="<?php echo htmlspecialchars($rutaPublica); ?>" alt="Logo del local" class="img-thumbnail" style="max-width: 200px; max-height: 150px; object-fit: cover;">
+                            <?php else: ?>
+                                <div class="text-muted">
+                                    <i class="bi bi-image" style="font-size: 3rem;"></i>
+                                    <p class="mb-0">Sin logo</p>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="nuevoLogo" class="form-label"><i class="bi bi-upload"></i> Cambiar Logo</label>
+                        <input type="file" class="form-control" name="nuevoLogo" id="nuevoLogo" accept="image/*">
+                        <div class="form-text">Selecciona una nueva imagen para el logo del local (JPG, PNG, GIF)</div>
+                    </div>
 
-                <input class="button-form" type="submit" name="confirm" value="Guardar cambios">
-            </form>
+                    <input type="hidden" name="existeLogo" value="<?php echo htmlspecialchars($ruta); ?>">
+                    
+                    <div class="d-grid">
+                        <button type="submit" name="confirm" class="btn btn-primary btn-lg">
+                            <i class="bi bi-save"></i> Guardar Cambios
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
+
+    <?php include("../../../includes/footer.php"); ?>
     
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+
 <?php
 mysqli_close($conexion);
 ?>
