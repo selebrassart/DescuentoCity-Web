@@ -17,7 +17,7 @@ $breadcrumb_titulo_activo = 'Novedades';
     <link rel="icon" type="image/png" href="assets/img/logo-ventana/logo-fondo-b-circular.png"/>
 </head>
 <body>
-    <?php include("includes/header.php"); ?>
+<?php include("includes/navbar.php"); ?>
 
     <!-- Hero Section con breadcrumb superpuesto -->
     <div class="position-relative">

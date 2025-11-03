@@ -4,7 +4,7 @@
 
 include("conexionBD.php");    
 
-include("includes/header.php");
+include("includes/navbar.php");
 
 
 $rubroSeleccionado = $_POST['rubro'] ?? '';
@@ -183,7 +183,7 @@ $resultado_locales = mysqli_query($conexion, $sql_locales);
                     ?>
                     <div class="col-lg-3 col-md-4 col-sm-6">
                         <div class="card h-100 shadow-sm">
-                            <div class="card-header bg-light p-3" style="min-height: 120px; display: flex; align-items: center; justify-content: center;">
+                            <div class="card-header bg-white p-5" style="min-height: 120px; display: flex; align-items: center; justify-content: center;">
                                 <img src="<?= htmlspecialchars($rutaImagen) ?>" class="img-fluid" alt="Logo <?= htmlspecialchars($local['nombreLocal']) ?>" style="max-height: 100px; max-width: 100%; object-fit: contain;">
                             </div>
                             <div class="card-body d-flex flex-column">

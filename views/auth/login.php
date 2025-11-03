@@ -18,7 +18,7 @@ include("../../conexionBD.php");
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </head>
 <body>
-    <?php include("../../includes/header.php");?>
+<?php include("../../includes/navbar.php"); ?>
     <!--ruta de navegacion -->
     <div class="container mt-3 small">
             <?php include '../../includes/breadcrumb.php'; ?> 

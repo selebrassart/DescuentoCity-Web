@@ -54,10 +54,10 @@ $resultado_locales = mysqli_query($conexion, $sql_locales);
     <link rel="icon" type="image/png" href="assets/img/logo-ventana/logo-fondo-b-circular.png"/>
 </head>
 <body>
-<?php include("includes/header.php"); ?>
+<?php include("includes/navbar.php"); ?>
  <!-- Hero Section con breadcrumb superpuesto -->
     <div class="position-relative">
-        <div class="portada-novedades">
+        <div class="portada-locales">
             <img src="/Descuento-City/assets/img/locales-portada.png" class="img-fluid w-100" alt="Portada Locales" style="height: 300px; object-fit: cover;">
         </div>
         <div class="breadcrumb-overlay position-absolute top-0 start-0 w-100 text-white p-3">
@@ -146,7 +146,7 @@ $resultado_locales = mysqli_query($conexion, $sql_locales);
             <?php while ($local = mysqli_fetch_assoc($resultado_locales)) { ?>
                 <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
                     <div class="card h-100 shadow-sm text-center">
-                        <div class="card-header bg-light p-3" style="min-height: 120px; display: flex; align-items: center; justify-content: center;">
+                        <div class="card-header bg-white p-5" style="min-height: 120px; display: flex; align-items: center; justify-content: center;">
                             <img src="/Descuento-City/<?= $local['logo'] ?: 'assets/img/default-logo.png'; ?>" 
                                  class="img-fluid" alt="<?= $local['nombreLocal']; ?>"
                                  style="max-height: 100px; max-width: 100%; object-fit: contain;">

@@ -37,11 +37,11 @@ if ($usuario_logueado && $tipo_usuario) {
             include("includes/cliente/clienteHeader.php");
             break;
         default:
-            include("includes/header.php");
+            include("includes/navbar.php"); 
             break;
     }
 } else {
-    include("includes/header.php");
+    include("includes/navbar.php"); 
 }
 ?>
     <!--ruta de navegacion -->

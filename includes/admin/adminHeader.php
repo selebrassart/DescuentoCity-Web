@@ -1,6 +1,12 @@
 
+<?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+?>
 
-
+<!-- Incluir navbar unificado -->
+<?php include($_SERVER['DOCUMENT_ROOT'] . '/Descuento-City/includes/navbar.php'); ?>
 
     <header class="header">
         <div class="header_log-container">
