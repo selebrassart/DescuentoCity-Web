@@ -15,8 +15,8 @@ require("../../funciones/funcionesMail.php");
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/Descuento-City/assets/css/estilos.css">
-    <title>Descuento City</title>
-    <link rel="icon" type="image/png" href="assets/img/logo-ventana/logo-fondo-b-circular.png"/>
+    <title>Registro Exitoso - Descuento City</title>
+    <link rel="icon" type="image/png" href="/Descuento-City/assets/img/logo-ventana/logo-fondo-b-circular.png"/>
 </head>
 <body>
     <div>
