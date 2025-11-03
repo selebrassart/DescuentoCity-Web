@@ -24,11 +24,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["enviar"])) {
             $user_id = $usuario['codUsuario'];
 
             // Generar, guardar y enviar el TOKEN
-            if (generar_y_enviar_token($conexion, $user_id, $email)) {
-                $mensaje = "Se ha enviado un código de restablecimiento a su email.";
-            } else {
-                $mensaje = "Hubo un error al generar o enviar el token.";
-            }
+         if (generar_y_enviar_token($conexion, $user_id, $email)) {
+    $_SESSION['mensaje_success'] = "Se ha enviado un código de restablecimiento a su email.";
+} else {
+    $_SESSION['mensaje_error'] = "Hubo un error al generar o enviar el token.";
+}
+
 
         } else {
             // Email no encontrado: mensaje genérico
