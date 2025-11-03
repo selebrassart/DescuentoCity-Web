@@ -115,7 +115,7 @@ require("../../../funciones/funcionesSQL.php");
             <!-- Logo -->
             <td>
                 <?php if(!empty($fila["rutaArchivo"])):?>
-                    <img src="../../../<?= $fila["rutaArchivo"] ?>" alt="Logo del local" width="70" height="50" style="object-fit:cover;border-radius:8px;">
+                    <img src="../../../<?= $fila["rutaArchivo"] ?>" alt="Logo corporativo del local" width="70" height="50" style="object-fit:cover;border-radius:8px;">
                 <?php else: ?>
                     <span style="color: gray;">Sin logo</span>
                 <?php endif; ?>

@@ -127,7 +127,7 @@ $total_paginas = ceil($total_registros / $cant_por_pag);
                                 $img = mysqli_fetch_assoc($resultadoImg);
                                 if(!empty($nov["rutaArchivo"]))
                             :?>
-                                <img src="../../../<?= $nov["rutaArchivo"] ?>" alt="Portada novedad" width="80" height="40" style="object-fit:cover;border-radius:8px;">
+                                <img src="../../../<?= $nov["rutaArchivo"] ?>" alt="Imagen represantita de la novedad" width="80" height="40" style="object-fit:cover;border-radius:8px;">
 
                             <?php else: ?>
                                 <span style="color: gray;">Sin portada</p></p></span>

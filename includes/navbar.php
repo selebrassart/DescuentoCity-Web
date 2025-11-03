@@ -26,7 +26,7 @@ if (session_status() === PHP_SESSION_NONE) {
         echo '/Descuento-City/index.php';
       }
     ?>">
-      <img src="/Descuento-City/assets/img/logo/LOGO1.png" alt="Descuento City" width="120" class="me-2">
+      <img src="/Descuento-City/assets/img/logo/LOGO1.png" alt="Logo principal de Descuento City - Tu plataforma de descuentos y promociones" width="120" class="me-2">
     </a>
 
     <!-- BOTÓN HAMBURGUESA -->

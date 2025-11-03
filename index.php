@@ -2,7 +2,6 @@
 
 //HOME DECUENTO CITY
 
-session_start();
 include("conexionBD.php");    
 
 include("includes/navbar.php");
@@ -72,13 +71,13 @@ $resultado_locales = mysqli_query($conexion, $sql_locales);
         </div>
         <div class="carousel-inner">
             <div class="carousel-item active">
-                <img src="/Descuento-City/assets/img/carrusel/shopping3.jpg" class="d-block w-100" alt="Promociones Descuento City" style="height: 400px; object-fit: cover;">
+                <img src="/Descuento-City/assets/img/carrusel/shopping3.jpg" class="d-block w-100" alt="Banner principal mostrando las últimas promociones y descuentos disponibles en Descuento City" style="height: 400px; object-fit: cover;">
             </div>
             <div class="carousel-item">
-                <img src="/Descuento-City/assets/img/carrusel/40578.png" class="d-block w-100" alt="Locales participantes" style="height: 400px; object-fit: cover;">
+                <img src="/Descuento-City/assets/img/carrusel/40578.png" class="d-block w-100" alt="Galería de locales comerciales y negocios adheridos a Descuento City" style="height: 400px; object-fit: cover;">
             </div>
             <div class="carousel-item">
-                <img src="/Descuento-City/assets/img/carrusel/wilsonsalebanner.webp" class="d-block w-100" alt="Promociones vigentes" style="height: 400px; object-fit: cover;">
+                <img src="/Descuento-City/assets/img/carrusel/wilsonsalebanner.webp" class="d-block w-100" alt="Banner de ofertas y descuentos especiales de la temporada actual" style="height: 400px; object-fit: cover;">
             </div>
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
@@ -97,60 +96,63 @@ $resultado_locales = mysqli_query($conexion, $sql_locales);
     <!-- Buscador -->
     <div class="container-fluid w-50">
         <form class="d-flex" role="search" onsubmit="return false;">
-            <input class="form-control me-2" type="search" id="buscar" onkeyup="filtrarLocales(this.value);" placeholder="Buscar por nombre, ubicación, rubro o código..." aria-label="Search"/>
+            <input class="form-control me-2" type="search" id="buscar" onkeyup="filtrarLocales(this.value);" placeholder="Buscar locales..." aria-label="Search"/>
             <button class="btn btn-outline-primary" type="button" onclick="filtrarLocales(document.getElementById('buscar').value);">
                 <i class="bi bi-search"></i>
             </button>
         </form>
     </div>
+    </div>
 
 
     <div class="container my-4">
-        <!--  filtros -->
-        <form class="row mb-4" method="POST">
-        
-        <div class="col-md-6 mb-2">
-            <select name="local" class="form-select">
-                <option value="" hidden selected>Buscar por local</option>
-                <option value="">Todos los locales</option>
-                <?php 
-               
-                while ($local = mysqli_fetch_assoc($resultado_nombres)) { 
-                
-                    $selected = ($nombreSeleccionado == $local['codLocal']) ? 'selected' : '';
-                ?>
-                    <option value="<?= $local['codLocal'] ?>" <?= $selected ?>>
-                        <?= $local['nombreLocal'] ?>
-                    </option>
-                <?php } ?>
-            </select>
-        </div>
-
-        <div class="col-md-6 mb-2">
-            <select name="rubro" class="form-select">
-                <option value="" hidden selected>Buscar por rubro</option>
-                <option value="">Todos los rubros</option>
-                <?php 
-            
-                while ($rubro = mysqli_fetch_assoc($resultado_rubros)) { 
-                    $selected = ($rubroSeleccionado == $rubro['rubroLocal']) ? 'selected' : '';
-                ?>
-                    <option value="<?= $rubro['rubroLocal'] ?>" <?= $selected ?>>
-                        <?= $rubro['rubroLocal'] ?>
-                    </option>
-                <?php } ?>
-            </select>
-        </div>
+    <!--  filtros -->
+    <form class="row mb-4" method="POST">
+    
+    <div class="col-md-6 mb-2">
+        <select name="local" class="form-select">
+            <option value="" hidden selected>Buscar por local</option>
+            <option value="">Todos los locales</option>
+            <?php 
            
-        <div class="col-12 text-center mt-3">
-            <button type="button" class="btn btn-outline-secondary me-2" onclick="limpiarTodosFiltros()">
-                <i class="bi bi-arrow-clockwise"></i> Borrar Filtros
-            </button>
-            <button type="submit" class="btn btn-primary">
-                <i class="bi bi-search"></i> Filtrar
-            </button>
+            while ($local = mysqli_fetch_assoc($resultado_nombres)) { 
+            
+                $selected = ($nombreSeleccionado == $local['codLocal']) ? 'selected' : '';
+            ?>
+                <option value="<?= $local['codLocal'] ?>" <?= $selected ?>>
+                    <?= $local['nombreLocal'] ?>
+                </option>
+            <?php } ?>
+        </select>
+    </div>
+
+    <div class="col-md-6 mb-2">
+        <select name="rubro" class="form-select">
+            <option value="" hidden selected>Buscar por rubro</option>
+            <option value="">Todos los rubros</option>
+            <?php 
+        
+            while ($rubro = mysqli_fetch_assoc($resultado_rubros)) { 
+                $selected = ($rubroSeleccionado == $rubro['rubroLocal']) ? 'selected' : '';
+            ?>
+                <option value="<?= $rubro['rubroLocal'] ?>" <?= $selected ?>>
+                    <?= $rubro['rubroLocal'] ?>
+                </option>
+            <?php } ?>
+        </select>
+    </div>
+       
+    <div class="col-12 text-center mt-3">
+        <button type="button" class="btn btn-outline-secondary me-2" onclick="limpiarTodosFiltros()">
+            <i class="bi bi-arrow-clockwise"></i> Borrar Filtros
+        </button>
+        <button type="submit" class="btn btn-primary">
+            <i class="bi bi-search"></i> Filtrar
+        </button>
+    </div>
+                </form>
+            </div>
         </div>
-        </form>
     </div>
 
 
@@ -214,13 +216,15 @@ $resultado_locales = mysqli_query($conexion, $sql_locales);
         </div>
     </section>
 
-    <!-- PROMOCIONES Y NOVEDADES -->
+    <!-- PROMOCIONES Y NOVEDADES. Solo son dos card con un boton que diga ver mas y lo mande a promociones o novedades.-->
+    <!-- Faltaria agregarle una imagen de fondo -->
+
     <section class="py-5 bg-light">
         <div class="container">
             <div class="row g-4">
                 <div class="col-md-6">
                     <div class="card h-100 text-center">
-                        <div class="card-body d-flex flex-column">
+                        <div class="card-body-p d-flex flex-column">
                             <i class="bi bi-percent display-1 text-primary mb-3"></i>
                             <h5 class="card-title">PROMOCIONES</h5>
                             <p class="card-text">Descubre todas las promociones disponibles en nuestros locales participantes.</p>
@@ -232,7 +236,7 @@ $resultado_locales = mysqli_query($conexion, $sql_locales);
                 </div>
                 <div class="col-md-6">
                     <div class="card h-100 text-center">
-                        <div class="card-body d-flex flex-column">
+                        <div class="card-body-n d-flex flex-column">
                             <i class="bi bi-newspaper display-1 text-success mb-3"></i>
                             <h5 class="card-title">NOVEDADES</h5>
                             <p class="card-text">Mantente al día con las últimas noticias y actualizaciones de Descuento City.</p>
@@ -258,7 +262,7 @@ $resultado_locales = mysqli_query($conexion, $sql_locales);
     
     <script>
         function filtrarLocales(termino) {
-            const cards = document.querySelectorAll('#locales .col-lg-3, #locales .col-md-4, #locales .col-sm-6');
+            const cards = document.querySelectorAll('.locales .col');
             const mensajeBusqueda = document.getElementById('mensaje-busqueda');
             const mensajeNoEncontrado = document.getElementById('mensaje-no-encontrado');
             const terminoBusqueda = document.getElementById('termino-busqueda');
@@ -277,26 +281,11 @@ $resultado_locales = mysqli_query($conexion, $sql_locales);
             // Filtrar locales
             cards.forEach(card => {
                 const titulo = card.querySelector('.card-title').textContent.toLowerCase();
-                const ubicacionElement = card.querySelector('.bi-geo-alt');
-                const rubroElement = card.querySelector('.bi-tag');
-                const codigoElement = card.querySelector('small:last-child');
+                const ubicacion = card.querySelector('.bi-geo-alt').parentNode.textContent.toLowerCase();
+                const rubro = card.querySelector('.bi-tag').parentNode.textContent.toLowerCase();
+                const codigo = card.querySelector('small:last-child').textContent.toLowerCase();
                 
-                let textoCompleto = titulo;
-                
-                // Agregar ubicación si existe
-                if (ubicacionElement && ubicacionElement.parentNode) {
-                    textoCompleto += ' ' + ubicacionElement.parentNode.textContent.toLowerCase();
-                }
-                
-                // Agregar rubro si existe
-                if (rubroElement && rubroElement.parentNode) {
-                    textoCompleto += ' ' + rubroElement.parentNode.textContent.toLowerCase();
-                }
-                
-                // Agregar código si existe
-                if (codigoElement) {
-                    textoCompleto += ' ' + codigoElement.textContent.toLowerCase();
-                }
+                const textoCompleto = titulo + ' ' + ubicacion + ' ' + rubro + ' ' + codigo;
                 
                 if (textoCompleto.includes(termino.toLowerCase())) {
                     card.style.display = 'block';

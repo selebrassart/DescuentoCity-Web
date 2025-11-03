@@ -62,7 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['codLocal'])) {
                     <div class="col-md-4">
                         <?php if (!empty($promo["rutaArchivo"])): ?>
                             <img src="/Descuento-City/<?= htmlspecialchars($promo["rutaArchivo"]) ?>" 
-                                 class="img-fluid rounded-start h-100" alt="portada promocion" 
+                                 class="img-fluid rounded-start h-100" alt="Imagen promocional del descuento ofrecido por el local" 
                                  style="object-fit: cover; min-height: 200px;">
                         <?php else: ?>
                             <div class="d-flex align-items-center justify-content-center bg-light rounded-start h-100" style="min-height: 200px;">

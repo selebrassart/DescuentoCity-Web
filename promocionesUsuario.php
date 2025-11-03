@@ -207,7 +207,7 @@ if (!$resultado_promos) {
                 <div class="col-lg-4 col-md-6 mb-4">
                     <div class="card h-100 shadow-sm">
                         <?php if(!empty($promo["rutaArchivo"])):?>
-                        <img src="<?= htmlspecialchars($promo["rutaArchivo"]) ?>" class="card-img-top img-fluid" alt="portada promocion" style="height: 250px; object-fit: cover; width: 100%;"> 
+                        <img src="<?= htmlspecialchars($promo["rutaArchivo"]) ?>" class="card-img-top img-fluid" alt="imagen promocional" style="height: 250px; object-fit: cover; width: 100%;"> 
                         <?php else: ?>
                             <div class="card-img-top d-flex align-items-center justify-content-center bg-light" style="height: 250px; width: 100%;">
                                 <span class="text-muted"><i class="bi bi-image"></i> Sin portada</span>

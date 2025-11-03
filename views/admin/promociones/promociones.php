@@ -136,7 +136,7 @@ include("../../../conexionBD.php");
                     $img = mysqli_fetch_assoc($resultadoImg);
                     if(!empty($promo["rutaArchivo"]))
                 :?>
-                    <img src="../../../<?= $promo["rutaArchivo"] ?>" alt="Logo del local" width="70" height="50" style="object-fit:cover;border-radius:8px;">
+                    <img src="../../../<?= $promo["rutaArchivo"] ?>" alt="Logo corporativo del local" width="70" height="50" style="object-fit:cover;border-radius:8px;">
 
                 <?php else: ?>
                     <span style="color: gray;">Sin portada</p></p></span>
