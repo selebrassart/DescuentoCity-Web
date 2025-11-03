@@ -52,7 +52,7 @@ $resultado_locales = mysqli_query($conexion, $sql_locales);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/Descuento-City/assets/css/estilos.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     <title>Descuento City</title>
     <link rel="icon" type="image/png" href="assets/img/logo-ventana/logo-fondo-b-circular.png"/>
@@ -71,13 +71,13 @@ $resultado_locales = mysqli_query($conexion, $sql_locales);
         </div>
         <div class="carousel-inner">
             <div class="carousel-item active">
-                <img src="/Descuento-City/assets/img/carrusel/40578.png" class="d-block w-100" alt="Promociones Descuento City" style="height: 400px; object-fit: cover;">
+                <img src="/Descuento-City/assets/img/carrusel/shopping3.jpg" class="d-block w-100" alt="Promociones Descuento City" style="height: 400px; object-fit: cover;">
             </div>
             <div class="carousel-item">
                 <img src="/Descuento-City/assets/img/carrusel/40578.png" class="d-block w-100" alt="Locales participantes" style="height: 400px; object-fit: cover;">
             </div>
             <div class="carousel-item">
-                <img src="/Descuento-City/assets/img/carrusel/40578.png" class="d-block w-100" alt="Promociones vigentes" style="height: 400px; object-fit: cover;">
+                <img src="/Descuento-City/assets/img/carrusel/wilsonsalebanner.webp" class="d-block w-100" alt="Promociones vigentes" style="height: 400px; object-fit: cover;">
             </div>
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
@@ -257,7 +257,8 @@ $resultado_locales = mysqli_query($conexion, $sql_locales);
     ?>  
     
     <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+     
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     
     <script>
         function filtrarLocales(termino) {
