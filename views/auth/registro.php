@@ -35,28 +35,28 @@ $breadcrumb_titulo_activo = 'Registro';
         if(isset($_SESSION['mensaje_exito'])){
             echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>";
             echo "<i class='bi bi-check-circle'></i> ".$_SESSION['mensaje_exito'];
-            echo "<button type='button' class='btn-close' data-bs-dismiss='alert'></button>";
+            echo "<button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>";
             echo "</div>";
             unset($_SESSION['mensaje_exito']);
         }
         if(isset($_SESSION['mensaje_error'])){
             echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>";
             echo "<i class='bi bi-exclamation-circle-fill'></i> ".$_SESSION['mensaje_error'];
-            echo "<button type='button' class='btn-close' data-bs-dismiss='alert'></button>";
+            echo "<button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>";
             echo "</div>";
             unset($_SESSION['mensaje_error']);
         }
         if(isset($_SESSION['mensaje_warning'])){
             echo "<div class='alert alert-warning alert-dismissible fade show' role='alert'>";
             echo "<i class='bi bi-exclamation-triangle-fill'></i> ".$_SESSION['mensaje_warning'];
-            echo "<button type='button' class='btn-close' data-bs-dismiss='alert'></button>";
+            echo "<button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>";
             echo "</div>";
             unset($_SESSION['mensaje_warning']);
         }
         if(isset($_SESSION['mensaje_info'])){
             echo "<div class='alert alert-info alert-dismissible fade show' role='alert'>";
             echo "<i class='bi bi-info-circle-fill'></i> ".$_SESSION['mensaje_info'];
-            echo "<button type='button' class='btn-close' data-bs-dismiss='alert'></button>";
+            echo "<button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>";
             echo "</div>";
             unset($_SESSION['mensaje_info']);
         }
@@ -65,7 +65,7 @@ $breadcrumb_titulo_activo = 'Registro';
         if(isset($_SESSION["mensaje"])){
             echo "<div class='alert alert-info alert-dismissible fade show' role='alert'>";
             echo "<i class='bi bi-info-circle-fill'></i> " . $_SESSION['mensaje'];
-            echo "<button type='button' class='btn-close' data-bs-dismiss='alert'></button>";
+            echo "<button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>";
             echo "</div>";
             unset($_SESSION['mensaje']);
         }

@@ -142,25 +142,37 @@ require("../../../funciones/funcionesSQL.php");
                 <span class="badge <?= $estado_class ?>">
                     <i class="<?= $estado_icon ?>"></i> <?= ucfirst($estado) ?>
                 </span>
-            </td>
             <td>
-                <form action="../../../controllers/localesCtrl/localesController.php" method="POST">
-
+                <div class="d-flex flex-wrap gap-1 justify-content-center">
                     <!-- Si local esta eliminado -->
                     <?php if($fila["estadoLocal"] == 'eliminado' ):?>
-                        <input type="hidden" name="codLocal" value="<?= $fila["codLocal"] ?>">
-                        <button type="submit" name="activar" class="button-activar">Activar</button>
+                        <form action="../../../controllers/localesCtrl/localesController.php" method="POST" class="d-inline">
+                            <input type="hidden" name="codLocal" value="<?= $fila["codLocal"] ?>">
+                            <button type="submit" name="activar" class="btn btn-success btn-sm rounded-pill px-3" title="Activar local">
+                                <i class="bi bi-check-lg"></i> Activar
+                            </button>
+                        </form>
                         <!-- Boton para editar -->
-                        <button type="submit" name="editar" class="button-editar"><a href="/Descuento-City/views/admin/locales/localUpdate.php?codLocal=<?php echo $fila['codLocal']; ?>">Editar</a></button>
+                        <a href="/Descuento-City/views/admin/locales/localUpdate.php?codLocal=<?php echo $fila['codLocal']; ?>" 
+                           class="btn btn-warning btn-sm rounded-pill px-3" title="Editar local">
+                            <i class="bi bi-pencil"></i> Editar
+                        </a>
 
                     <!-- Si local esta activo, Permitir editar o eliminar -->
                     <?php elseif($fila["estadoLocal"] == 'activo' ):?>
-                        <input type="hidden" name="codLocal" value="<?= $fila["codLocal"] ?>">
                         <!-- Boton para editar -->
-                        <button type="submit" name="editar" class="button-editar"><a href="/Descuento-City/views/admin/locales/localUpdate.php?codLocal=<?php echo $fila['codLocal']; ?>">Editar</a></button>
-                        <button type="submit" name="eliminar" class="button-eliminar">Eliminar</button>
+                        <a href="/Descuento-City/views/admin/locales/localUpdate.php?codLocal=<?php echo $fila['codLocal']; ?>" 
+                           class="btn btn-warning btn-sm rounded-pill px-3" title="Editar local">
+                            <i class="bi bi-pencil"></i> Editar
+                        </a>
+                        <form action="../../../controllers/localesCtrl/localesController.php" method="POST" class="d-inline">
+                            <input type="hidden" name="codLocal" value="<?= $fila["codLocal"] ?>">
+                            <button type="submit" name="eliminar" class="btn btn-danger btn-sm rounded-pill px-3" title="Eliminar local">
+                                <i class="bi bi-x-lg"></i> Eliminar
+                            </button>
+                        </form>
                     <?php endif;?>
-                </form>
+                </div>
             </td>
         </tr>
     <?php
@@ -221,7 +233,9 @@ require("../../../funciones/funcionesSQL.php");
                     </div>
                     
                     <div class="d-grid">
-                        <button type="submit" name="confirm" class="btn btn-primary btn-lg">Crear Local</button>
+                        <button type="submit" name="confirm" class="btn btn-primary btn-lg rounded-pill">
+                            <i class="bi bi-plus-circle"></i> Crear Local
+                        </button>
                     </div>
                 </form>
             </div>

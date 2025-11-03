@@ -168,15 +168,18 @@ $total_paginas = ceil($total_registros / $cant_por_pag);
                             </span>
                         </td>
                         <td>
-                            <a href="../../../views/admin/novedades/novedadesUpdate.php?codNovedad=<?= $nov['codNovedad'] ?>" class="btn btn-warning btn-sm">
-                                <i class="bi bi-pencil"></i> Editar
-                            </a>
-                            <form action="../../../controllers/novedadesCtrl/eliminarNovedadController.php" method="POST" style="display:inline;">
-                                <input type="hidden" name="codNovedad" value="<?= $nov['codNovedad'] ?>">
-                                <button type="submit" name="eliminar" class="btn btn-danger btn-sm" onclick="return confirm('¿Está seguro de eliminar esta novedad?')">
-                                    <i class="bi bi-trash"></i> Eliminar
-                                </button>
-                            </form>
+                            <div class="d-flex flex-wrap gap-1 justify-content-center">
+                                <a href="../../../views/admin/novedades/novedadesUpdate.php?codNovedad=<?= $nov['codNovedad'] ?>" 
+                                   class="btn btn-warning btn-sm rounded-pill px-3" title="Editar novedad">
+                                    <i class="bi bi-pencil"></i> Editar
+                                </a>
+                                <form action="../../../controllers/novedadesCtrl/eliminarNovedadController.php" method="POST" class="d-inline">
+                                    <input type="hidden" name="codNovedad" value="<?= $nov['codNovedad'] ?>">
+                                    <button type="submit" name="eliminar" class="btn btn-danger btn-sm rounded-pill px-3" title="Eliminar novedad" onclick="return confirm('¿Está seguro de eliminar esta novedad?')">
+                                        <i class="bi bi-x-lg"></i> Eliminar
+                                    </button>
+                                </form>
+                            </div>
                         </td>
                     </tr>
                 <?php

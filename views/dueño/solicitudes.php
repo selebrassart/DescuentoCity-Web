@@ -247,6 +247,10 @@ include("../../conexionBD.php");?>
                             $estado_class = 'bg-danger';
                             $estado_icon = 'bi bi-x-circle-fill';
                             break;
+                        default:
+                            $estado_class = 'bg-secondary';
+                            $estado_icon = 'bi bi-question-circle';
+                            break;
                     }
                     ?>
                     <span class="badge <?= $estado_class ?>">
@@ -254,26 +258,34 @@ include("../../conexionBD.php");?>
                     </span>
                 </td>
                 <td>
-                    <form action="../../controllers/dueñoCtrl/gestionarSolicitudesController.php" method="POST">
+                    <form action="../../controllers/dueñoCtrl/gestionarSolicitudesController.php" method="POST" class="d-inline-flex flex-wrap gap-1 justify-content-center">
                     <!-- Si estado solicitud == pendiente -->
                         <?php if($solicitud['estado'] == 'pendiente' ): ?>
                         <input type="hidden" name="id_solicitud" value="<?= $solicitud['id_solicitud']?>">
-                        <button type="submit" name="aceptar" class="button-activar">aceptar</button>
-                        <button type="submit" name="rechazar" class="button-eliminar">Rachazar</button>
+                        <button type="submit" name="aceptar" class="btn btn-success btn-sm rounded-pill px-3" title="Aceptar solicitud">
+                            <i class="bi bi-check-lg"></i> Aceptar
+                        </button>
+                        <button type="submit" name="rechazar" class="btn btn-danger btn-sm rounded-pill px-3" title="Rechazar solicitud">
+                            <i class="bi bi-x-lg"></i> Rechazar
+                        </button>
 
                     <!-- Si estado solicitud == aceptada -->
                         <?php elseif($solicitud['estado'] == 'aceptada'): ?>
 
                         <input type="hidden" name="id_solicitud" value="<?= $solicitud['id_solicitud']?>">
-                        <button type="submit" name="rechazar" class="button-eliminar">Rachazar</button>
-                        <button type="submit" name="eliminar" class="button-tacho"  title="Eliminar solicitud">
+                        <button type="submit" name="rechazar" class="btn btn-danger btn-sm rounded-pill px-3" title="Rechazar solicitud">
+                            <i class="bi bi-x-lg"></i> Rechazar
+                        </button>
+                        <button type="submit" name="eliminar" class="btn btn-secondary btn-sm rounded-circle" title="Eliminar solicitud">
                             <i class="bi bi-trash3-fill"></i>
                         </button>
                         <!-- Si estado solicitud == rechazada -->
                         <?php elseif($solicitud['estado'] == 'rechazada'): ?>
                         <input type="hidden" name="id_solicitud" value="<?= $solicitud['id_solicitud']?>">
-                        <button type="submit" name="aceptar" class="button-activar">aceptar</button>
-                        <button type="submit" name="eliminar" class="button-tacho" title="Eliminar solicitud">
+                        <button type="submit" name="aceptar" class="btn btn-success btn-sm rounded-pill px-3" title="Aceptar solicitud">
+                            <i class="bi bi-check-lg"></i> Aceptar
+                        </button>
+                        <button type="submit" name="eliminar" class="btn btn-secondary btn-sm rounded-circle" title="Eliminar solicitud">
                             <i class="bi bi-trash3-fill"></i>
                         </button>
                         <?php endif;?>

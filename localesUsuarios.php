@@ -57,14 +57,19 @@ $resultado_locales = mysqli_query($conexion, $sql_locales);
 <?php include("includes/navbar.php"); ?>
 
 <!-- Portada -->
-<div class="portada-locales">
-    <img src="/Descuento-City/assets/img/locales-portada.png" class="img-fluid w-100" alt="Portada Locales" style="height: 300px; object-fit: cover;">
-</div>
+     <section class="portada position-relative">
+        <img src="/Descuento-City/assets/img/locales-portada.png" alt="Portada Locales"class="portada-img img-fluid">
+        <div class="portada-overlay text-center">
+            <h1 class="portada-titulo">LOCALES</h1>
+            <p class="portada-subtitulo">Descubrí todas las marcas y rubros de<strong>Descuento City</strong>.</p>
+        </div>
+    </section>
+
 
 <!-- Breadcrumb debajo de la portada -->
-<div class="container mt-3">
-    <?php include 'includes/breadcrumb.php'; ?>
-</div>
+    <div class="container mt-3">
+        <?php include 'includes/breadcrumb.php'; ?>
+    </div>
 
     <!-- Buscador de locales -->
     <div class="container my-4">
@@ -169,7 +174,7 @@ $resultado_locales = mysqli_query($conexion, $sql_locales);
 
 <script>
     function filtrarLocales(termino) {
-        const cards = document.querySelectorAll('.row .col-md-3');
+        const cards = document.querySelectorAll('.row .col-lg-3, .row .col-md-4, .row .col-sm-6');
         const mensajeBusqueda = document.getElementById('mensaje-busqueda-locales');
         const mensajeNoEncontrado = document.getElementById('mensaje-no-encontrado-locales');
         const terminoBusqueda = document.getElementById('termino-busqueda-locales');
@@ -187,11 +192,15 @@ $resultado_locales = mysqli_query($conexion, $sql_locales);
         
         // Filtrar locales
         cards.forEach(card => {
-            const titulo = card.querySelector('.card-title').textContent.toLowerCase();
-            const rubro = card.querySelector('.card-text').textContent.toLowerCase();
-            const ubicacion = card.querySelector('small').textContent.toLowerCase();
+            const titulo = card.querySelector('.card-title');
+            const rubro = card.querySelector('.card-text');
+            const ubicacion = card.querySelector('small');
             
-            const textoCompleto = titulo + ' ' + rubro + ' ' + ubicacion;
+            let textoCompleto = '';
+            
+            if (titulo) textoCompleto += ' ' + titulo.textContent.toLowerCase();
+            if (rubro) textoCompleto += ' ' + rubro.textContent.toLowerCase();
+            if (ubicacion) textoCompleto += ' ' + ubicacion.textContent.toLowerCase();
             
             if (textoCompleto.includes(termino.toLowerCase())) {
                 card.style.display = 'block';

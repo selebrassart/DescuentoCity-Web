@@ -251,12 +251,11 @@ include("../../conexionBD.php");
                 <span class="badge <?= $estado_class ?>">
                     <i class="<?= $estado_icon ?>"></i> <?= ucfirst($estado) ?>
                 </span>
-            </td>
             <td>
-                <form action="../../controllers/promocionesCtrl/eliminarUsoPromoController.php" method="POST">
+                <form action="../../controllers/promocionesCtrl/eliminarUsoPromoController.php" method="POST" class="d-inline">
                     <input type="hidden" name="idUso" value="<?= $uso['idUso']?>">
                     <input type="hidden" name="codCliente" value="<?= $uso['codCliente']?>"> 
-                    <button type="submit" name="eliminar" class="button-tacho" title="Eliminar solicitud">
+                    <button type="submit" name="eliminar" class="btn btn-secondary btn-sm rounded-circle" title="Eliminar solicitud">
                         <i class="bi bi-trash3-fill"></i>
                     </button>
                 </form>

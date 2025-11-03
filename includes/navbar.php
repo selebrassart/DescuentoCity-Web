@@ -4,10 +4,10 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 ?>
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm fixed-top" style="z-index:1050;">
-  <div class="container">
+<nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm fixed-top navbar-height" style="z-index:1050;">
+  <div class="container-fluid">
     <!-- LOGO -->
-    <a class="navbar-brand fw-bold d-flex align-items-center" href="<?php 
+    <a class="navbar-brand fw-bold d-flex align-items-center position-fixed-logo" href="<?php 
       if (isset($_SESSION['tipoUsuario'])) {
         switch($_SESSION['tipoUsuario']) {
           case 'cliente':
@@ -85,7 +85,7 @@ if (session_status() === PHP_SESSION_NONE) {
 </nav>
 
 <!-- espacio porque es fixed-top -->
-<div style="height:90px;"></div>
+<div class="navbar-spacer"></div>
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
@@ -139,3 +139,81 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 </script>
+
+<style>
+/* Altura aumentada del navbar */
+.navbar-height {
+    min-height: 80px;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+/* Altura reducida en móvil */
+@media (max-width: 767px) {
+    .navbar-height {
+        min-height: 60px;
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+    }
+}
+
+/* Espaciador responsivo para navbar fixed-top */
+.navbar-spacer {
+    height: 100px;
+}
+
+@media (max-width: 767px) {
+    .navbar-spacer {
+        height: 70px;
+    }
+}
+
+/* Logo fijo a la izquierda en pantallas grandes */
+@media (min-width: 1200px) {
+    .navbar .container-fluid {
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
+    
+    .position-fixed-logo {
+        position: absolute;
+        left: 2rem;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 1060;
+    }
+    
+    .navbar-collapse {
+        margin-left: 160px; /* Espacio para el logo */
+    }
+}
+
+@media (min-width: 1400px) {
+    .navbar .container-fluid {
+        padding-left: 3rem;
+        padding-right: 3rem;
+    }
+    
+    .position-fixed-logo {
+        left: 3rem;
+    }
+    
+    .navbar-collapse {
+        margin-left: 180px; 
+    }
+}
+
+/* En pantallas medianas y pequeñas mantener comportamiento normal */
+@media (max-width: 1199px) {
+    .position-fixed-logo {
+        position: relative;
+        left: auto;
+        top: auto;
+        transform: none;
+    }
+    
+    .navbar-collapse {
+        margin-left: 0;
+    }
+}
+</style>

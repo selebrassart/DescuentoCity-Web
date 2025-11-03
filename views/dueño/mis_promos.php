@@ -120,11 +120,13 @@ include("../../conexionBD.php");
             <td> <?= $fila["diasSemana"]?></td>
             <td> <?= ucfirst($fila["estadoPromo"])?></td>
             <td>
-                <form action="../../controllers/dueñoCtrl/promocionesDueñoController.php" method="POST">
+                <form action="../../controllers/dueñoCtrl/promocionesDueñoController.php" method="POST" class="d-inline">
                     <!-- Si local esta eliminado -->
                     <?php if($fila["estadoPromo"] == 'pendiente' OR 'aprobada' OR 'denegada'):?>
                         <input type="hidden" name="codPromo" value="<?= $fila["codPromo"] ?>">
-                        <button type="submit" name="eliminar" class="button-eliminar">Eliminar</button>
+                        <button type="submit" name="eliminar" class="btn btn-secondary btn-sm rounded-circle" title="Eliminar promoción">
+                            <i class="bi bi-trash3-fill"></i>
+                        </button>
                     <?php endif;?>
                 </form>
             </td>
@@ -278,7 +280,9 @@ include("../../conexionBD.php");
                     </div>
                     
                     <div class="d-grid">
-                        <button type="submit" name="confirm" class="btn btn-primary btn-lg">Crear Promoción</button>
+                        <button type="submit" name="confirm" class="btn btn-primary btn-lg rounded-pill">
+                            <i class="bi bi-plus-circle"></i> Crear Promoción
+                        </button>
                     </div>
                 </form>
             </div>
