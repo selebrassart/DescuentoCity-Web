@@ -15,27 +15,31 @@ body {
     flex-direction: column;
     margin: 0;
     padding: 0;
-    background-color: #f5f5f5;
 }
 
+a {
+    text-decoration: none;
+    color: #007BFF; 
+}
+
+/*IMAGENES*/
+
+img {
+    max-width: 100%;
+    height: auto;
+}
 /* Asegurar que el contenido principal tome el espacio disponible */
 .main-content, main {
     flex: 1;
 }
 
-/* El footer debe estar al final sin espacios adicionales */
-footer {
-    margin-top: auto;
-    margin-bottom: 0 !important;
-    padding-bottom: 20px !important;
-}
 
 
 
-
-/* Header #0F172A */
+/* Header #0F172A color viejo */
 
 /* Estilos para el navbar responsive */
+
 .navbar-collapse {
     display: none;
 }
@@ -49,6 +53,7 @@ footer {
 }
 
 /* Mostrar siempre en desktop */
+
 @media (min-width: 992px) {
     .navbar-collapse {
         display: flex !important;
@@ -60,6 +65,7 @@ footer {
 }
 
 /* Comportamiento en móviles */
+
 @media (max-width: 991.98px) {
     .navbar-collapse {
         background-color: white;
@@ -80,6 +86,9 @@ footer {
         margin: 0.25rem 0;
     }
 }
+
+
+/* MIGAS DE PAN / BREADCRUMB */
 
 /* Estilos para breadcrumb */
 .breadcrumb {
@@ -109,7 +118,8 @@ footer {
     font-weight: 600;
 }
 
-/* Responsivo para breadcrumbs */
+
+/* Responsive migas de pan */
 @media (max-width: 768px) {
     .breadcrumb {
         font-size: 0.8rem;
@@ -118,232 +128,16 @@ footer {
     }
 }
 
-.header{
-    background-color: #fff;
-    width: 100%;
-    height: 8vh;
-    display: flex;
-    position: sticky;
-    bottom: auto;
-    top: 0;
-    align-items: center;
-    justify-content: flex-start;
-    padding: 0 32px;
-    z-index: 1;
-}
-
-
-.header_log-container{
-    flex: 0 0 auto;
-
-}
-
-.header__nav{
-    flex : 1 1 auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 40px;
-}
-
-.header__nav-list{
-    display: flex;
-    gap: 32px;
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    justify-content: center;
-    flex: 1;
-}
-
-
-.header__nav-item a {
-    font-weight: 600;
-    color: #77838f;
-    padding:6px 12px;
-    text-decoration: none;
-    transition:  border , color .20s;
-}
-
-.header__nav-item a:hover{
-    opacity: 100%;
-    border-bottom: 1px solid #111;
-    color: #004aad;
-}
-
-
-a {
-    text-decoration: none;
-    color: #007BFF; 
-}
-
-/*Imagenes*/
-img {
-    max-width: 100%;
-    height: auto;
-}
-
-/*Carrusel*/
-
-.carrusel img {
-    border-radius: 12px;
-    height: 32vh;
-    object-fit: cover;
-}
 
 
 
-/* Formularios */
-
-.button-form{
-    margin-top: 5px;
-    padding: 8px 12px;
-    background-color:#007BFF ;
-    color: #fff;
-    border: none;
-    border-radius: 6px;
-    font-weight: 600;
-    font-size: 15px;
-
-}
 
 
 
-.button-form-login {
-    padding: 8px 12px;
-    background-color:#fff ;
-    border: 1px solid  #007BFF;
-    color: #007BFF;
-    border-radius: 6px;
-    font-weight: 600;
-    font-size: 15px;
 
+/* Paginacion Bootstrap personalizada */
 
-}
-
-
-.main-center{
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-
-/* Login / registro */
-
-
-/* Login */
-
-.form__container{
-    background-color: #fff;
-    width: 350px;
-    height: 350px;
-    border-radius: 12px;
-}
-
-
-
-.form__container-reg{
-    background-color: #ffff;
-    width: 350px;
-    height: 500px;
-    border-radius: 12px;
-}
-
-
-.input-form {
-    display: inline-block;
-    margin-bottom: 16px;
-    padding: 8px 20px;
-    border-radius: 4px;
-    border: 1px solid #666;
-}
-
-
-/* Tabla dueños */
-
-.tabla.table {
-    width: auto;
-    max-width: 1444px;
-    margin: 10px auto;
-    box-shadow: 0 6px 30px rgba(0,0,0,0.20);
-}
-
-
-.tabla th,.tabla td {
-    border: 1px solid #999;
-    padding: 8px 12px;
-}
-
-.table-responsive {
-    overflow-x: auto;
-}
-
-.tabla  caption {
-    caption-side: top;
-    text-align: center;
-    font-size: 1.20rem;
-    font-weight: 700;
-    color: #0f172a;
-    padding: 10px 12px;
-}
-
-.tabla th {
-    background-color: #ddd;
-}
-
-
-
-.button-activar{ 
-    background-color: #43A02F;
-    color: #fffd;
-    width: 120px;
-    border-radius: 8px;
-    padding: 2px 10px;
-    border: none;
-    cursor: pointer;
-    margin: 2px;
-}
-
-.button-eliminar{
-    background-color:#E53935;
-    color: #fffd;
-    border-radius: 8px;
-    padding: 2px 8px;
-    border: none;
-    cursor: pointer;
-    margin: 2px;
-
-}
-
-
-.button-editar{
-    background-color: #F1C40F;
-    width: 80px;
-    border-radius: 8px;
-    padding: 2px 10px;
-    border: none;
-    cursor: pointer;
-    margin-right:4px;
-    margin: 2px;
-}
-
-.button-editar a {
-    color: #374151;
-}
-
-.button-tacho{
-    margin-left: 4px;
-    background-color: transparent;
-    border: none;
-
-}
-
-
-/* Paginacion */
-
-.paginacion{
+.paginacion {
     display: flex;
     gap: 6px;
     justify-content: center;
@@ -352,145 +146,155 @@ img {
     flex-wrap: wrap;
 }
 
-.paginacion a{
-    display: inline-block;
-    padding: 6px 10px;
-    border-radius: 6px;
-    background: #ffffff;
-    border: 1px solid #d1d5db;
-    color: #374151;
-    text-decoration: none;
+.paginacion .btn {
+    border-radius: 8px !important;
     font-weight: 600;
-    transition: background .15s, color .15s, border-color .15s;
-
+    font-size: 0.875rem;
+    padding: 0.375rem 0.75rem;
+    border: 1px solid #dee2e6;
+    transition: all 0.15s ease-in-out;
 }
 
-.paginacion a:hover {
-    background: #f3f4f6;
-    border-color: #cbd5e1;
+.paginacion .btn-outline-primary {
+    color: #0d6efd;
+    border-color: #0d6efd;
+}
+
+.paginacion .btn-outline-primary:hover {
+    color: #fff;
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+}
+
+.paginacion .btn-primary {
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+    color: #fff;
+    font-weight: 700;
 }
 
 .paginacion .current {
-    display: inline-block;
-    padding: 6px 10px;
-    border-radius: 6px;
-    background: #2563eb;
-    color: #fff;
+    display: inline-flex;
+    align-items: center;
+    padding: 0.375rem 0.75rem;
+    font-size: 0.875rem;
     font-weight: 700;
-    border: 1px solid #2563eb;
+    color: #fff;
+    background-color: #0d6efd;
+    border: 1px solid #0d6efd;
+    border-radius: 8px;
+    text-decoration: none;
 }
 
-
-
-
-
-
-/* Formlarios CRUD */
-
-
-.form__container-locales{
-    background-color: #fff;
-    width: 90%;
-    max-width: 900px;
-    padding: 22px;
-    border-radius: 12px;
-    box-shadow: 0 6px 18px rgba(0,0,0,0.06);
-    margin: 24px auto;
-    box-sizing: border-box;
-}
-
-
-.form__container-promociones{
-    background-color: #fff;
-    width: 90%;
-    max-width: 900px;
-    padding: 22px;
-    border-radius: 12px;
-    box-shadow: 0 6px 18px rgba(0,0,0,0.06);
-    margin: 24px auto;
-    box-sizing: border-box;
-}
-
-.form-locales input , .form-promociones input{
-    padding: 8px 20px;
-    margin: 5px;
-    border-radius: 4px;
-    border: 1px solid #666;
+/* Responsivo para paginación */
+@media (max-width: 576px) {
+    .paginacion .btn {
+        font-size: 0.75rem;
+        padding: 0.25rem 0.5rem;
+    }
     
+    .paginacion .current {
+        font-size: 0.75rem;
+        padding: 0.25rem 0.5rem;
+    }
 }
 
-.form-locales label ,.form-promociones label {
-    font-weight: 600;
-    margin-bottom: 6px;
-    color: #222;
-}
 
 
-/* Carrusel */
 
-.carrusel{
-    width: 100%;
-    background-color: #43A047;
-    height: 32vh;
-    position: relative;
+
+
+
+
+
+
+
+/*HOME*/
+
+/* locales card */
+
+.card{
+    border: none;
+    border-radius: 16px;
     overflow: hidden;
+    transition: transform 0.25s ease,box-shadow 0.25 ease;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
 }
 
-.carrusel .container,
-.carrusel .container-fluid {
-    height: 100%;
-    padding: 0; /* quitar padding para que la imagen llegue a los bordes */
-}
-.carrusel .carousel-inner,
-.carrusel .carousel-item {
-    height: 100%;
+.card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
 }
 
-.carrusel .carousel-item img,
-.carrusel img {
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* recorta la imagen manteniendo su aspecto */
+.card-body {
+    background-color: #f9fafb;
+    border-radius: 0 0 16px 16px;
+}
+
+.card-title {
+    color: #0F172A;
+    font-weight: 600;
+}
+
+.card-text small {
+    color: #64748B;
+}
+
+/* Cards de estadísticas/reportes */
+.card.bg-primary, .card.bg-success, .card.bg-warning, .card.bg-info, .card.bg-danger {
+    border: none;
     border-radius: 12px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
-/* Home*/
-
-
-
-/* Home locales */
-
-.card-body{
-    background-color: #ccc8;
-
+.card.bg-primary:hover, .card.bg-success:hover, .card.bg-warning:hover, .card.bg-info:hover, .card.bg-danger:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
 }
 
-
-/* Home promociones */
-
-.card-body-p{
-    background-color: #ccc8;
+/* Mejorar la altura uniforme de las cards de estadísticas */
+.card.h-100 {
+    min-height: 160px;
 }
 
+.card.h-100 .card-body {
+    padding: 1.5rem;
+    background-color: transparent;
+}
 
-
-
-/* Home novedades */
-
-.card-body-n{
-    background-color: #ccc8;
+.card.h-100 .display-4 {
+    opacity: 0.8;
 }
 
 
-/* Home servicios */
+/* Portadas promocion y novedades */
 
-/* Promociones */
-.card-color{
-    background-color: #ccc8;
+
+/* Portada promocion home */
+
+.card-body-pro, .card-body-nov {
+  padding: 2rem;
+  border-radius: 8px;
+  background: #E0F2FE;
+  transition: all 0.2s ease;
+}
+
+.card-body-nov {
+  background: #DCFCE7;
+}
+
+.card-body-pro:hover, .card-body-nov:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.08);
 }
 
 
+
+
+
+
+/* ALERTAaS */
 
 /* Mensaje alerta */
 
@@ -530,6 +334,7 @@ img {
 }
 
 /* Animación para las alertas */
+
 @keyframes slideIn {
     from {
         opacity: 0;
@@ -541,46 +346,373 @@ img {
     }
 }
 
-/* Estilos para párrafos dentro de alertas */
+/* Texto alertas */
+
 .alert p {
     margin: 0;
     font-size: 16px;
 }
 
-/* CARRUSEL */
-.carousel {
-    margin-bottom: 2rem;
+
+
+/* BOTONES  */
+
+.btn {
+    border-radius: 8px ;
 }
 
-.carousel-item video {
-    border-radius: 8px;
+.btn-rounded {
+    border-radius: 12px ;
 }
 
-.carousel-caption {
-    background: rgba(0, 0, 0, 0.5);
-    border-radius: 8px;
-    padding: 15px;
+.btn-pill {
+    border-radius: 25px;
 }
 
-.carousel-caption h5 {
-    font-size: 1.5rem;
-    font-weight: bold;
-    margin-bottom: 10px;
+
+
+/* IMG PORTADAS loc,pro,nov */
+
+/* CONTENEDOR GENERAL */
+.portada {
+  width: 100%;
+  height: 320px;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.carousel-caption p {
+/* IMAGEN DE FONDO */
+.portada-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  filter: brightness(0.7) contrast(1.05); /* oscurece un poco para que el texto resalte */
+  transition: transform 0.5s ease;
+}
+
+/* EFECTO DE ZOOM SUAVE */
+.portada:hover .portada-img {
+  transform: scale(1.03);
+}
+
+/* TEXTO ENCIMA */
+.portada-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #fff;
+  text-align: center;
+  padding: 0 1rem;
+  z-index: 2;
+}
+
+.portada-titulo {
+  font-weight: 700;
+  font-size: 2.5rem;
+  letter-spacing: 0.06em;
+  margin-bottom: 0.5rem;
+  color: #ffffff;
+  text-shadow: 0 3px 10px rgba(0,0,0,0.4);
+}
+
+.portada-subtitulo {
+  font-size: 1.1rem;
+  font-weight: 400;
+  color: #f1f5f9;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+
+@media (max-width: 992px) {
+  .portada {
+    height: 260px;
+  }
+  .portada-titulo {
+    font-size: 2rem;
+  }
+  .portada-subtitulo {
     font-size: 1rem;
-    margin: 0;
+  }
 }
 
+@media (max-width: 576px) {
+  .portada {
+    height: 200px;
+  }
+  .portada-titulo {
+    font-size: 1.6rem;
+  }
+  .portada-subtitulo {
+    font-size: 0.9rem;
+  }
+}
+
+
+/*CARRUSEL*/
+
+
+.main-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+/* Carrusel responsive */
+.carousel-img {
+    width: 100%;
+    height: 400px;
+    object-fit: cover; 
+    background-color: #f8f9fa; 
+}
+
+@media (max-width: 768px) {
+    .carousel-img {
+        height: 250px;
+        object-fit: cover; 
+    }
+}
+
+@media (max-width: 576px) {
+    .carousel-img {
+        height: 200px;
+        object-fit: cover;
+    }
+}
+
+@media (min-width: 1200px) {
+    .carousel-img {
+        height: 600px;
+        object-fit: cover;
+    }
+}
+
+@media (min-width: 1400px) {
+    .carousel-img {
+        height: 900px;
+        object-fit: cover;
+    }
+}
+
+/* Mejorar el carrusel */
+.carousel-inner {
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.carousel-item {
+    transition: transform 0.6s ease-in-out;
+}
+
+/* Controles del carrusel más visibles */
 .carousel-control-prev,
 .carousel-control-next {
     width: 5%;
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
 }
 
-.carousel-control-prev-icon,
-.carousel-control-next-icon {
-    background-size: 20px 20px;
+.carousel-control-prev:hover,
+.carousel-control-next:hover {
+    opacity: 1;
 }
 
-/* FOOTER (está en otro css)*/
+/* Controles más visibles en móvil */
+@media (max-width: 768px) {
+    .carousel-control-prev,
+    .carousel-control-next {
+        width: 15%;
+    }
+    
+    .carousel-control-prev-icon,
+    .carousel-control-next-icon {
+        width: 25px;
+        height: 25px;
+    }
+}
+
+/* Indicadores mejorados */
+.carousel-indicators [data-bs-target] {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin: 0 4px;
+    background-color: rgba(255,255,255,0.5);
+    border: 2px solid rgba(255,255,255,0.8);
+    transition: all 0.3s ease;
+}
+
+.carousel-indicators [data-bs-target].active {
+    background-color: #fff;
+    transform: scale(1.2);
+}
+
+
+/* Indicadores más grandes en móvil */
+@media (max-width: 768px) {
+    .carousel-indicators [data-bs-target] {
+        width: 12px;
+        height: 12px;
+    }
+}
+
+
+
+/* LOCALES */
+
+/* Contenedor de locales con restricción de ancho */
+.locales-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+/* Mejorar el espaciado en pantallas grandes */
+@media (min-width: 1400px) {
+    .container {
+        max-width: 1200px;
+    }
+}
+
+/* Buscador responsive */
+@media (min-width: 768px) {
+    .buscador-container {
+        max-width: 600px;
+        margin: 0 auto;
+    }
+}
+
+
+
+
+
+/* TABLAS*/
+
+
+
+.table-responsive .table {
+    margin-bottom: 0;
+
+}
+
+.table-responsive .table th {
+    background-color: #bbb;
+    font-weight: 600;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+/* Mejorar la responsividad de las tablas */
+.table-responsive {
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    margin-bottom: 1.5rem;
+}
+
+/* Estilos base para tablas */
+.tabla {
+    font-size: 0.9rem;
+    margin-bottom: 0;
+}
+
+.tabla caption {
+    caption-side: top;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #495057;
+    text-align: center;
+    padding: 0.75rem 0;
+    background-color: transparent;
+    border: none;
+    border-radius: 0;
+}
+
+.tabla th {
+    font-weight: 600;
+    color: #495057;
+    border-top: none;
+    background-color: #f8f9fa;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.tabla td {
+    vertical-align: middle;
+    padding: 0.75rem 0.5rem;
+}
+
+/* Responsive breakpoints específicos para tablas */
+@media (max-width: 576px) {
+    .tabla {
+        font-size: 0.8rem;
+    }
+    
+    .tabla th,
+    .tabla td {
+        padding: 0.5rem 0.25rem;
+    }
+    
+    /* Ocultar columnas menos importantes en móvil */
+    .tabla .d-none-mobile {
+        display: none;
+    }
+    
+    /* Hacer botones más pequeños en móvil */
+    .tabla .btn-sm {
+        font-size: 0.7rem;
+        padding: 0.2rem 0.4rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .tabla {
+        font-size: 0.85rem;
+    }
+    
+    /* Ajustar spacing en tablets */
+    .tabla th,
+    .tabla td {
+        padding: 0.6rem 0.4rem;
+    }
+}
+
+
+
+/*  scroll horizontal */
+.table-responsive::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 20px;
+    background: linear-gradient(to left, rgba(255,255,255,0.8), transparent);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.table-responsive:hover::after {
+    opacity: 1;
+}
+
+/* Mejorar la visibilidad de badges en tablas */
+.tabla .badge {
+    font-size: 0.75rem;
+    padding: 0.35em 0.65em;
+}
+
+@media (max-width: 576px) {
+    .tabla .badge {
+        font-size: 0.7rem;
+        padding: 0.25em 0.5em;
+    }
+}

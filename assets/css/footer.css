@@ -33,7 +33,8 @@ main, .main-content {
 
 .footer {
     background-color: #0F172A;
-    padding: 60px 0 20px;
+    color: #E2E8F0;
+    padding: 40px 0 ;
     margin-top: auto;
     width: 100%;
     flex-shrink: 0;
@@ -47,6 +48,7 @@ main, .main-content {
 }
 
 .footer-links {
+    color: #E2E8F0;
     padding: 0;
     text-align: left;
 }
@@ -54,7 +56,7 @@ main, .main-content {
 .footer-links h4,
 .social-link h4 {
     font-size: 20px;
-    color: #caf0f8;
+    color: #E2E8F0;
     margin-bottom: 25px;
     font-weight: 600;
     border-bottom: 2px solid #00c3ff;
@@ -119,7 +121,7 @@ main, .main-content {
 }
 
 .social-link a:hover {
-    color: #ffffff;
+    color: #60A5FA;
     background-color: #00c3ff;
     transform: translateY(-3px);
     box-shadow: 0 6px 12px rgba(0,0,0,0.3);

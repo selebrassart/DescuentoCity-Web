@@ -62,43 +62,60 @@ $resultado_locales = mysqli_query($conexion, $sql_locales);
 <body>
 
 
-    <!-- CARRUSEL -->
-
+    <!-- CARRUSEL RESPONSIVE -->
     <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-indicators">
             <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
             <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
             <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" aria-label="Slide 4"></button>
         </div>
         <div class="carousel-inner">
+
             <div class="carousel-item active">
-                <img src="/Descuento-City/assets/img/carrusel/shopping3.jpg" class="d-block w-100" alt="Promociones Descuento City" style="height: 400px; object-fit: cover;">
+                <img src="/Descuento-City/assets/img/carrusel/dc.png" 
+                     class="d-block w-100 carousel-img" 
+                     alt="Promociones vigentes">
             </div>
+
             <div class="carousel-item">
-                <img src="/Descuento-City/assets/img/carrusel/40578.png" class="d-block w-100" alt="Locales participantes" style="height: 400px; object-fit: cover;">
+                <img src="/Descuento-City/assets/img/carrusel/40578.png" 
+                     class="d-block w-100 carousel-img" 
+                     alt="Locales participantes">
             </div>
+
             <div class="carousel-item">
-                <img src="/Descuento-City/assets/img/carrusel/wilsonsalebanner.webp" class="d-block w-100" alt="Promociones vigentes" style="height: 400px; object-fit: cover;">
+                <img src="/Descuento-City/assets/img/carrusel/wilsonsalebanner.webp" 
+                     class="d-block w-100 carousel-img" 
+                     alt="Promociones vigentes">
             </div>
+
+            <div class="carousel-item">
+                <img src="/Descuento-City/assets/img/carrusel/banner.png" 
+                     class="d-block w-100 carousel-img" 
+                     alt="Promociones vigentes">
+            </div>
+
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Anterior</span>
-            </button>
+        </button>
         <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Siguiente</span>
         </button>
     </div>
 
-    <h2 class="text-center mb-4">NUESTROS LOCALES</h2>
+
+    <h2 class="text-center mb-5 mt-5">NUESTROS LOCALES</h2>
 
 
     <!-- Buscador -->
-    <div class="container-fluid w-50">
+    <div class="container-fluid buscador-container">
         <form class="d-flex" role="search" onsubmit="return false;">
             <input class="form-control me-2" type="search" id="buscar" onkeyup="filtrarLocales(this.value);" placeholder="Buscar por nombre, ubicación, rubro o código..." aria-label="Search"/>
-            <button class="btn btn-outline-primary" type="button" onclick="filtrarLocales(document.getElementById('buscar').value);">
+            <button class="btn btn-outline-primary btn-rounded" type="button" onclick="filtrarLocales(document.getElementById('buscar').value);">
                 <i class="bi bi-search"></i>
             </button>
         </form>
@@ -143,10 +160,10 @@ $resultado_locales = mysqli_query($conexion, $sql_locales);
         </div>
            
         <div class="col-12 text-center mt-3">
-            <button type="button" class="btn btn-outline-secondary me-2" onclick="limpiarTodosFiltros()">
+            <button type="button" class="btn btn-outline-secondary btn-rounded me-2" onclick="limpiarTodosFiltros()">
                 <i class="bi bi-arrow-clockwise"></i> Borrar Filtros
             </button>
-            <button type="submit" class="btn btn-primary">
+            <button type="submit" class="btn btn-primary btn-rounded">
                 <i class="bi bi-search"></i> Filtrar
             </button>
         </div>
@@ -189,7 +206,7 @@ $resultado_locales = mysqli_query($conexion, $sql_locales);
                                 <p class="card-text">
                                     <small class="text-muted"><i class="bi bi-geo-alt"></i> <?= htmlspecialchars($local['ubicacionLocal']) ?></small><br>
                                     <small class="text-muted"><i class="bi bi-tag"></i> <?= htmlspecialchars($local['rubroLocal']) ?></small><br>
-                                    <small class="text-muted"><i class="bi bi-tag"></i> #<?= htmlspecialchars($local['codLocal']) ?></small>
+                                    <small class="text-muted"><i class="bi bi-upc"></i></i> #<?= htmlspecialchars($local['codLocal']) ?></small>
                                 </p>
                             </div>
                         </div>
@@ -201,7 +218,7 @@ $resultado_locales = mysqli_query($conexion, $sql_locales);
                 
                 <!-- Botón "Ver más locales" fuera de las cards -->
                 <div class="text-center mt-4">
-                    <a href="/Descuento-City/localesUsuarios.php" class="btn btn-primary btn-lg">
+                    <a href="/Descuento-City/localesUsuarios.php" class="btn btn-outline-primary btn-rounded btn-lg">
                         Ver más locales <i class="bi bi-arrow-right ms-2"></i>
                     </a>
                 </div>
@@ -219,25 +236,25 @@ $resultado_locales = mysqli_query($conexion, $sql_locales);
         <div class="container">
             <div class="row g-4">
                 <div class="col-md-6">
-                    <div class="card h-100 text-center">
-                        <div class="card-body d-flex flex-column">
+                    <div class="card h-100 text-center shadow-sm">
+                        <div class="card-body-pro d-flex flex-column">
                             <i class="bi bi-percent display-1 text-primary mb-3"></i>
                             <h5 class="card-title">PROMOCIONES</h5>
                             <p class="card-text">Descubre todas las promociones disponibles en nuestros locales participantes.</p>
                             <div class="mt-auto">
-                                <a href="/Descuento-City/promocionesUsuario.php" class="btn btn-primary">Ver más</a>
+                                <a href="/Descuento-City/promocionesUsuario.php" class="btn btn-outline-primary">Ver más</a>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="card h-100 text-center">
-                        <div class="card-body d-flex flex-column">
+                        <div class="card-body-nov d-flex flex-column">
                             <i class="bi bi-newspaper display-1 text-success mb-3"></i>
                             <h5 class="card-title">NOVEDADES</h5>
                             <p class="card-text">Mantente al día con las últimas noticias y actualizaciones de Descuento City.</p>
                             <div class="mt-auto">
-                                <a href="/Descuento-City/novedadesUsuarios.php" class="btn btn-primary">Ver más</a>
+                                <a href="/Descuento-City/novedadesUsuarios.php" class="btn btn-outline-primary">Ver más</a>
                             </div>
                         </div>
                     </div>
@@ -338,5 +355,135 @@ $resultado_locales = mysqli_query($conexion, $sql_locales);
             }
         });
     </script>
+    
+    <!-- CSS responsive para carrusel y layout -->
+    <style>
+
+        .main-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        /* Carrusel responsive */
+        .carousel-img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover; 
+            background-color: #f8f9fa; 
+        }
+        
+        @media (max-width: 768px) {
+            .carousel-img {
+                height: 250px;
+                object-fit: cover; 
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .carousel-img {
+                height: 200px;
+                object-fit: cover;
+            }
+        }
+        
+        @media (min-width: 1200px) {
+            .carousel-img {
+                height: 600px;
+                object-fit: cover;
+            }
+        }
+        
+        @media (min-width: 1400px) {
+            .carousel-img {
+                height: 900px;
+                object-fit: cover;
+            }
+        }
+        
+        /* Mejorar el carrusel */
+        .carousel-inner {
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        
+        .carousel-item {
+            transition: transform 0.6s ease-in-out;
+        }
+        
+        /* Controles del carrusel más visibles */
+        .carousel-control-prev,
+        .carousel-control-next {
+            width: 5%;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+        
+        .carousel-control-prev:hover,
+        .carousel-control-next:hover {
+            opacity: 1;
+        }
+        
+        /* Controles más visibles en móvil */
+        @media (max-width: 768px) {
+            .carousel-control-prev,
+            .carousel-control-next {
+                width: 15%;
+            }
+            
+            .carousel-control-prev-icon,
+            .carousel-control-next-icon {
+                width: 25px;
+                height: 25px;
+            }
+        }
+        
+        /* Indicadores mejorados */
+        .carousel-indicators [data-bs-target] {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin: 0 4px;
+            background-color: rgba(255,255,255,0.5);
+            border: 2px solid rgba(255,255,255,0.8);
+            transition: all 0.3s ease;
+        }
+        
+        .carousel-indicators [data-bs-target].active {
+            background-color: #fff;
+            transform: scale(1.2);
+        }
+        
+        /* Indicadores más grandes en móvil */
+        @media (max-width: 768px) {
+            .carousel-indicators [data-bs-target] {
+                width: 12px;
+                height: 12px;
+            }
+        }
+        
+        /* Contenedor de locales con restricción de ancho */
+        .locales-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        /* Mejorar el espaciado en pantallas grandes */
+        @media (min-width: 1400px) {
+            .container {
+                max-width: 1200px;
+            }
+        }
+        
+        /* Buscador responsive */
+        @media (min-width: 768px) {
+            .buscador-container {
+                max-width: 600px;
+                margin: 0 auto;
+            }
+        }
+    </style>
+    
 </body>
 </html>

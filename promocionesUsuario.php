@@ -86,14 +86,20 @@ if (!$resultado_promos) {
 <?php include("includes/navbar.php"); ?>
 
 <!-- Portada -->
-<div class="portada-promociones">
-    <img src="/Descuento-City/assets/img/promociones-portada.png" class="img-fluid w-100" alt="Portada Promociones" style="height: 300px; object-fit: cover;">
-</div>
+    <section class="portada position-relative">
+        <img src="/Descuento-City/assets/img/promociones-portada.png" alt="Portada Promociones"class="portada-img img-fluid">
+        <div class="portada-overlay text-center">
+            <h1 class="portada-titulo">PROMOCIONES</h1>
+            <p class="portada-subtitulo">Aprovechá las mejores ofertas y descuentos del shopping <strong>Descuento City</strong>.</p>
+        </div>
+    </section>
+
+
 
 <!-- Breadcrumb debajo de la portada -->
-<div class="container mt-3">
-    <?php include 'includes/breadcrumb.php'; ?>
-</div>
+    <div class="container mt-3">
+        <?php include 'includes/breadcrumb.php'; ?>
+    </div>
 
     <!-- Buscador de promociones -->
     <div class="container my-4">
@@ -109,152 +115,152 @@ if (!$resultado_promos) {
         </div>
     </div>
 
-<div class="container my-4">
 
-    <!-- Mensaje de búsqueda -->
+    <div class="container my-4">
+        <!-- Mensaje de búsqueda -->
 
-    <div id="mensaje-busqueda-promos" class="alert alert-info text-center" style="display: none;">
-        <i class="bi bi-search"></i> Mostrando resultados para: <span id="termino-busqueda-promos"></span>
-    </div>
-    
-    <!-- Mensaje de no encontrado -->
-    <div id="mensaje-no-encontrado-promos" class="alert alert-warning text-center" style="display: none;">
-        <i class="bi bi-exclamation-triangle"></i> No se encontraron promociones que coincidan con la búsqueda.
-    </div>    <?php
-
-    // Sistema de alertas categorizado
-    if(isset($_SESSION['mensaje_exito'])){
-        echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>";
-        echo "<i class='bi bi-check-circle'></i> ".$_SESSION['mensaje_exito'];
-        echo "<button type='button' class='btn-close' data-bs-dismiss='alert'></button>";
-        echo "</div>";
-        unset($_SESSION['mensaje_exito']);
-    }
-    if(isset($_SESSION['mensaje_error'])){
-        echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>";
-        echo "<i class='bi bi-exclamation-circle-fill'></i> ".$_SESSION['mensaje_error'];
-        echo "<button type='button' class='btn-close' data-bs-dismiss='alert'></button>";
-        echo "</div>";
-        unset($_SESSION['mensaje_error']);
-    }
-    if(isset($_SESSION['mensaje_warning'])){
-        echo "<div class='alert alert-warning alert-dismissible fade show' role='alert'>";
-        echo "<i class='bi bi-exclamation-triangle-fill'></i> ".$_SESSION['mensaje_warning'];
-        echo "<button type='button' class='btn-close' data-bs-dismiss='alert'></button>";
-        echo "</div>";
-        unset($_SESSION['mensaje_warning']);
-    }
-    if(isset($_SESSION['mensaje_info'])){
-        echo "<div class='alert alert-info alert-dismissible fade show' role='alert'>";
-        echo "<i class='bi bi-info-circle-fill'></i> ".$_SESSION['mensaje_info'];
-        echo "<button type='button' class='btn-close' data-bs-dismiss='alert'></button>";
-        echo "</div>";
-        unset($_SESSION['mensaje_info']);
-    }
-    ?>
-
-    <!-- Filtros -->
-    <div class="row justify-content-center mb-4">
-        <div class="col-lg-8">
-            <form class="row" method="POST">
-                <div class="col-md-6 mb-2">
-                    <select name="local" class="form-select">
-                        <option value="" hidden selected>Buscar por local</option>
-                        <option value="">Todos los locales</option>
-                        <?php 
-                        while ($local_filter = mysqli_fetch_assoc($resultado_locales_filter)) { 
-                            $selected = ($localSeleccionado == $local_filter['codLocal']) ? 'selected' : '';
-                        ?>
-                            <option value="<?= $local_filter['codLocal'] ?>" <?= $selected ?>>
-                                <?= htmlspecialchars($local_filter['nombreLocal']) ?>
-                            </option>
-                        <?php } ?>
-                    </select>
-                </div>
-
-                <div class="col-md-6 mb-2">
-                    <select name="categoria" class="form-select">
-                        <option value="" hidden selected>Buscar por categoría</option>
-                        <option value="">Todas las categorías</option>
-                        <?php 
-                        while ($categoria_filter = mysqli_fetch_assoc($resultado_categorias_filter)) { 
-                            $selected = ($categoriaSeleccionada == $categoria_filter['categoriaCliente']) ? 'selected' : '';
-                        ?>
-                            <option value="<?= $categoria_filter['categoriaCliente'] ?>" <?= $selected ?>>
-                                <?= ucfirst($categoria_filter['categoriaCliente']) ?>
-                            </option>
-                        <?php } ?>
-                    </select>
-                </div>
-                
-                <div class="col-12 text-center mt-3">
-                    <button type="button" class="btn btn-outline-secondary me-2" onclick="limpiarTodosFiltrosPromos()">
-                        <i class="bi bi-arrow-clockwise"></i> Borrar Filtros
-                    </button>
-                    <button type="submit" class="btn btn-primary">
-                        <i class="bi bi-funnel"></i> Filtrar
-                    </button>
-                </div>
-            </form>
+        <div id="mensaje-busqueda-promos" class="alert alert-info text-center" style="display: none;">
+            <i class="bi bi-search"></i> Mostrando resultados para: <span id="termino-busqueda-promos"></span>
         </div>
-    </div>
+        
+        <!-- Mensaje de no encontrado -->
+        <div id="mensaje-no-encontrado-promos" class="alert alert-warning text-center" style="display: none;">
+            <i class="bi bi-exclamation-triangle"></i> No se encontraron promociones que coincidan con la búsqueda.
+        </div>    <?php
 
-    <div class="row">
-        <?php
-        if($resultado_promos && mysqli_num_rows($resultado_promos) > 0){
-            while($promo = mysqli_fetch_assoc($resultado_promos)){
-                ?>
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="card h-100 shadow-sm">
-                        <?php if(!empty($promo["rutaArchivo"])):?>
-                        <img src="<?= htmlspecialchars($promo["rutaArchivo"]) ?>" class="card-img-top img-fluid" alt="portada promocion" style="height: 250px; object-fit: cover; width: 100%;"> 
-                        <?php else: ?>
-                            <div class="card-img-top d-flex align-items-center justify-content-center bg-light" style="height: 250px; width: 100%;">
-                                <span class="text-muted"><i class="bi bi-image"></i> Sin portada</span>
-                            </div>
-                        <?php endif; ?>
-                        <div class="card-body d-flex flex-column">
-                            <h5 class="card-title">
-                                <i class="bi bi-shop"></i> <?= htmlspecialchars($promo['nombreLocal']) ?>
-                            </h5>
-                            <h6 class="card-subtitle mb-2 text-muted">
-                                <i class="fas fa-tag"></i> <?= htmlspecialchars($promo['rubroLocal']) ?>
-                            </h6>
-                            <p class="card-text"><?= htmlspecialchars($promo['textoPromo']) ?></p>
-                            <p class="card-text">
-                                <small class="text-muted">
-                                    <i class="bi bi-calendar3"></i> Hasta :<?=$promo['fechaHastaPromo'] ?> 
-                                </small>
-                            </p>
-                            <div class="mt-auto">
-                                <form action="controllers/promocionesCtrl/usoPromocionController.php" method="POST">
-                                    <input type="hidden" name="codPromo" value="<?= $promo['codPromo']?>">
-                                    <div class="d-grid">
-                                        <button type="submit" class="btn btn-outline-success" name="usar">
-                                            <i class="bi bi-percent"></i> Usar promoción
-                                        </button>
-                                    </div>
-                                </form>
+        // Sistema de alertas categorizado
+        if(isset($_SESSION['mensaje_exito'])){
+            echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>";
+            echo "<i class='bi bi-check-circle'></i> ".$_SESSION['mensaje_exito'];
+            echo "<button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>";
+            echo "</div>";
+            unset($_SESSION['mensaje_exito']);
+        }
+        if(isset($_SESSION['mensaje_error'])){
+            echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>";
+            echo "<i class='bi bi-exclamation-circle-fill'></i> ".$_SESSION['mensaje_error'];
+            echo "<button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>";
+            echo "</div>";
+            unset($_SESSION['mensaje_error']);
+        }
+        if(isset($_SESSION['mensaje_warning'])){
+            echo "<div class='alert alert-warning alert-dismissible fade show' role='alert'>";
+            echo "<i class='bi bi-exclamation-triangle-fill'></i> ".$_SESSION['mensaje_warning'];
+            echo "<button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>";
+            echo "</div>";
+            unset($_SESSION['mensaje_warning']);
+        }
+        if(isset($_SESSION['mensaje_info'])){
+            echo "<div class='alert alert-info alert-dismissible fade show' role='alert'>";
+            echo "<i class='bi bi-info-circle-fill'></i> ".$_SESSION['mensaje_info'];
+            echo "<button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>";
+            echo "</div>";
+            unset($_SESSION['mensaje_info']);
+        }
+        ?>
+
+        <!-- Filtros -->
+        <div class="row justify-content-center mb-4">
+            <div class="col-lg-8">
+                <form class="row" method="POST">
+                    <div class="col-md-6 mb-2">
+                        <select name="local" class="form-select">
+                            <option value="" hidden selected>Buscar por local</option>
+                            <option value="">Todos los locales</option>
+                            <?php 
+                            while ($local_filter = mysqli_fetch_assoc($resultado_locales_filter)) { 
+                                $selected = ($localSeleccionado == $local_filter['codLocal']) ? 'selected' : '';
+                            ?>
+                                <option value="<?= $local_filter['codLocal'] ?>" <?= $selected ?>>
+                                    <?= htmlspecialchars($local_filter['nombreLocal']) ?>
+                                </option>
+                            <?php } ?>
+                        </select>
+                    </div>
+
+                    <div class="col-md-6 mb-2">
+                        <select name="categoria" class="form-select">
+                            <option value="" hidden selected>Buscar por categoría</option>
+                            <option value="">Todas las categorías</option>
+                            <?php 
+                            while ($categoria_filter = mysqli_fetch_assoc($resultado_categorias_filter)) { 
+                                $selected = ($categoriaSeleccionada == $categoria_filter['categoriaCliente']) ? 'selected' : '';
+                            ?>
+                                <option value="<?= $categoria_filter['categoriaCliente'] ?>" <?= $selected ?>>
+                                    <?= ucfirst($categoria_filter['categoriaCliente']) ?>
+                                </option>
+                            <?php } ?>
+                        </select>
+                    </div>
+                    
+                    <div class="col-12 text-center mt-3">
+                        <button type="button" class="btn btn-outline-secondary me-2" onclick="limpiarTodosFiltrosPromos()">
+                            <i class="bi bi-arrow-clockwise"></i> Borrar Filtros
+                        </button>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="bi bi-funnel"></i> Filtrar
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="row">
+            <?php
+            if($resultado_promos && mysqli_num_rows($resultado_promos) > 0){
+                while($promo = mysqli_fetch_assoc($resultado_promos)){
+                    ?>
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="card h-100 shadow-sm">
+                            <?php if(!empty($promo["rutaArchivo"])):?>
+                            <img src="<?= htmlspecialchars($promo["rutaArchivo"]) ?>" class="card-img-top img-fluid" alt="portada promocion" style="height: 250px; object-fit: cover; width: 100%;"> 
+                            <?php else: ?>
+                                <div class="card-img-top d-flex align-items-center justify-content-center bg-light" style="height: 250px; width: 100%;">
+                                    <span class="text-muted"><i class="bi bi-image"></i> Sin portada</span>
+                                </div>
+                            <?php endif; ?>
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title">
+                                    <i class="bi bi-shop"></i> <?= htmlspecialchars($promo['nombreLocal']) ?>
+                                </h5>
+                                <h6 class="card-subtitle mb-2 text-muted">
+                                    <i class="fas fa-tag"></i> <?= htmlspecialchars($promo['rubroLocal']) ?>
+                                </h6>
+                                <p class="card-text"><?= htmlspecialchars($promo['textoPromo']) ?></p>
+                                <p class="card-text">
+                                    <small class="text-muted">
+                                        <i class="bi bi-calendar3"></i> Hasta :<?=$promo['fechaHastaPromo'] ?> 
+                                    </small>
+                                </p>
+                                <div class="mt-auto">
+                                    <form action="controllers/promocionesCtrl/usoPromocionController.php" method="POST">
+                                        <input type="hidden" name="codPromo" value="<?= $promo['codPromo']?>">
+                                        <div class="d-grid">
+                                            <button type="submit" class="btn btn-outline-success" name="usar">
+                                                <i class="bi bi-percent"></i> Usar promoción
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
+                <?php
+                }
+            } else {
+                ?>
+                <div class="col-12">
+                    <div class="alert alert-info text-center" role="alert">
+                        <i class="bi bi-info-circle-fill"></i> 
+                        <strong>No hay promociones disponibles en este momento.</strong><br>
+                        <small>Vuelve pronto para ver las últimas ofertas y descuentos.</small>
+                    </div>
                 </div>
-            <?php
+                <?php
             }
-        } else {
             ?>
-            <div class="col-12">
-                <div class="alert alert-info text-center" role="alert">
-                    <i class="bi bi-info-circle-fill"></i> 
-                    <strong>No hay promociones disponibles en este momento.</strong><br>
-                    <small>Vuelve pronto para ver las últimas ofertas y descuentos.</small>
-                </div>
-            </div>
-            <?php
-        }
-        ?>
+        </div>
     </div>
-</div>
 
 <?php include("includes/footer.php"); ?>
 
@@ -262,7 +268,7 @@ if (!$resultado_promos) {
 
 <script>
     function filtrarPromociones(termino) {
-        const cards = document.querySelectorAll('.row .col-md-4');
+        const cards = document.querySelectorAll('.row .col-lg-4, .row .col-md-6');
         const mensajeBusqueda = document.getElementById('mensaje-busqueda-promos');
         const mensajeNoEncontrado = document.getElementById('mensaje-no-encontrado-promos');
         const terminoBusqueda = document.getElementById('termino-busqueda-promos');
@@ -280,12 +286,17 @@ if (!$resultado_promos) {
         
         // Filtrar promociones
         cards.forEach(card => {
-            const titulo = card.querySelector('.card-title').textContent.toLowerCase();
-            const subtitulo = card.querySelector('.card-subtitle').textContent.toLowerCase();
-            const descripcion = card.querySelector('.card-text').textContent.toLowerCase();
-            const fecha = card.querySelector('small').textContent.toLowerCase();
+            const titulo = card.querySelector('.card-title');
+            const subtitulo = card.querySelector('.card-subtitle');
+            const descripcion = card.querySelector('.card-text');
+            const fecha = card.querySelector('small');
             
-            const textoCompleto = titulo + ' ' + subtitulo + ' ' + descripcion + ' ' + fecha;
+            let textoCompleto = '';
+            
+            if (titulo) textoCompleto += ' ' + titulo.textContent.toLowerCase();
+            if (subtitulo) textoCompleto += ' ' + subtitulo.textContent.toLowerCase();
+            if (descripcion) textoCompleto += ' ' + descripcion.textContent.toLowerCase();
+            if (fecha) textoCompleto += ' ' + fecha.textContent.toLowerCase();
             
             if (textoCompleto.includes(termino.toLowerCase())) {
                 card.style.display = 'block';

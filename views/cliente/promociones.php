@@ -46,9 +46,26 @@ $cliente = mysqli_fetch_assoc($resultado_cliente);
 
 $categoria_cliente = $cliente['categoriaCliente'];
 
+// Obtener filtros de formulario
+$localSeleccionado = $_POST['local'] ?? '';
+$categoriaSeleccionada = $_POST['categoria'] ?? '';
 
 //Obtengo alcance de la categoria cliente.
 $categorias_permitidas = verificarCategoria($categoria_cliente);
+
+// Consultas auxiliares para llenar los selects de filtros
+$sql_locales_filter = "SELECT DISTINCT l.codLocal, l.nombreLocal 
+                      FROM promociones p
+                      JOIN locales l ON p.codLocal = l.codLocal
+                      WHERE p.estadoPromo = 'aprobada' AND l.estadoLocal = 'activo'
+                      ORDER BY l.nombreLocal ASC";
+$resultado_locales_filter = mysqli_query($conexion, $sql_locales_filter);
+
+$sql_categorias_filter = "SELECT DISTINCT categoriaCliente 
+                         FROM promociones 
+                         WHERE estadoPromo = 'aprobada' AND categoriaCliente IS NOT NULL
+                         ORDER BY categoriaCliente ASC";
+$resultado_categorias_filter = mysqli_query($conexion, $sql_categorias_filter);
 
 //Creo la condicion. Con implode puedo convertir el array en cadena.
 $condicion_categorias = "'" . implode("','", $categorias_permitidas) . "'";
@@ -63,8 +80,17 @@ $consultaPromos = "SELECT p.*, l.nombreLocal, l.rubroLocal, i.rutaArchivo /*Sele
             AND l.estadoLocal = 'activo'
             AND '$hoy' BETWEEN p.fechaDesdePromo AND p.fechaHastaPromo
             AND (p.diasSemana LIKE '%$dia_semana%' OR p.diasSemana = '' OR p.diasSemana IS NULL)
-            AND (p.categoriaCliente IN ($condicion_categorias) OR p.categoriaCliente IS NULL OR p.categoriaCliente = '')
-            ORDER BY p.fechaDesdePromo DESC";
+            AND (p.categoriaCliente IN ($condicion_categorias) OR p.categoriaCliente IS NULL OR p.categoriaCliente = '')";
+
+// Agregar filtros si están seleccionados
+if (!empty($localSeleccionado)) {
+    $consultaPromos .= " AND p.codLocal = '$localSeleccionado'";
+}
+if (!empty($categoriaSeleccionada)) {
+    $consultaPromos .= " AND p.categoriaCliente = '$categoriaSeleccionada'";
+}
+
+$consultaPromos .= " ORDER BY p.fechaDesdePromo DESC";
 
 $resultado_promos = mysqli_query($conexion, $consultaPromos);
 
@@ -91,14 +117,17 @@ if (!$resultado_promos) {
 <?php include("../../includes/navbar.php"); ?>
 
 <!-- Portada -->
-<div class="portada-promociones">
-    <img src="/Descuento-City/assets/img/promociones-portada.png" class="img-fluid w-100" alt="Portada Promociones" style="height: 200px; object-fit: cover;">
-</div>
-
+    <section class="portada position-relative">
+        <img src="/Descuento-City/assets/img/promociones-portada.png" alt="Portada Promociones"class="portada-img img-fluid">
+        <div class="portada-overlay text-center">
+            <h1 class="portada-titulo">PROMOCIONES</h1>
+            <p class="portada-subtitulo">Aprovechá las mejores ofertas y descuentos del shopping <strong>Descuento City</strong>.</p>
+        </div>
+    </section>
 <!-- Breadcrumb debajo de la portada -->
-<div class="container mt-3">
-    <?php include '../../includes/breadcrumb.php'; ?>
-</div>
+    <div class="container mt-3">
+        <?php include '../../includes/breadcrumb.php'; ?>
+    </div>
 
 <div class="container my-4">
 
@@ -107,28 +136,28 @@ if (!$resultado_promos) {
     if(isset($_SESSION['mensaje_exito'])){
         echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>";
         echo "<i class='bi bi-check-circle'></i> ".$_SESSION['mensaje_exito'];
-        echo "<button type='button' class='btn-close' data-bs-dismiss='alert'></button>";
+        echo "<button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>";
         echo "</div>";
         unset($_SESSION['mensaje_exito']);
     }
     if(isset($_SESSION['mensaje_error'])){
         echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>";
         echo "<i class='bi bi-exclamation-circle-fill'></i> ".$_SESSION['mensaje_error'];
-        echo "<button type='button' class='btn-close' data-bs-dismiss='alert'></button>";
+        echo "<button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>";
         echo "</div>";
         unset($_SESSION['mensaje_error']);
     }
     if(isset($_SESSION['mensaje_warning'])){
         echo "<div class='alert alert-warning alert-dismissible fade show' role='alert'>";
         echo "<i class='bi bi-exclamation-triangle-fill'></i> ".$_SESSION['mensaje_warning'];
-        echo "<button type='button' class='btn-close' data-bs-dismiss='alert'></button>";
+        echo "<button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>";
         echo "</div>";
         unset($_SESSION['mensaje_warning']);
     }
     if(isset($_SESSION['mensaje_info'])){
         echo "<div class='alert alert-info alert-dismissible fade show' role='alert'>";
         echo "<i class='bi bi-info-circle-fill'></i> ".$_SESSION['mensaje_info'];
-        echo "<button type='button' class='btn-close' data-bs-dismiss='alert'></button>";
+        echo "<button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>";
         echo "</div>";
         unset($_SESSION['mensaje_info']);
     }
@@ -150,7 +179,7 @@ if (!$resultado_promos) {
             <span class='badge <?= $estilo_nueva['badge_class'] ?>'>
                 <i class="<?= $estilo_nueva['icon'] ?>"></i> <?= ucfirst($resultado['categoria_nueva']) ?>
             </span>
-            <button type='button' class='btn-close' data-bs-dismiss='alert'></button>
+            <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
         </div>
     <?php } ?>
 
@@ -180,21 +209,55 @@ if (!$resultado_promos) {
                 </span>
             </div>
         </div>
-    
+    </div>
 
     <!-- Filtros -->
-    <form class="row mb-3" method="GET">
-        <div class="col-md-6">
-            <select name="local" class="form-select">
-                <option value="">Todos los locales</option>
-            </select>
+    <div class="row justify-content-center mb-4">
+        <div class="col-lg-8">
+            <form class="row" method="POST">
+                <div class="col-md-6 mb-2">
+                    <select name="local" class="form-select">
+                        <option value="" hidden selected>Buscar por local</option>
+                        <option value="">Todos los locales</option>
+                        <?php 
+                        mysqli_data_seek($resultado_locales_filter, 0); // Reset the result pointer
+                        while ($local_filter = mysqli_fetch_assoc($resultado_locales_filter)) { 
+                            $selected = ($localSeleccionado == $local_filter['codLocal']) ? 'selected' : '';
+                        ?>
+                            <option value="<?= $local_filter['codLocal'] ?>" <?= $selected ?>>
+                                <?= htmlspecialchars($local_filter['nombreLocal']) ?>
+                            </option>
+                        <?php } ?>
+                    </select>
+                </div>
+
+                <div class="col-md-6 mb-2">
+                    <select name="categoria" class="form-select">
+                        <option value="" hidden selected>Buscar por categoría</option>
+                        <option value="">Todas las categorías</option>
+                        <?php 
+                        mysqli_data_seek($resultado_categorias_filter, 0); // Reset the result pointer
+                        while ($categoria_filter = mysqli_fetch_assoc($resultado_categorias_filter)) { 
+                            $selected = ($categoriaSeleccionada == $categoria_filter['categoriaCliente']) ? 'selected' : '';
+                        ?>
+                            <option value="<?= $categoria_filter['categoriaCliente'] ?>" <?= $selected ?>>
+                                <?= ucfirst($categoria_filter['categoriaCliente']) ?>
+                            </option>
+                        <?php } ?>
+                    </select>
+                </div>
+                
+                <div class="col-12 text-center mt-3">
+                    <button type="button" class="btn btn-outline-secondary me-2" onclick="limpiarFiltrosPromos()">
+                        <i class="bi bi-arrow-clockwise"></i> Borrar Filtros
+                    </button>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="bi bi-funnel"></i> Filtrar
+                    </button>
+                </div>
+            </form>
         </div>
-        <div class="col-md-6">
-            <select name="categoria" class="form-select">
-                <option>Todas las categorias</option>
-            </select>
-        </div>
-    </form>
+    </div>
 
     <div class="row">
         <?php
@@ -285,5 +348,12 @@ if (!$resultado_promos) {
 <?php include("../../includes/footer.php"); ?>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+<script>
+    function limpiarFiltrosPromos() {
+        // Redirigir a la página sin parámetros POST para limpiar los selects
+        window.location.href = window.location.pathname;
+    }
+</script>
 </body>
 </html>

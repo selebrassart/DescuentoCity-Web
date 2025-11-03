@@ -70,9 +70,13 @@ if (!$resultado_novedades) {
     <?php include("../../includes/cliente/clienteHeader.php"); ?>
     
     <!-- Portada -->
-    <div class="portada-novedades">
-        <img src="/Descuento-City/assets/img/novedades-portada.png" class="img-fluid w-100" alt="Portada Novedades" style="height: 300px; object-fit: cover;">
-    </div>
+    <section class="portada position-relative">
+        <img src="/Descuento-City/assets/img/novedades-portada.png" alt="Portada Novedades"class="portada-img img-fluid">
+        <div class="portada-overlay text-center">
+            <h1 class="portada-titulo">NOVEDADES</h1>
+            <p class="portada-subtitulo"> Mantenete al día con las últimas noticias y actualizaciones de <strong>Descuento City</strong>.</p>
+        </div>
+    </section>
     
     <!-- Breadcrumb debajo de la portada -->
     <div class="container mt-3">

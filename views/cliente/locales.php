@@ -78,10 +78,13 @@ $resultado_locales = mysqli_query($conexion, $sql_locales);
 <?php include("../../includes/cliente/clienteHeader.php"); ?>
 
 <!-- Portada -->
-<div class="portada-locales">
-    <img src="/Descuento-City/assets/img/locales-portada.png" class="img-fluid w-100" alt="Portada Locales" style="height: 300px; object-fit: cover;">
-</div>
-
+     <section class="portada position-relative">
+        <img src="/Descuento-City/assets/img/locales-portada.png" alt="Portada Locales"class="portada-img img-fluid">
+        <div class="portada-overlay text-center">
+            <h1 class="portada-titulo">LOCALES</h1>
+            <p class="portada-subtitulo">Descubrí todas las marcas y rubros de<strong>Descuento City</strong>.</p>
+        </div>
+    </section>
 <!-- Breadcrumb debajo de la portada -->
 <div class="container mt-3">
     <?php include '../../includes/breadcrumb.php'; ?>
