@@ -30,12 +30,7 @@ if (session_status() === PHP_SESSION_NONE) {
     </a>
 
     <!-- BOTÓN HAMBURGUESA -->
-    <button class="navbar-toggler" type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarDC"
-            aria-controls="navbarDC"
-            aria-expanded="false"
-            aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarDC" aria-controls="navbarDC" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
@@ -141,39 +136,40 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 
 <style>
-/* Altura aumentada del navbar */
+
+
 .navbar-height {
-    min-height: 80px;
+    min-height: 100px;
     padding-top: 1rem;
     padding-bottom: 1rem;
 }
 
-/* Altura reducida en móvil */
 @media (max-width: 767px) {
     .navbar-height {
-        min-height: 60px;
-        padding-top: 0.5rem;
+        min-height: 70px;
+        padding-top: 0.7rem;
         padding-bottom: 0.5rem;
     }
 }
 
-/* Espaciador responsivo para navbar fixed-top */
 .navbar-spacer {
     height: 100px;
 }
 
 @media (max-width: 767px) {
     .navbar-spacer {
-        height: 70px;
+        height: 80px;
     }
 }
 
-/* Logo fijo a la izquierda en pantallas grandes */
+
 @media (min-width: 1200px) {
     .navbar .container-fluid {
         padding-left: 2rem;
         padding-right: 2rem;
     }
+
+    /* LOGO FIJO */
     
     .position-fixed-logo {
         position: absolute;

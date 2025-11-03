@@ -83,6 +83,14 @@ if (session_status() === PHP_SESSION_NONE) {
                 </div>
             </div>
         </div>
+        
+        <!-- Copyright -->
+        <div class="footer-copyright text-center mt-4 pt-3">
+            <hr class="footer-divider mb-3">
+            <p class="copyright-text mb-0">
+                © <?= date('Y') ?> <strong>Descuento City</strong>. Todos los derechos reservados.
+            </p>
+        </div>
     </div>
 </footer>
 

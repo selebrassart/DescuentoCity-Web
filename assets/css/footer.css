@@ -297,3 +297,41 @@ body > *:last-child {
 html, body {
     overflow-x: hidden;
 }
+
+/* === COPYRIGHT === */
+.footer-copyright {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin-top: 2rem;
+    padding-top: 1rem;
+}
+
+.footer-divider {
+    border: 0;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.2), transparent);
+    margin: 1rem 0;
+}
+
+.copyright-text {
+    color: #94A3B8;
+    font-size: 0.875rem;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+}
+
+.copyright-text strong {
+    color: #E2E8F0;
+    font-weight: 600;
+}
+
+/* Responsive copyright */
+@media (max-width: 576px) {
+    .copyright-text {
+        font-size: 0.8rem;
+    }
+    
+    .footer-copyright {
+        margin-top: 1.5rem;
+        padding-top: 0.75rem;
+    }
+}

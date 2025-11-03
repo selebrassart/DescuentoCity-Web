@@ -86,9 +86,13 @@ if (!$resultado_promos) {
 <?php include("includes/navbar.php"); ?>
 
 <!-- Portada -->
-<div class="portada-promociones">
-    <img src="/Descuento-City/assets/img/promociones-portada.png" class="img-fluid w-100" alt="Portada Promociones" style="height: 300px; object-fit: cover;">
-</div>
+    <section class="portada position-relative">
+        <img src="/Descuento-City/assets/img/promociones-portada.png" alt="Portada Promociones"class="portada-img img-fluid">
+        <div class="portada-overlay text-center">
+            <h1 class="portada-titulo">PROMOCIONES</h1>
+            <p class="portada-subtitulo"> Mantenete al día con las últimas noticias y actualizaciones de <strong>Descuento City</strong>.</p>
+        </div>
+    </section>
 
 <!-- Breadcrumb debajo de la portada -->
 <div class="container mt-3">
@@ -262,7 +266,7 @@ if (!$resultado_promos) {
 
 <script>
     function filtrarPromociones(termino) {
-        const cards = document.querySelectorAll('.row .col-md-4');
+        const cards = document.querySelectorAll('.row .col-lg-4');
         const mensajeBusqueda = document.getElementById('mensaje-busqueda-promos');
         const mensajeNoEncontrado = document.getElementById('mensaje-no-encontrado-promos');
         const terminoBusqueda = document.getElementById('termino-busqueda-promos');
@@ -280,10 +284,10 @@ if (!$resultado_promos) {
         
         // Filtrar promociones
         cards.forEach(card => {
-            const titulo = card.querySelector('.card-title').textContent.toLowerCase();
-            const subtitulo = card.querySelector('.card-subtitle').textContent.toLowerCase();
-            const descripcion = card.querySelector('.card-text').textContent.toLowerCase();
-            const fecha = card.querySelector('small').textContent.toLowerCase();
+            const titulo = card.querySelector('.card-title') ? card.querySelector('.card-title').textContent.toLowerCase() : '';
+            const subtitulo = card.querySelector('.card-subtitle') ? card.querySelector('.card-subtitle').textContent.toLowerCase() : '';
+            const descripcion = card.querySelector('.card-text') ? card.querySelector('.card-text').textContent.toLowerCase() : '';
+            const fecha = card.querySelector('small') ? card.querySelector('small').textContent.toLowerCase() : '';
             
             const textoCompleto = titulo + ' ' + subtitulo + ' ' + descripcion + ' ' + fecha;
             

@@ -39,7 +39,7 @@ if (!empty($nombreSeleccionado)) {
     $sql_locales .= " AND l.codLocal = '{$nombreSeleccionado}'";
 }
 
-$sql_locales .= " ORDER BY l.nombreLocal ASC";
+$sql_locales .= " ORDER BY l.nombreLocal ASC LIMIT 4";
 
 $resultado_locales = mysqli_query($conexion, $sql_locales);
 ?>
@@ -63,34 +63,62 @@ $resultado_locales = mysqli_query($conexion, $sql_locales);
 
     <!-- CARRUSEL -->
 
-    <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+    <div id="carouselExampleIndicators" 
+        class="carousel slide" 
+        data-bs-ride="carousel" 
+        aria-roledescription="Carrusel de imágenes" 
+        aria-label="Carrusel principal de Descuento City con promociones y locales"
+        tabindex="0">
+
+        <!-- Indicadores accesibles -->
         <div class="carousel-indicators">
-            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0"
+            class="active" aria-current="true" aria-label="Promociones vigentes"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
+            aria-label="Locales participantes"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
+            aria-label="Ofertas especiales"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3"
+            aria-label="Promociones de temporada"></button>
         </div>
+
+        <!-- Imágenes del carrusel -->
         <div class="carousel-inner">
-            <div class="carousel-item active">
-                <img src="/Descuento-City/assets/img/carrusel/shopping3.jpg" class="d-block w-100" alt="Banner principal mostrando las últimas promociones y descuentos disponibles en Descuento City" style="height: 400px; object-fit: cover;">
+            <div class="carousel-item active" role="group" aria-label="1 de 4">
+                <img src="/Descuento-City/assets/img/carrusel/dc.png" class="d-block w-100 carousel-img" alt="Banner de promociones  vigentes en Descuento City">
             </div>
-            <div class="carousel-item">
-                <img src="/Descuento-City/assets/img/carrusel/40578.png" class="d-block w-100" alt="Galería de locales comerciales y negocios adheridos a Descuento City" style="height: 400px; object-fit: cover;">
+
+            <div class="carousel-item" role="group" aria-label="2 de 4">
+                <img src="/Descuento-City/assets/img/carrusel/40578.png"
+                class="d-block w-100 carousel-img"
+                alt="Imagen de locales participantes del shopping Descuento City">
             </div>
-            <div class="carousel-item">
-                <img src="/Descuento-City/assets/img/carrusel/wilsonsalebanner.webp" class="d-block w-100" alt="Banner de ofertas y descuentos especiales de la temporada actual" style="height: 400px; object-fit: cover;">
+
+            <div class="carousel-item" role="group" aria-label="3 de 4">
+                <img src="/Descuento-City/assets/img/carrusel/wilsonsalebanner.webp"
+                class="d-block w-100 carousel-img"
+                alt="Banner de promociones y descuentos Wilson en Descuento City">
             </div>
-        </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Anterior</span>
-            </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Siguiente</span>
-        </button>
+
+            <div class="carousel-item" role="group" aria-label="4 de 4">
+                <img src="/Descuento-City/assets/img/carrusel/banner.png"
+                class="d-block w-100 carousel-img"
+                alt="Promociones y eventos actuales de Descuento City">
+            </div>
     </div>
 
-    <h2 class="text-center mb-4">NUESTROS LOCALES</h2>
+    <!-- Controles accesibles -->
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev" aria-label="Anterior">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Anterior</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next" aria-label="Siguiente">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Siguiente</span>
+    </button>
+    </div>
+
+    <h2 class="fw-bold mb-2 text-center mb-4">NUESTROS LOCALES</h2>
 
 
     <!-- Buscador -->
@@ -119,9 +147,9 @@ $resultado_locales = mysqli_query($conexion, $sql_locales);
             
                 $selected = ($nombreSeleccionado == $local['codLocal']) ? 'selected' : '';
             ?>
-                <option value="<?= $local['codLocal'] ?>" <?= $selected ?>>
-                    <?= $local['nombreLocal'] ?>
-                </option>
+            <option value="<?= $local['codLocal'] ?>" <?= $selected ?>>
+                <?= $local['nombreLocal'] ?>
+            </option>
             <?php } ?>
         </select>
     </div>
@@ -185,13 +213,14 @@ $resultado_locales = mysqli_query($conexion, $sql_locales);
                         <div class="card h-100 shadow-sm">
                             <div class="card-header bg-white p-5" style="min-height: 120px; display: flex; align-items: center; justify-content: center;">
                                 <img src="<?= htmlspecialchars($rutaImagen) ?>" class="img-fluid" alt="Logo <?= htmlspecialchars($local['nombreLocal']) ?>" style="max-height: 100px; max-width: 100%; object-fit: contain;">
+
                             </div>
                             <div class="card-body d-flex flex-column">
                                 <h5 class="card-title"><?= htmlspecialchars($local['nombreLocal']) ?></h5>
                                 <p class="card-text">
                                     <small class="text-muted"><i class="bi bi-geo-alt"></i> <?= htmlspecialchars($local['ubicacionLocal']) ?></small><br>
                                     <small class="text-muted"><i class="bi bi-tag"></i> <?= htmlspecialchars($local['rubroLocal']) ?></small><br>
-                                    <small class="text-muted"><i class="bi bi-tag"></i> #<?= htmlspecialchars($local['codLocal']) ?></small>
+                                    <small class="text-muted"><i class="bi bi-tag"></i> <?= htmlspecialchars($local['codLocal']) ?></small>
                                 </p>
                             </div>
                         </div>
@@ -203,7 +232,7 @@ $resultado_locales = mysqli_query($conexion, $sql_locales);
                 
                 <!-- Botón "Ver más locales" fuera de las cards -->
                 <div class="text-center mt-4">
-                    <a href="/Descuento-City/localesUsuarios.php" class="btn btn-primary btn-lg">
+                    <a href="/Descuento-City/localesUsuarios.php" class="btn btn-outline-primary btn-lg">
                         Ver más locales <i class="bi bi-arrow-right ms-2"></i>
                     </a>
                 </div>
@@ -219,35 +248,113 @@ $resultado_locales = mysqli_query($conexion, $sql_locales);
     <!-- PROMOCIONES Y NOVEDADES. Solo son dos card con un boton que diga ver mas y lo mande a promociones o novedades.-->
     <!-- Faltaria agregarle una imagen de fondo -->
 
-    <section class="py-5 bg-light">
-        <div class="container">
+    <section class="py-5">
+        <div class="container container-portadas">
+            <h2 class="fw-bold mb-2 text-center mb-4">PROMOCIONES Y NOVEDADES</h2>
             <div class="row g-4">
                 <div class="col-md-6">
-                    <div class="card h-100 text-center">
+                    <div class="card-portada h-100 text-center">
                         <div class="card-body-p d-flex flex-column">
                             <i class="bi bi-percent display-1 text-primary mb-3"></i>
                             <h5 class="card-title">PROMOCIONES</h5>
                             <p class="card-text">Descubre todas las promociones disponibles en nuestros locales participantes.</p>
                             <div class="mt-auto">
-                                <a href="/Descuento-City/promocionesUsuario.php" class="btn btn-primary">Ver más</a>
+                                <a href="/Descuento-City/promocionesUsuario.php" class="btn btn-primary btn-lg">Ver más</a>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <div class="card h-100 text-center">
+                    <div class="card-portada card-portada-n h-100 text-center">
                         <div class="card-body-n d-flex flex-column">
                             <i class="bi bi-newspaper display-1 text-success mb-3"></i>
                             <h5 class="card-title">NOVEDADES</h5>
                             <p class="card-text">Mantente al día con las últimas noticias y actualizaciones de Descuento City.</p>
                             <div class="mt-auto">
-                                <a href="/Descuento-City/novedadesUsuarios.php" class="btn btn-primary">Ver más</a>
+                                <a href="/Descuento-City/novedadesUsuarios.php" class="btn btn-success btn-lg">Ver más</a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </section>
+
+
+<!-- SECCIÓN SERVICIOS -->
+    <section class="py-5 text-center text-black servicios-container">
+    <div class="container">
+        <h2 class="fw-bold mb-4">SERVICIOS</h2>
+        <p class="text-light mb-5">Estamos listos para recibirte</p>
+
+        <div class="row g-4 justify-content-center">
+
+            <!-- Servicio -->
+            <div class="col-6 col-md-4 col-lg-2">
+                <div class="service-icon mx-auto mb-3">
+                <i class="bi bi-car-front"></i>
+                </div>
+                <p>Estacionamiento</p>
+            </div>
+
+            <div class="col-6 col-md-4 col-lg-2">
+                <div class="service-icon mx-auto mb-3">
+                <i class="bi bi-wifi"></i>
+                </div>
+                <p>WiFi libre</p>
+            </div>
+
+            <div class="col-6 col-md-4 col-lg-2">
+                <div class="service-icon mx-auto mb-3">
+                <i class="bi bi-envelope"></i>
+                </div>
+                <p>Correo</p>
+            </div>
+
+            <div class="col-6 col-md-4 col-lg-2">
+                <div class="service-icon mx-auto mb-3">
+                <i class="bi bi-cart"></i>
+                </div>
+                <p>Supermercado</p>
+            </div>
+
+            <div class="col-6 col-md-4 col-lg-2">
+                <div class="service-icon mx-auto mb-3">
+                <i class="bi bi-airplane"></i>
+                </div>
+                <p>Agencia de viajes</p>
+            </div>
+
+            <div class="col-6 col-md-4 col-lg-2">
+                <div class="service-icon mx-auto mb-3">
+                <i class="bi bi-cash-stack"></i>
+                </div>
+                <p>Rapipago</p>
+            </div>
+
+            <div class="col-6 col-md-4 col-lg-2">
+                <div class="service-icon mx-auto mb-3">
+                <i class="bi bi-cup-straw"></i>
+                </div>
+                <p>Patio de comidas</p>
+            </div>
+
+            <div class="col-6 col-md-4 col-lg-2">
+                <div class="service-icon mx-auto mb-3">
+                    <i class="bi bi-camera-reels"></i>
+                </div>
+                <p>Cine</p>
+            </div>
+
+            <div class="col-6 col-md-4 col-lg-2">
+                <div class="service-icon mx-auto mb-3">
+                <i class="bi bi-joystick"></i>
+                </div>
+                <p>Sala de juegos</p>
+            </div>
+
+        </div>
+    </div>
     </section>
 
 
@@ -262,7 +369,7 @@ $resultado_locales = mysqli_query($conexion, $sql_locales);
     
     <script>
         function filtrarLocales(termino) {
-            const cards = document.querySelectorAll('.locales .col');
+            const cards = document.querySelectorAll('.row.row-cols-1 .col-lg-3');
             const mensajeBusqueda = document.getElementById('mensaje-busqueda');
             const mensajeNoEncontrado = document.getElementById('mensaje-no-encontrado');
             const terminoBusqueda = document.getElementById('termino-busqueda');
@@ -280,12 +387,10 @@ $resultado_locales = mysqli_query($conexion, $sql_locales);
             
             // Filtrar locales
             cards.forEach(card => {
-                const titulo = card.querySelector('.card-title').textContent.toLowerCase();
-                const ubicacion = card.querySelector('.bi-geo-alt').parentNode.textContent.toLowerCase();
-                const rubro = card.querySelector('.bi-tag').parentNode.textContent.toLowerCase();
-                const codigo = card.querySelector('small:last-child').textContent.toLowerCase();
-                
-                const textoCompleto = titulo + ' ' + ubicacion + ' ' + rubro + ' ' + codigo;
+                const titulo = card.querySelector('.card-title') ? card.querySelector('.card-title').textContent.toLowerCase() : '';
+                const ubicacion = card.querySelector('.bi-geo-alt') ? card.querySelector('.bi-geo-alt').parentNode.textContent.toLowerCase() : '';
+                const rubro = card.querySelector('.bi-tag') ? card.querySelector('.bi-tag').parentNode.textContent.toLowerCase() : '';
+                const textoCompleto = titulo + ' ' + ubicacion + ' ' + rubro;
                 
                 if (textoCompleto.includes(termino.toLowerCase())) {
                     card.style.display = 'block';

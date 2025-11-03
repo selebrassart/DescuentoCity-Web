@@ -61,7 +61,7 @@ $resultado_locales = mysqli_query($conexion, $sql_locales);
         <img src="/Descuento-City/assets/img/locales-portada.png" alt="Portada Locales"class="portada-img img-fluid">
         <div class="portada-overlay text-center">
             <h1 class="portada-titulo">LOCALES</h1>
-            <p class="portada-subtitulo">Descubrí todas las marcas y rubros de<strong>Descuento City</strong>.</p>
+            <p class="portada-subtitulo">Descubrí todas las marcas y rubros de  <strong>Descuento City</strong>.</p>
         </div>
     </section>
 
@@ -147,7 +147,7 @@ $resultado_locales = mysqli_query($conexion, $sql_locales);
         <?php if ($resultado_locales && mysqli_num_rows($resultado_locales) > 0) { ?>
             <?php while ($local = mysqli_fetch_assoc($resultado_locales)) { ?>
                 <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
-                    <div class="card h-100 shadow-sm text-center">
+                    <div class="card h-100 shadow-sm ">
                         <div class="card-header bg-white p-5" style="min-height: 120px; display: flex; align-items: center; justify-content: center;">
                             <img src="/Descuento-City/<?= $local['logo'] ?: 'assets/img/default-logo.png'; ?>" 
                                  class="img-fluid" alt="<?= $local['nombreLocal']; ?>"
@@ -155,8 +155,9 @@ $resultado_locales = mysqli_query($conexion, $sql_locales);
                         </div>
                         <div class="card-body d-flex flex-column">
                             <h5 class="card-title"><?= $local['nombreLocal']; ?></h5>
-                            <p class="card-text text-muted"><?= $local['rubroLocal']; ?></p>
-                            <p class="card-text"><small class="text-secondary"><?= $local['ubicacionLocal']; ?></small></p>
+                            <p class="card-text text-muted"><i class="bi bi-tag"></i><?= $local['rubroLocal']; ?></p>
+                            <p class="card-text"><small class="text-secondary"><i class="bi bi-geo-alt"></i><?= $local['ubicacionLocal']; ?></small></p>
+                            <p class="card-text"><small class="text-secondary"><i class="bi bi-tag"></i><?= $local['codLocal']; ?></small></p>
                         </div>
                     </div>
                 </div>

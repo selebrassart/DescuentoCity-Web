@@ -9,6 +9,9 @@ if (!isset($_SESSION['tipoUsuario']) || $_SESSION['tipoUsuario'] !== 'cliente') 
 
 include("../../conexionBD.php");
 
+require("../../funciones/funcionesCliente.php");
+require("../../funciones/funcionesSQL.php");
+
 //variable para rutas de navegacion (breadcrumb)
 $breadcrumb_titulo_activo = 'Novedades';
 
@@ -17,12 +20,16 @@ date_default_timezone_set('America/Argentina/Buenos_Aires');
 $hoy = date('Y-m-d');
 
 $codCliente = $_SESSION["codUsuario"];
-$consultoCategoria = "SELECT categoriaCliente FROM usuarios WHERE codUsuario='$codCliente'";
-$resultado = mysqli_query($conexion, $consultoCategoria);
-$cliente = mysqli_fetch_assoc($resultado);
 
-// Obtener la categoría del cliente
-$categoriaCliente = $cliente['categoriaCliente'];
+// Obtener la categoría del cliente logueado
+$consulta_cliente = "SELECT categoriaCliente FROM usuarios WHERE codUsuario = '$codCliente'";
+$resultado_cliente = mysqli_query($conexion, $consulta_cliente);
+$cliente = mysqli_fetch_assoc($resultado_cliente);
+
+$categoria_cliente = $cliente['categoriaCliente'];
+$categorias_permitidas = verificarCategoria($categoria_cliente);
+
+$condicion_categorias = "'" . implode("','", $categorias_permitidas) . "'";
 
 $consultaNovedades = "SELECT 
                     n.codNovedad,
@@ -40,7 +47,7 @@ $consultaNovedades = "SELECT
                         AND i.tipoIdentidad = 'novedad'
                     WHERE '$hoy' BETWEEN n.fechaDesdeNovedad AND n.fechaHastaNovedad
                         AND n.estado = 'activa'
-                        AND n.categoriaCliente = '$categoriaCliente'
+                        AND (n.categoriaCliente IN ($condicion_categorias) OR n.categoriaCliente IS NULL OR n.categoriaCliente = '')
                     ORDER BY n.codNovedad DESC";
 
 $resultado_novedades = mysqli_query($conexion, $consultaNovedades );

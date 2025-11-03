@@ -121,7 +121,7 @@ if (!$resultado_promos) {
         <img src="/Descuento-City/assets/img/promociones-portada.png" alt="Portada Promociones"class="portada-img img-fluid">
         <div class="portada-overlay text-center">
             <h1 class="portada-titulo">PROMOCIONES</h1>
-            <p class="portada-subtitulo">Aprovechá las mejores ofertas y descuentos del shopping <strong>Descuento City</strong>.</p>
+            <p class="portada-subtitulo"> Mantenete al día con las últimas noticias y actualizaciones de <strong>Descuento City</strong>.</p>
         </div>
     </section>
 <!-- Breadcrumb debajo de la portada -->

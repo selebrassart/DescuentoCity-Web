@@ -25,7 +25,7 @@ $breadcrumb_titulo_activo = 'Novedades';
         <img src="/Descuento-City/assets/img/novedades-portada.png" alt="Portada Novedades"class="portada-img img-fluid">
         <div class="portada-overlay text-center">
             <h1 class="portada-titulo">NOVEDADES</h1>
-            <p class="portada-subtitulo"> Mantenete al día con las últimas noticias y actualizaciones de <strong>Descuento City</strong>.</p>
+            <p class="portada-subtitulo"> Mantenete al día con las últimas noticias y actualizaciones de <strong> Descuento City</strong>.</p>
         </div>
     </section>
     
