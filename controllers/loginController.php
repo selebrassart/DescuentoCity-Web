@@ -41,7 +41,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["confirm"])) {
 
                     } elseif ($usuario["tipoUsuario"] == "admin") { // Admin
                         guardar_datos_user($usuario);
-                        header("Location: ../views/admin/dueños.php");
+                        header("Location: ../views/admin/dueños/dueños.php");
                         exit();
                     }
 
