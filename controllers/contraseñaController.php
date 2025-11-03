@@ -79,7 +79,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["enviar"])) {
     } elseif ($resultado_cambio === "token_invalido") {
        
         $_SESSION['mensaje_error'] = "Código de verificación no válido";
-        header("Location: ../views/auth/nueva-contrasena.php"); 
+        header("Location: ../views/auth/nueva-contraseña.php"); 
         exit();
     } else {
         // Otro error (ej. fallo de DB al actualizar)
