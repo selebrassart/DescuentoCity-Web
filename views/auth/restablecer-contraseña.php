@@ -21,7 +21,7 @@ session_start();
 
                 <h1 class="text-center mb-4">Restablecer contraseña</h1>
 
-                <form action="../../controllers/contraseñaController.php" method="POST" class="p-4 border rounded shadow-sm bg-white">
+                <form action="/Descuento-City/controllers/contraseñaController.php" method="POST" class="p-4 border rounded shadow-sm bg-white">
                     
                     
                     <div class="mb-3">
