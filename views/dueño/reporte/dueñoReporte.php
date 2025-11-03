@@ -67,28 +67,31 @@ $totalSolcitudes = mysqli_fetch_assoc($resultadoSolicitudes)["totalSol"];
         
         <!-- Estadísticas generales -->
         <h3><i class="bi bi-info-circle"></i> Información general promociones</h3>
-        <div class="row g-2 mb-5">
+        <div class="row g-3 mb-5">
             <div class="col-md-4">
-                <div class="card text-center bg-primary text-white">
-                    <div class="card-body">
-                        <h5><?= $totalPromos ?></h5>
-                        <p class="mb-0 ">Creadas</p>
+                <div class="card text-center bg-primary text-white h-100">
+                    <div class="card-body d-flex flex-column justify-content-center">
+                        <i class="bi bi-plus-circle display-4 mb-2"></i>
+                        <h5 class="card-title"><?= $totalPromos ?></h5>
+                        <p class="card-text mb-0">Creadas</p>
                     </div>
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="card text-center bg-success text-white">
-                    <div class="card-body">
-                        <h5><?= $totalPromosV ?></h5>
-                        <p class="mb-0">Vigentes</p>
+                <div class="card text-center bg-success text-white h-100">
+                    <div class="card-body d-flex flex-column justify-content-center">
+                        <i class="bi bi-check-circle display-4 mb-2"></i>
+                        <h5 class="card-title"><?= $totalPromosV ?></h5>
+                        <p class="card-text mb-0">Vigentes</p>
                     </div>
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="card text-center bg-warning text-dark">
-                    <div class="card-body">
-                        <h5><?= $totalSolcitudes ?></h5>
-                        <p class="mb-0">Usadas</p>
+                <div class="card text-center bg-warning text-dark h-100">
+                    <div class="card-body d-flex flex-column justify-content-center">
+                        <i class="bi bi-graph-up display-4 mb-2"></i>
+                        <h5 class="card-title"><?= $totalSolcitudes ?></h5>
+                        <p class="card-text mb-0">Usadas</p>
                     </div>
                 </div>
             </div>
@@ -197,36 +200,41 @@ $totalSolcitudes = mysqli_fetch_assoc($resultadoSolicitudes)["totalSol"];
                                             break;
                                     }
                                     ?>
-                                    <span class="badge <?= $badge_class ?>">
+                                    <span class="badge <?= $badge_class ?> rounded-pill">
                                         <i class="<?= $icon ?>"></i> <?= $categoria ?>
                                     </span>
                                 </td>
                                 <td>
-                                    <div style="background-color: #e8f5e8; padding: 2px 5px; border-radius: 3px; margin-bottom: 2px;">
-                                        Desde: <?= $reporte["fechaDesdePromo"] ?>
+                                    <div class="small">
+                                        <div class="badge bg-success-subtle text-success-emphasis rounded-pill mb-1">
+                                            <i class="bi bi-calendar-check"></i> Desde: <?= date('d/m/Y', strtotime($reporte["fechaDesdePromo"])) ?>
+                                        </div>
+                                        <div class="badge bg-danger-subtle text-danger-emphasis rounded-pill">
+                                            <i class="bi bi-calendar-x"></i> Hasta: <?= date('d/m/Y', strtotime($reporte["fechaHastaPromo"])) ?>
+                                        </div>
                                     </div>
-                                    <div style="background-color: #ffe8e8; padding: 2px 5px; border-radius: 3px;">
-                                        Hasta: <?= $reporte["fechaHastaPromo"] ?>
-                                    </div>
+                                </td>
                                 <td> 
-                                    <?php
-                                        //Si esta disponible toda la semana.
-                                        if(strlen($reporte["diasSemana"]) != 54){
-                                            
-                                            echo $reporte["diasSemana"];
-                                        }
-                                        else{
-                                            echo "Todos los dias";
-                                        }
-                                    ?>
+                                    <small class="text-muted">
+                                        <?php
+                                            //Si esta disponible toda la semana.
+                                            if(strlen($reporte["diasSemana"]) != 54){
+                                                echo $reporte["diasSemana"];
+                                            }
+                                            else{
+                                                echo "Todos los días";
+                                            }
+                                        ?>
+                                    </small>
                                 </td>
                                 <td>
-                                    <span class="badge bg-success fs-6">
-                                        <?= $reporte["totalUsos"] ?> usos
+                                    <span class="badge bg-success fs-6 rounded-pill">
+                                        <i class="bi bi-graph-up"></i> <?= $reporte["totalUsos"] ?> usos
                                     </span>
+                                </td>
                                 <td>
-                                    <a href="reporteDetallesDueño.php?&codLocal<?= $reporte["codLocal"] ?>?&codPromo=<?= $reporte['codPromo'] ?>" 
-                                       class="btn btn-outline-secondary btn-sm" 
+                                    <a href="reporteDetallesDueño.php?codLocal=<?= $reporte["codLocal"] ?>&codPromo=<?= $reporte['codPromo'] ?>" 
+                                       class="btn btn-outline-secondary btn-sm rounded-pill px-3" 
                                        title="Inspeccionar reporte promoción">
                                         <i class="bi bi-search"></i> Ver detalles
                                     </a>

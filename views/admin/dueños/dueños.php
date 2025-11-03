@@ -147,19 +147,27 @@ include("../../../conexionBD.php");
                 </td>
                 <td> <?= $dueño["fechaRegistro"] ?></td>
                 <td>
-                    <form action="../../../controllers/dueñoCtrl/activacionDueñoController.php" method="POST">
+                    <form action="../../../controllers/dueñoCtrl/activacionDueñoController.php" method="POST" class="d-inline-flex flex-wrap gap-1 justify-content-center">
                         <input type="hidden" name="codUsuario" value="<?= $dueño['codUsuario'] ?>">
                         <input type="hidden" name="nombreUsuario" value="<?= $dueño['nombreUsuario']?>">
                         <!-- Si dueño = pendiente -->
                         <?php if($dueño["estadoUsuario"] == 'pendiente'): ?>
-                            <button type="submit"  name="activar"  class="button-activar">Activar</button>
-                            <button type="submit"  name="eliminar" class="button-eliminar">Eliminar</button>
+                            <button type="submit" name="activar" class="btn btn-success btn-sm rounded-pill px-3" title="Activar dueño">
+                                <i class="bi bi-check-lg"></i> Activar
+                            </button>
+                            <button type="submit" name="eliminar" class="btn btn-danger btn-sm rounded-pill px-3" title="Eliminar dueño">
+                                <i class="bi bi-x-lg"></i> Eliminar
+                            </button>
                             <!-- Si dueño = activo -->
-                        <?php elseif($dueño["estadoUsuario"] == 'activo'):  ?>
-                            <button type="submit"  name="eliminar" class="button-eliminar">Eliminar</button>
+                        <?php elseif($dueño["estadoUsuario"] == 'activo'): ?>
+                            <button type="submit" name="eliminar" class="btn btn-danger btn-sm rounded-pill px-3" title="Eliminar dueño">
+                                <i class="bi bi-x-lg"></i> Eliminar
+                            </button>
                             <!-- Si dueño = eliminado -->
-                        <?php elseif($dueño["estadoUsuario"] == 'eliminado'):  ?>
-                            <button type="submit"  name="activar" class="button-activar">Activar</button>
+                        <?php elseif($dueño["estadoUsuario"] == 'eliminado'): ?>
+                            <button type="submit" name="activar" class="btn btn-success btn-sm rounded-pill px-3" title="Reactivar dueño">
+                                <i class="bi bi-arrow-clockwise"></i> Reactivar
+                            </button>
                         <?php endif; ?>
                     </form>
                 </td>

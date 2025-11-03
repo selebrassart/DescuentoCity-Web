@@ -188,22 +188,55 @@ include("../../../conexionBD.php");
                     }
                 ?>
             </td>
-            <td> <?= ucfirst($promo["estadoPromo"]) ?></td>
             <td>
-                <form action="../../../controllers/adminCtrl/promocionesController.php" method="POST">
+                <?php
+                $estado = $promo['estadoPromo'];
+                $estado_class = '';
+                $estado_icon = '';
+                switch($estado) {
+                    case 'pendiente':
+                        $estado_class = 'bg-warning text-dark';
+                        $estado_icon = 'bi bi-clock';
+                        break;
+                    case 'aprobada':
+                        $estado_class = 'bg-success';
+                        $estado_icon = 'bi bi-check-circle-fill';
+                        break;
+                    case 'denegada':
+                        $estado_class = 'bg-danger';
+                        $estado_icon = 'bi bi-x-circle-fill';
+                        break;
+                }
+                ?>
+                <span class="badge <?= $estado_class ?>">
+                    <i class="<?= $estado_icon ?>"></i> <?= ucfirst($estado) ?>
+                </span>
+            </td>
+            <td>
+                <form action="../../../controllers/adminCtrl/promocionesController.php" method="POST" class="d-inline-flex flex-wrap gap-1 justify-content-center">
                     <input type="hidden" name="codPromo" value="<?= $promo['codPromo'] ?>">
 
                     <!-- Si promocion = pendiente -->
                     <?php if($promo["estadoPromo"] == 'pendiente'): ?>
-                        <button type="submit"  name="aprobar"  class="button-activar">Aprobar</button>
-                        <button type="submit"  name="denegar" class="button-eliminar">Denegar</button>
+                        <button type="submit" name="aprobar" class="btn btn-success btn-sm rounded-pill px-3" title="Aprobar promoción">
+                            <i class="bi bi-check-lg"></i> Aprobar
+                        </button>
+                        <button type="submit" name="denegar" class="btn btn-danger btn-sm rounded-pill px-3" title="Denegar promoción">
+                            <i class="bi bi-x-lg"></i> Denegar
+                        </button>
                         <!-- Si promocion = aprobada -->
-                    <?php elseif($promo["estadoPromo"] == 'aprobada'):  ?>
-                        <button type="submit"  name="denegar" class="button-eliminar">Denegar</button>
+                    <?php elseif($promo["estadoPromo"] == 'aprobada'): ?>
+                        <button type="submit" name="denegar" class="btn btn-danger btn-sm rounded-pill px-3" title="Denegar promoción">
+                            <i class="bi bi-x-lg"></i> Denegar
+                        </button>
                         <!-- Si promocion = denegada -->
-                    <?php elseif($promo["estadoPromo"] == 'denegada'):  ?>
-                        <button type="submit"  name="aprobar" class="button-activar">Aprobar</button>
-                        <button type="submit"  name="eliminar" class="button-eliminar">Eliminar</button>
+                    <?php elseif($promo["estadoPromo"] == 'denegada'): ?>
+                        <button type="submit" name="aprobar" class="btn btn-success btn-sm rounded-pill px-3" title="Aprobar promoción">
+                            <i class="bi bi-check-lg"></i> Aprobar
+                        </button>
+                        <button type="submit" name="eliminar" class="btn btn-secondary btn-sm rounded-circle" title="Eliminar promoción">
+                            <i class="bi bi-trash3-fill"></i>
+                        </button>
                     <?php endif; ?>
                 </form>
             </td>
