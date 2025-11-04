@@ -14,11 +14,11 @@ $breadcrumb_titulo_activo = 'Registro';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/Descuento-City/assets/css/estilos.css">
+    <link rel="stylesheet" href="/assets/css/estilos.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     <title>Registro - Descuento City</title>
-    <link rel="icon" type="image/png" href="/Descuento-City/assets/img/logo-ventana/logo-fondo-b-circular.png"/>
+    <link rel="icon" type="image/png" href="/assets/img/logo-ventana/logo-fondo-b-circular.png"/>
 </head>
 <body>
     <?php include("../../includes/navbar.php");?>
@@ -118,7 +118,7 @@ $breadcrumb_titulo_activo = 'Registro';
                     
                     <div class="text-center">
                         <span class="text-muted">¿Ya estás registrado? </span>
-                        <a href="/Descuento-City/views/auth/login.php" class="text-primary">Iniciar Sesión</a>
+                        <a href="/views/auth/login.php" class="text-primary">Iniciar Sesión</a>
                     </div>
                 </form>
             </div>

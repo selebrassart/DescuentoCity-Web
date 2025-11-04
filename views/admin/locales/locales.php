@@ -12,11 +12,11 @@ require("../../../funciones/funcionesSQL.php");
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/Descuento-City/assets/css/estilos.css">
+    <link rel="stylesheet" href="/assets/css/estilos.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     <title>Locales - Admin</title>
-    <link rel="icon" type="image/png" href="/Descuento-City/assets/img/logo-ventana/logo-fondo-b-circular.png"/>
+    <link rel="icon" type="image/png" href="/assets/img/logo-ventana/logo-fondo-b-circular.png"/>
 </head>
 <body>
     <?php include("../../../includes/navbar.php");?>
@@ -163,7 +163,7 @@ require("../../../funciones/funcionesSQL.php");
                             </button>
                         </form>
                         <!-- Boton para editar -->
-                        <a href="/Descuento-City/views/admin/locales/localUpdate.php?codLocal=<?php echo $fila['codLocal']; ?>" 
+                        <a href="/views/admin/locales/localUpdate.php?codLocal=<?php echo $fila['codLocal']; ?>" 
                            class="btn btn-warning btn-sm rounded-pill px-3" title="Editar local">
                             <i class="bi bi-pencil"></i> Editar
                         </a>
@@ -171,7 +171,7 @@ require("../../../funciones/funcionesSQL.php");
                     <!-- Si local esta activo, Permitir editar o eliminar -->
                     <?php elseif($fila["estadoLocal"] == 'activo' ):?>
                         <!-- Boton para editar -->
-                        <a href="/Descuento-City/views/admin/locales/localUpdate.php?codLocal=<?php echo $fila['codLocal']; ?>" 
+                        <a href="/views/admin/locales/localUpdate.php?codLocal=<?php echo $fila['codLocal']; ?>" 
                            class="btn btn-warning btn-sm rounded-pill px-3" title="Editar local">
                             <i class="bi bi-pencil"></i> Editar
                         </a>

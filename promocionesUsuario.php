@@ -79,15 +79,15 @@ if (!$resultado_promos) {
     <title>Promociones - Descuento City</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="/Descuento-City/assets/css/estilos.css">
-    <link rel="icon" type="image/png" href="/Descuento-City/assets/img/logo-ventana/logo-fondo-b-circular.png"/>
+    <link rel="stylesheet" href="/assets/css/estilos.css">
+    <link rel="icon" type="image/png" href="/assets/img/logo-ventana/logo-fondo-b-circular.png"/>
 </head>
 <body>
 <?php include("includes/navbar.php"); ?>
 
 <!-- Portada -->
     <section class="portada position-relative">
-        <img src="/Descuento-City/assets/img/promociones-portada.png" alt="Portada Promociones"class="portada-img img-fluid">
+        <img src="/assets/img/promociones-portada.png" alt="Portada Promociones"class="portada-img img-fluid">
         <div class="portada-overlay text-center">
             <h1 class="portada-titulo">PROMOCIONES</h1>
             <p class="portada-subtitulo"> Mantenete al día con las últimas noticias y actualizaciones de <strong>Descuento City</strong>.</p>

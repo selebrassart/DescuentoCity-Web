@@ -61,7 +61,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['codLocal'])) {
                 <div class="row g-0">
                     <div class="col-md-4">
                         <?php if (!empty($promo["rutaArchivo"])): ?>
-                            <img src="/Descuento-City/<?= htmlspecialchars($promo["rutaArchivo"]) ?>" 
+                            <img src="/<?= htmlspecialchars($promo["rutaArchivo"]) ?>" 
                                  class="img-fluid rounded-start h-100" alt="Imagen promocional del descuento ofrecido por el local" 
                                  style="object-fit: cover; min-height: 200px;">
                         <?php else: ?>
@@ -108,7 +108,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['codLocal'])) {
                                 <?php endif; ?>
                             </div>
                             
-                            <form action="/Descuento-City/controllers/promocionesCtrl/usoPromocionController.php" method="POST" class="mt-3">
+                            <form action="/controllers/promocionesCtrl/usoPromocionController.php" method="POST" class="mt-3">
                                 <input type="hidden" name="codPromo" value="<?= $promo['codPromo'] ?>">
                                 <button type="submit" name="usar" class="btn btn-success">
                                     <i class="bi bi-check-circle"></i> Usar Promoción

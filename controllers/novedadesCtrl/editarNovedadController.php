@@ -111,7 +111,7 @@ if ($nuevaImg && isset($nuevaImg['error']) && $nuevaImg['error'] !== UPLOAD_ERR_
 
         // intento borrar archivo antiguo si existe
         if (!empty($rutaOld)) {
-            $oldPublic = rtrim($_SERVER['DOCUMENT_ROOT'], '/\\') . '/Descuento-City/' . ltrim($rutaOld, '/\\');
+            $oldPublic = rtrim($_SERVER['DOCUMENT_ROOT'], '/\\') . '/' . ltrim($rutaOld, '/\\');
             if (file_exists($oldPublic)) @unlink($oldPublic);
         }
     } else {

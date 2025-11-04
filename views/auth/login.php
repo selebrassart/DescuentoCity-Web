@@ -13,11 +13,11 @@ $breadcrumb_titulo_activo = 'Iniciar Sesión';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/Descuento-City/assets/css/estilos.css">
+    <link rel="stylesheet" href="/assets/css/estilos.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     <title>Iniciar Sesión - Descuento City</title>
-    <link rel="icon" type="image/png" href="/Descuento-City/assets/img/logo-ventana/logo-fondo-b-circular.png"/>
+    <link rel="icon" type="image/png" href="/assets/img/logo-ventana/logo-fondo-b-circular.png"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </head>
 <body>
@@ -107,7 +107,7 @@ $breadcrumb_titulo_activo = 'Iniciar Sesión';
                     
                     <div class="mb-3 text-center"> 
                         <span class="small text-muted">¿Olvidó su contraseña? </span>
-                        <a href="/Descuento-City/views/auth/restablecer-contraseña.php" class="text-primary">
+                        <a href="/views/auth/restablecer-contraseña.php" class="text-primary">
                             Click aquí
                         </a>
                     </div>
@@ -118,7 +118,7 @@ $breadcrumb_titulo_activo = 'Iniciar Sesión';
                     
                     <div class="text-center">
                         <span class="text-muted">¿No tiene cuenta? </span>
-                        <a href="/Descuento-City/views/auth/registro.php" class="text-primary">Crear una</a>
+                        <a href="/views/auth/registro.php" class="text-primary">Crear una</a>
                     </div>
                 </form>
             </div>

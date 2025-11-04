@@ -11,22 +11,22 @@ if (session_status() === PHP_SESSION_NONE) {
       if (isset($_SESSION['tipoUsuario'])) {
         switch($_SESSION['tipoUsuario']) {
           case 'cliente':
-            echo '/Descuento-City/views/cliente/promociones.php';
+            echo '/views/cliente/promociones.php';
             break;
           case 'dueño':
-            echo '/Descuento-City/views/dueño/mis_promos.php';
+            echo '/views/dueño/mis_promos.php';
             break;
           case 'admin':
-            echo '/Descuento-City/views/admin/dueños/dueños.php';
+            echo '/views/admin/dueños/dueños.php';
             break;
           default:
-            echo '/Descuento-City/index.php';
+            echo '/index.php';
         }
       } else {
-        echo '/Descuento-City/index.php';
+        echo '/index.php';
       }
     ?>">
-      <img src="/Descuento-City/assets/img/logo/LOGO1.png" alt="Logo principal de Descuento City - Tu plataforma de descuentos y promociones" width="120" class="me-2">
+      <img src="/assets/img/logo/LOGO1.png" alt="Logo principal de Descuento City - Tu plataforma de descuentos y promociones" width="120" class="me-2">
     </a>
 
     <!-- BOTÓN HAMBURGUESA -->
@@ -40,38 +40,38 @@ if (session_status() === PHP_SESSION_NONE) {
 
         <?php if (!isset($_SESSION['tipoUsuario'])): ?>
           <!-- Enlaces para usuarios no logueados -->
-          <li class="nav-item"><a class="nav-link" href="/Descuento-City/localesUsuarios.php">Locales</a></li>
-          <li class="nav-item"><a class="nav-link" href="/Descuento-City/promocionesUsuario.php">Promociones</a></li>
-          <li class="nav-item"><a class="nav-link" href="/Descuento-City/novedadesUsuarios.php">Novedades</a></li>
-          <li class="nav-item"><a class="nav-link" href="/Descuento-City/contacto.php">Contacto</a></li>
-          <li class="nav-item"><a class="nav-link" href="/Descuento-City/views/auth/login.php"><i class="bi bi-box-arrow-in-right"></i> Iniciar Sesión</a></li>
+          <li class="nav-item"><a class="nav-link" href="/localesUsuarios.php">Locales</a></li>
+          <li class="nav-item"><a class="nav-link" href="/promocionesUsuario.php">Promociones</a></li>
+          <li class="nav-item"><a class="nav-link" href="/novedadesUsuarios.php">Novedades</a></li>
+          <li class="nav-item"><a class="nav-link" href="/contacto.php">Contacto</a></li>
+          <li class="nav-item"><a class="nav-link" href="/views/auth/login.php"><i class="bi bi-box-arrow-in-right"></i> Iniciar Sesión</a></li>
 
         <?php elseif ($_SESSION['tipoUsuario'] === 'cliente'): ?>
           <!-- Enlaces para clientes -->
-          <li class="nav-item"><a class="nav-link" href="/Descuento-City/views/cliente/locales.php"><i class="bi bi-geo-alt"></i> Locales</a></li>
-          <li class="nav-item"><a class="nav-link" href="/Descuento-City/views/cliente/promociones.php"><i class="bi bi-ticket-perforated"></i> Promociones</a></li>
-          <li class="nav-item"><a class="nav-link" href="/Descuento-City/views/cliente/novedades.php"><i class="bi bi-newspaper"></i> Novedades</a></li>
-          <li class="nav-item"><a class="nav-link" href="/Descuento-City/views/cliente/misUsoPromociones.php"><i class="bi bi-collection"></i> Mis Uso Promos</a></li>
-          <li class="nav-item"><a class="nav-link" href="/Descuento-City/contacto.php"><i class="bi bi-envelope"></i> Contacto</a></li>
-          <li class="nav-item"><a class="nav-link text-danger" href="/Descuento-City/views/auth/logout.php"><i class="bi bi-box-arrow-right"></i> Cerrar Sesión</a></li>
+          <li class="nav-item"><a class="nav-link" href="/views/cliente/locales.php"><i class="bi bi-geo-alt"></i> Locales</a></li>
+          <li class="nav-item"><a class="nav-link" href="/views/cliente/promociones.php"><i class="bi bi-ticket-perforated"></i> Promociones</a></li>
+          <li class="nav-item"><a class="nav-link" href="/views/cliente/novedades.php"><i class="bi bi-newspaper"></i> Novedades</a></li>
+          <li class="nav-item"><a class="nav-link" href="/views/cliente/misUsoPromociones.php"><i class="bi bi-collection"></i> Mis Uso Promos</a></li>
+          <li class="nav-item"><a class="nav-link" href="/contacto.php"><i class="bi bi-envelope"></i> Contacto</a></li>
+          <li class="nav-item"><a class="nav-link text-danger" href="/views/auth/logout.php"><i class="bi bi-box-arrow-right"></i> Cerrar Sesión</a></li>
 
         <?php elseif ($_SESSION['tipoUsuario'] === 'dueño'): ?>
           <!-- Enlaces para dueños -->
-          <li class="nav-item"><a class="nav-link" href="/Descuento-City/views/dueño/mis_promos.php"><i class="bi bi-shop"></i> Mis Promos</a></li>
-          <li class="nav-item"><a class="nav-link" href="/Descuento-City/views/dueño/solicitudes.php"><i class="bi bi-clipboard-check"></i> Solicitudes</a></li>
-          <li class="nav-item"><a class="nav-link" href="/Descuento-City/views/dueño/reporte/dueñoReporte.php"><i class="bi bi-graph-up"></i> Reportes</a></li>
-          <li class="nav-item"><a class="nav-link" href="/Descuento-City/contacto.php"><i class="bi bi-envelope"></i> Contacto</a></li>
-          <li class="nav-item"><a class="nav-link text-danger" href="/Descuento-City/views/auth/logout.php"><i class="bi bi-box-arrow-right"></i> Cerrar Sesión</a></li>
+          <li class="nav-item"><a class="nav-link" href="/views/dueño/mis_promos.php"><i class="bi bi-shop"></i> Mis Promos</a></li>
+          <li class="nav-item"><a class="nav-link" href="/views/dueño/solicitudes.php"><i class="bi bi-clipboard-check"></i> Solicitudes</a></li>
+          <li class="nav-item"><a class="nav-link" href="/views/dueño/reporte/dueñoReporte.php"><i class="bi bi-graph-up"></i> Reportes</a></li>
+          <li class="nav-item"><a class="nav-link" href="/contacto.php"><i class="bi bi-envelope"></i> Contacto</a></li>
+          <li class="nav-item"><a class="nav-link text-danger" href="/views/auth/logout.php"><i class="bi bi-box-arrow-right"></i> Cerrar Sesión</a></li>
 
         <?php elseif ($_SESSION['tipoUsuario'] === 'admin'): ?>
           <!-- Enlaces para administradores -->
-          <li class="nav-item"><a class="nav-link" href="/Descuento-City/views/admin/dueños/dueños.php"><i class="bi bi-people"></i> Dueños</a></li>
-          <li class="nav-item"><a class="nav-link" href="/Descuento-City/views/admin/locales/locales.php"><i class="bi bi-building"></i> Locales</a></li>
-          <li class="nav-item"><a class="nav-link" href="/Descuento-City/views/admin/promociones/promociones.php"><i class="bi bi-tags"></i> Promociones</a></li>
-          <li class="nav-item"><a class="nav-link" href="/Descuento-City/views/admin/novedades/novedades.php"><i class="bi bi-newspaper"></i> Novedades</a></li>
-          <li class="nav-item"><a class="nav-link" href="/Descuento-City/views/admin/reportes/reportes.php"><i class="bi bi-graph-up"></i> Reportes</a></li>
-          <li class="nav-item"><a class="nav-link" href="/Descuento-City/contacto.php"><i class="bi bi-envelope"></i> Contacto</a></li>
-          <li class="nav-item"><a class="nav-link text-danger" href="/Descuento-City/views/auth/logout.php"><i class="bi bi-box-arrow-right"></i> Cerrar Sesión</a></li>
+          <li class="nav-item"><a class="nav-link" href="/views/admin/dueños/dueños.php"><i class="bi bi-people"></i> Dueños</a></li>
+          <li class="nav-item"><a class="nav-link" href="/views/admin/locales/locales.php"><i class="bi bi-building"></i> Locales</a></li>
+          <li class="nav-item"><a class="nav-link" href="/views/admin/promociones/promociones.php"><i class="bi bi-tags"></i> Promociones</a></li>
+          <li class="nav-item"><a class="nav-link" href="/views/admin/novedades/novedades.php"><i class="bi bi-newspaper"></i> Novedades</a></li>
+          <li class="nav-item"><a class="nav-link" href="/views/admin/reportes/reportes.php"><i class="bi bi-graph-up"></i> Reportes</a></li>
+          <li class="nav-item"><a class="nav-link" href="/contacto.php"><i class="bi bi-envelope"></i> Contacto</a></li>
+          <li class="nav-item"><a class="nav-link text-danger" href="/views/auth/logout.php"><i class="bi bi-box-arrow-right"></i> Cerrar Sesión</a></li>
         <?php endif; ?>
 
       </ul>

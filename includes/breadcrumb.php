@@ -45,52 +45,52 @@ function crear_enlace_breadcrumb($segments, $index) {
         // Para páginas de cliente, enlazar a secciones de cliente
         switch(strtolower($segments[$index])) {
             case 'locales':
-                return '/Descuento-City/views/cliente/locales.php';
+                return '/views/cliente/locales.php';
             case 'promociones':
-                return '/Descuento-City/views/cliente/promociones.php';
+                return '/views/cliente/promociones.php';
             case 'novedades':
-                return '/Descuento-City/views/cliente/novedades.php';
+                return '/views/cliente/novedades.php';
             default:
-                return '/Descuento-City/index.php';
+                return '/index.php';
         }
     } elseif (strpos($path, 'views/dueño') !== false || strpos($path, 'views/due') !== false) {
         // Para páginas de dueño
         switch(strtolower($segments[$index])) {
             case 'mis_promos':
             case 'promociones':
-                return '/Descuento-City/views/dueño/mis_promos.php';
+                return '/views/dueño/mis_promos.php';
             case 'solicitudes':
-                return '/Descuento-City/views/dueño/solicitudes.php';
+                return '/views/dueño/solicitudes.php';
             default:
-                return '/Descuento-City/index.php';
+                return '/index.php';
         }
     } elseif (strpos($path, 'views/admin') !== false) {
         // Para páginas de admin
         switch(strtolower($segments[$index])) {
             case 'locales':
-                return '/Descuento-City/views/admin/locales/locales.php';
+                return '/views/admin/locales/locales.php';
             case 'promociones':
-                return '/Descuento-City/views/admin/promociones/promociones.php';
+                return '/views/admin/promociones/promociones.php';
             case 'novedades':
-                return '/Descuento-City/views/admin/novedades/novedades.php';
+                return '/views/admin/novedades/novedades.php';
             case 'dueños':
-                return '/Descuento-City/views/admin/dueños/dueños.php';
+                return '/views/admin/dueños/dueños.php';
             default:
-                return '/Descuento-City/index.php';
+                return '/index.php';
         }
     } else {
         // Para páginas públicas
         switch(strtolower($segments[$index])) {
             case 'locales':
-                return '/Descuento-City/localesUsuarios.php';
+                return '/localesUsuarios.php';
             case 'promociones':
-                return '/Descuento-City/promocionesUsuario.php';
+                return '/promocionesUsuario.php';
             case 'novedades':
-                return '/Descuento-City/novedadesUsuarios.php';
+                return '/novedadesUsuarios.php';
             case 'contacto':
-                return '/Descuento-City/contacto.php';
+                return '/contacto.php';
             default:
-                return '/Descuento-City/index.php';
+                return '/index.php';
         }
     }
 }
@@ -100,17 +100,17 @@ echo '<nav style="--bs-breadcrumb-divider: \'>\';" aria-label="breadcrumb">';
 echo '<ol class="breadcrumb">';
 
 // Enlace de Home específico según el tipo de usuario
-$home_link = '/Descuento-City/index.php'; // Por defecto
+$home_link = '/index.php'; // Por defecto
 if (isset($_SESSION['tipoUsuario'])) {
     switch($_SESSION['tipoUsuario']) {
         case 'cliente':
-            $home_link = '/Descuento-City/views/cliente/locales.php';
+            $home_link = '/views/cliente/locales.php';
             break;
         case 'dueño':
-            $home_link = '/Descuento-City/views/dueño/mis_promos.php';
+            $home_link = '/views/dueño/mis_promos.php';
             break;
         case 'admin':
-            $home_link = '/Descuento-City/views/admin/dueños/dueños.php';
+            $home_link = '/views/admin/dueños/dueños.php';
             break;
     }
 }

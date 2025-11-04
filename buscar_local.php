@@ -28,7 +28,7 @@ if(isset($_POST['buscar'])) {
     
     if($resultado && mysqli_num_rows($resultado) > 0) {
         while($local = mysqli_fetch_assoc($resultado)) {
-            $logo = $local['logo'] ? $local['logo'] : '/Descuento-City/assets/img/default-local.jpg';
+            $logo = $local['logo'] ? $local['logo'] : '/assets/img/default-local.jpg';
             ?>
             <div class="border-bottom p-2 hover-bg-light" style="cursor: pointer;">
                 <div class="row align-items-center">

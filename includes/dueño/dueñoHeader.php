@@ -5,4 +5,4 @@ if (session_status() === PHP_SESSION_NONE) {
 ?>
 
 <!-- Incluir navbar unificado -->
-<?php include($_SERVER['DOCUMENT_ROOT'] . '/Descuento-City/includes/navbar.php'); ?>
+<?php include($_SERVER['DOCUMENT_ROOT'] . '/includes/navbar.php'); ?>

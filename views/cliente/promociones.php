@@ -109,8 +109,8 @@ if (!$resultado_promos) {
     <title>Promociones</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="/Descuento-City/assets/css/estilos.css">
-    <link rel="icon" type="image/png" href="/Descuento-City/assets/img/logo-ventana/logo-fondo-b-circular.png"/>
+    <link rel="stylesheet" href="/assets/css/estilos.css">
+    <link rel="icon" type="image/png" href="/assets/img/logo-ventana/logo-fondo-b-circular.png"/>
 </head>
 <body>
 <div class="main-content">
@@ -118,7 +118,7 @@ if (!$resultado_promos) {
 
 <!-- Portada -->
     <section class="portada position-relative">
-        <img src="/Descuento-City/assets/img/promociones-portada.png" alt="Portada Promociones"class="portada-img img-fluid">
+        <img src="/assets/img/promociones-portada.png" alt="Portada Promociones"class="portada-img img-fluid">
         <div class="portada-overlay text-center">
             <h1 class="portada-titulo">PROMOCIONES</h1>
             <p class="portada-subtitulo"> Mantenete al día con las últimas noticias y actualizaciones de <strong>Descuento City</strong>.</p>
@@ -267,7 +267,7 @@ if (!$resultado_promos) {
                 <div class="col-lg-4 col-md-6 mb-4">
                     <div class="card h-100 shadow-sm">
                         <?php if(!empty($promo["rutaArchivo"])):?>
-                        <img src="/Descuento-City/<?= htmlspecialchars($promo["rutaArchivo"]) ?>" class="card-img-top img-fluid" alt="portada promocion" style="height: 250px; object-fit: cover; width: 100%;"> 
+                        <img src="/<?= htmlspecialchars($promo["rutaArchivo"]) ?>" class="card-img-top img-fluid" alt="portada promocion" style="height: 250px; object-fit: cover; width: 100%;"> 
                         <?php else: ?>
                             <div class="card-img-top d-flex align-items-center justify-content-center bg-light" style="height: 250px; width: 100%;">
                                 <span class="text-muted"><i class="bi bi-image"></i> Sin portada</span>

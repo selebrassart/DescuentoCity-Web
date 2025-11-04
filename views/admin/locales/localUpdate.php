@@ -42,11 +42,11 @@ if ($codLocal >= 0) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/Descuento-City/assets/css/estilos.css">
+    <link rel="stylesheet" href="/assets/css/estilos.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     <title>Editar Local - Admin</title>
-    <link rel="icon" type="image/png" href="/Descuento-City/assets/img/logo-ventana/logo-fondo-b-circular.png"/>
+    <link rel="icon" type="image/png" href="/assets/img/logo-ventana/logo-fondo-b-circular.png"/>
 </head>
 <body>
     <?php include("../../../includes/navbar.php");?>
@@ -93,7 +93,7 @@ if ($codLocal >= 0) {
 
                 <h1 class="text-center mb-4">Editar Local</h1>
 
-                <form action="/Descuento-City/controllers/localesCtrl/localesUpdateController.php" method="POST" enctype="multipart/form-data" class="p-4 border rounded shadow-sm bg-white">
+                <form action="/controllers/localesCtrl/localesUpdateController.php" method="POST" enctype="multipart/form-data" class="p-4 border rounded shadow-sm bg-white">
                     
                     <!-- Codigo Local (hidden) -->
                     <input type="hidden" name="codLocal" value="<?php echo isset($local['codLocal']) ? htmlspecialchars($local['codLocal']) : ''; ?>">
@@ -123,7 +123,7 @@ if ($codLocal >= 0) {
 
                             // Construyo ruta absoluta segura usando DOCUMENT_ROOT + ruta relativa en BD
                             // Asegurate que la ruta en BD sea relativa a la raíz del proyecto (ej: "uploads/logos/xxx.png")
-                            $rutaPublica = '/Descuento-City/' . ltrim($ruta, '/\\');
+                            $rutaPublica = '/' . ltrim($ruta, '/\\');
 
                             if (!empty($ruta)): ?>
                                 <img src="<?php echo htmlspecialchars($rutaPublica); ?>" alt="Logo del local" class="img-thumbnail" style="max-width: 200px; max-height: 150px; object-fit: cover;">

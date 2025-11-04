@@ -13,7 +13,7 @@ function enviar_mail($email,$tipoUsuario,$estadoUsuario,$token){
 
         $asunto = 'Activar cuenta - DESCUENTO CITY.';
 
-        $url = "http://localhost/Descuento-City/controllers/activacionController.php?email=$email&token=$token";
+        $url = "http://descuentocity.shop/controllers/activacionController.php?email=$email&token=$token";
 
         $cuerpo = "
         <html>
@@ -42,7 +42,7 @@ function enviar_mail($email,$tipoUsuario,$estadoUsuario,$token){
                 <h1>Descuento City</h1>
                 <p>Tu cuenta ya fue activada por el administrador.</p>
                 <p>Ya puedes iniciar sesion en el sitio.</p>
-                <a href='http://localhost/Descuento-City/views/auth/login.php' style='
+                <a href='http:/descuentocity.shop/views/auth/login.php' style='
                     display:inline-block;
                     padding:10px 20px;
                     background-color:#007bff;

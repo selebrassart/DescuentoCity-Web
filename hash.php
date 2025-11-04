@@ -39,7 +39,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["confirm"])){
         if($info === false){
             
             $_SESSION['mensaje'] = "Archivo no es una imagen válida.";
-            header("Location: /Descuento-City/views/admin/locales/localUpdate.php?codLocal=$codLocal");
+            header("Location: /views/admin/locales/localUpdate.php?codLocal=$codLocal");
             exit();
         }
 
@@ -69,13 +69,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["confirm"])){
             }
         } else {
             $_SESSION['mensaje'] = "Error moviendo el archivo subido.";
-            header("Location: /Descuento-City/views/admin/locales/localUpdate.php?codLocal=$codLocal");
+            header("Location: /views/admin/locales/localUpdate.php?codLocal=$codLocal");
             exit();
         }
     }
 
     $_SESSION['mensaje'] = "Cambios guardados correctamente.";
-    header("Location: /Descuento-City/views/admin/locales/localUpdate.php?codLocal=$codLocal");
+    header("Location: /views/admin/locales/localUpdate.php?codLocal=$codLocal");
     exit();
 }
 ?>

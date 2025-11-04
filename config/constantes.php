@@ -4,6 +4,6 @@
 
 <?php
  
-define('BASE_URL','/Descuento-City/');
+define('BASE_URL','/');
 
 ?>

@@ -50,15 +50,15 @@ $resultado_locales = mysqli_query($conexion, $sql_locales);
     <title>Locales - Descuento City</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="/Descuento-City/assets/css/estilos.css">
-    <link rel="icon" type="image/png" href="/Descuento-City/assets/img/logo-ventana/logo-fondo-b-circular.png"/>
+    <link rel="stylesheet" href="/assets/css/estilos.css">
+    <link rel="icon" type="image/png" href="/assets/img/logo-ventana/logo-fondo-b-circular.png"/>
 </head>
 <body>
 <?php include("includes/navbar.php"); ?>
 
 <!-- Portada -->
      <section class="portada position-relative">
-        <img src="/Descuento-City/assets/img/locales-portada.png" alt="Portada Locales"class="portada-img img-fluid">
+        <img src="/assets/img/locales-portada.png" alt="Portada Locales"class="portada-img img-fluid">
         <div class="portada-overlay text-center">
             <h1 class="portada-titulo">LOCALES</h1>
             <p class="portada-subtitulo">Descubrí todas las marcas y rubros de  <strong>Descuento City</strong>.</p>
@@ -150,7 +150,7 @@ $resultado_locales = mysqli_query($conexion, $sql_locales);
                 <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
                     <div class="card h-100 shadow-sm ">
                         <div class="card-header bg-white p-5" style="min-height: 120px; display: flex; align-items: center; justify-content: center;">
-                            <img src="/Descuento-City/<?= $local['logo'] ?: 'assets/img/default-logo.png'; ?>" 
+                            <img src="/<?= $local['logo'] ?: 'assets/img/default-logo.png'; ?>" 
                                  class="img-fluid" alt="<?= $local['nombreLocal']; ?>"
                                  style="max-height: 100px; max-width: 100%; object-fit: contain;">
                         </div>

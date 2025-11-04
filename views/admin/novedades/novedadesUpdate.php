@@ -42,11 +42,11 @@ if ($codNovedad > 0) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/Descuento-City/assets/css/estilos.css">
+    <link rel="stylesheet" href="/assets/css/estilos.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     <title>Editar Novedad - Admin</title>
-    <link rel="icon" type="image/png" href="/Descuento-City/assets/img/logo-ventana/logo-fondo-b-circular.png"/>
+    <link rel="icon" type="image/png" href="/assets/img/logo-ventana/logo-fondo-b-circular.png"/>
 </head>
 <body>
     <?php include("../../../includes/navbar.php");?>
@@ -93,7 +93,7 @@ if ($codNovedad > 0) {
 
                 <h1 class="text-center mb-4">Editar Novedad #<?= $nov['codNovedad'] ?></h1>
 
-                <form action="/Descuento-City/controllers/novedadesCtrl/editarNovedadController.php" method="POST" enctype="multipart/form-data" class="p-4 border rounded shadow-sm bg-white">
+                <form action="/controllers/novedadesCtrl/editarNovedadController.php" method="POST" enctype="multipart/form-data" class="p-4 border rounded shadow-sm bg-white">
                     
                     <!-- Codigo Novedad (hidden) -->
                     <input type="hidden" name="codNovedad" value="<?php echo isset($nov['codNovedad']) ? htmlspecialchars($nov['codNovedad']) : ''; ?>">
@@ -140,7 +140,7 @@ if ($codNovedad > 0) {
                             <?php
                             // ruta guardada en BD (por ejemplo "uploads/fondoNovedad/nombre.jpg")
                             $ruta = $img["rutaArchivo"] ?? '';
-                            $rutaPublica = '/Descuento-City/' . ltrim($ruta, '/\\');
+                            $rutaPublica = '/' . ltrim($ruta, '/\\');
 
                             if (!empty($ruta)): ?>
                                 <img src="<?php echo htmlspecialchars($rutaPublica); ?>" alt="Portada de la novedad" class="img-thumbnail" style="max-width: 300px; max-height: 200px; object-fit: cover;">

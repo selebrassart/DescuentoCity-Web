@@ -103,7 +103,7 @@ if ($nuevoLogo && isset($nuevoLogo['error']) && $nuevoLogo['error'] !== UPLOAD_E
 
         // intento borrar archivo antiguo si existe
         if (!empty($rutaOld)) {
-            $oldPublic = rtrim($_SERVER['DOCUMENT_ROOT'], '/\\') . '/Descuento-City/' . ltrim($rutaOld, '/\\');
+            $oldPublic = rtrim($_SERVER['DOCUMENT_ROOT'], '/\\') . '/' . ltrim($rutaOld, '/\\');
             if (file_exists($oldPublic)) @unlink($oldPublic);
         }
     } else {

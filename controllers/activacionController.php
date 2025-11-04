@@ -22,7 +22,7 @@ if(!empty($email) && !empty($token)){
         //Actualiza datos en BD
         $resultado_update = update_estado_SQL($conexion,$email);
         if($resultado_update){
-            echo "✅ Cuenta activada correctamente. <a href='/Descuento-City/views/auth/login.php'>Iniciar sesión </a>";
+            echo "✅ Cuenta activada correctamente. <a href='/views/auth/login.php'>Iniciar sesión </a>";
         }
         else{
         echo "⚠️ Error al actualizar la cuenta. Intente nuevamente.";

@@ -20,36 +20,36 @@ if (session_status() === PHP_SESSION_NONE) {
                 <ul>
                     <?php if (!isset($_SESSION['tipoUsuario'])): ?>
                         <!-- Enlaces para usuarios no logueados -->
-                        <li><a href="/Descuento-City/index.php"><i class="bi bi-house"></i> Inicio</a></li>
-                        <li><a href="/Descuento-City/localesUsuarios.php"><i class="bi bi-geo-alt"></i> Locales</a></li>
-                        <li><a href="/Descuento-City/promocionesUsuario.php"><i class="bi bi-ticket-perforated"></i> Promociones</a></li>
-                        <li><a href="/Descuento-City/novedadesUsuarios.php"><i class="bi bi-newspaper"></i> Novedades</a></li>
-                        <li><a href="/Descuento-City/contacto.php"><i class="bi bi-envelope"></i> Contacto</a></li>
-                        <li><a href="/Descuento-City/views/auth/login.php"><i class="bi bi-box-arrow-in-right"></i> Iniciar Sesión</a></li>
+                        <li><a href="/index.php"><i class="bi bi-house"></i> Inicio</a></li>
+                        <li><a href="/localesUsuarios.php"><i class="bi bi-geo-alt"></i> Locales</a></li>
+                        <li><a href="/promocionesUsuario.php"><i class="bi bi-ticket-perforated"></i> Promociones</a></li>
+                        <li><a href="/novedadesUsuarios.php"><i class="bi bi-newspaper"></i> Novedades</a></li>
+                        <li><a href="/contacto.php"><i class="bi bi-envelope"></i> Contacto</a></li>
+                        <li><a href="/views/auth/login.php"><i class="bi bi-box-arrow-in-right"></i> Iniciar Sesión</a></li>
                     
                     <?php elseif ($_SESSION['tipoUsuario'] === 'cliente'): ?>
                         <!-- Enlaces para clientes -->
-                        <li><a href="/Descuento-City/views/cliente/locales.php"><i class="bi bi-geo-alt"></i> Locales</a></li>
-                        <li><a href="/Descuento-City/views/cliente/promociones.php"><i class="bi bi-ticket-perforated"></i> Promociones</a></li>
-                        <li><a href="/Descuento-City/views/cliente/novedades.php"><i class="bi bi-newspaper"></i> Novedades</a></li>
-                        <li><a href="/Descuento-City/views/cliente/misUsoPromociones.php"><i class="bi bi-collection"></i> Mis Uso Promos</a></li>
-                        <li><a href="/Descuento-City/contacto.php"><i class="bi bi-envelope"></i> Contacto</a></li>
+                        <li><a href="/views/cliente/locales.php"><i class="bi bi-geo-alt"></i> Locales</a></li>
+                        <li><a href="/views/cliente/promociones.php"><i class="bi bi-ticket-perforated"></i> Promociones</a></li>
+                        <li><a href="/views/cliente/novedades.php"><i class="bi bi-newspaper"></i> Novedades</a></li>
+                        <li><a href="/views/cliente/misUsoPromociones.php"><i class="bi bi-collection"></i> Mis Uso Promos</a></li>
+                        <li><a href="/contacto.php"><i class="bi bi-envelope"></i> Contacto</a></li>
                     
                     <?php elseif ($_SESSION['tipoUsuario'] === 'dueño'): ?>
                         <!-- Enlaces para dueños -->
-                        <li><a href="/Descuento-City/views/dueño/mis_promos.php"><i class="bi bi-shop"></i> Mis Promos</a></li>
-                        <li><a href="/Descuento-City/views/dueño/solicitudes.php"><i class="bi bi-clipboard-check"></i> Solicitudes</a></li>
-                        <li><a href="/Descuento-City/views/dueño/reporte/dueñoReporte.php"><i class="bi bi-graph-up"></i> Reportes</a></li>
-                        <li><a href="/Descuento-City/contacto.php"><i class="bi bi-envelope"></i> Contacto</a></li>
+                        <li><a href="/views/dueño/mis_promos.php"><i class="bi bi-shop"></i> Mis Promos</a></li>
+                        <li><a href="/views/dueño/solicitudes.php"><i class="bi bi-clipboard-check"></i> Solicitudes</a></li>
+                        <li><a href="/views/dueño/reporte/dueñoReporte.php"><i class="bi bi-graph-up"></i> Reportes</a></li>
+                        <li><a href="/contacto.php"><i class="bi bi-envelope"></i> Contacto</a></li>
                     
                     <?php elseif ($_SESSION['tipoUsuario'] === 'admin'): ?>
                         <!-- Enlaces para administradores -->
-                        <li><a href="/Descuento-City/views/admin/dueños/dueños.php"><i class="bi bi-people"></i> Dueños</a></li>
-                        <li><a href="/Descuento-City/views/admin/locales/locales.php"><i class="bi bi-building"></i> Locales</a></li>
-                        <li><a href="/Descuento-City/views/admin/promociones/promociones.php"><i class="bi bi-tags"></i> Promociones</a></li>
-                        <li><a href="/Descuento-City/views/admin/novedades/novedades.php"><i class="bi bi-newspaper"></i> Novedades</a></li>
-                        <li><a href="/Descuento-City/views/admin/reportes/reportes.php"><i class="bi bi-graph-up"></i> Reportes</a></li>
-                        <li><a href="/Descuento-City/contacto.php"><i class="bi bi-envelope"></i> Contacto</a></li>
+                        <li><a href="/views/admin/dueños/dueños.php"><i class="bi bi-people"></i> Dueños</a></li>
+                        <li><a href="/views/admin/locales/locales.php"><i class="bi bi-building"></i> Locales</a></li>
+                        <li><a href="/views/admin/promociones/promociones.php"><i class="bi bi-tags"></i> Promociones</a></li>
+                        <li><a href="/views/admin/novedades/novedades.php"><i class="bi bi-newspaper"></i> Novedades</a></li>
+                        <li><a href="/views/admin/reportes/reportes.php"><i class="bi bi-graph-up"></i> Reportes</a></li>
+                        <li><a href="/contacto.php"><i class="bi bi-envelope"></i> Contacto</a></li>
                     <?php endif; ?>
                 </ul>
             </div>
@@ -117,6 +117,6 @@ if (session_status() === PHP_SESSION_NONE) {
 
 <!-- Enlaces de Bootstrap Icons necesarios para el footer -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
-<link rel="stylesheet" href="/Descuento-City/assets/css/footer.css">
+<link rel="stylesheet" href="/assets/css/footer.css">
 <!-- Font Awesome para íconos de contacto -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" />
