@@ -80,13 +80,16 @@ $breadcrumb_titulo_activo = 'Iniciar Sesión';
 
                 <form action="../../controllers/loginController.php" method="POST" class="p-4 border rounded shadow-sm bg-white">
                     
-                    <div class="input-group mb-3">
-                        <span class="input-group-text" id="basic-addon1"><i class="bi bi-envelope"></i></span>
-                        <input type="email" class="form-control" name="email" placeholder="tu@email.com" aria-label="Email" aria-describedby="basic-addon1" required>
+                    <div class="mb-3">
+                        <label for="clave" class="form-label fw-bold">E-mail</label>
+                        <div class="input-group">
+                            <span class="input-group-text" id="basic-addon1"><i class="bi bi-envelope"></i></span>
+                            <input type="email" class="form-control" name="email" placeholder="tu@email.com" aria-label="Email" aria-describedby="basic-addon1" required>
+                        </div>
                     </div>
                     
                     <div class="mb-3">
-                        <label for="clave" class="form-label">Contraseña</label>
+                        <label for="clave" class="form-label fw-bold">Contraseña</label>
                         <div class="input-group"> 
                             <span class="input-group-text"><i class="bi bi-lock"></i></span>
                             <input type="password" 

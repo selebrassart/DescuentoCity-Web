@@ -226,6 +226,12 @@ $resultado_locales = mysqli_query($conexion, $sql_locales);
                                     <i class="bi bi-geo-alt"></i> <strong>Ubicación:</strong> <?= htmlspecialchars($local['ubicacionLocal']); ?>
                                 </small>
                             </div>
+
+                            <div class="mb-3">
+                                <small class="text-muted">
+                                    <i class="bi bi-upc-scan"></i> <strong>Codigo:</strong> <?= htmlspecialchars($local['codLocal']); ?>
+                                </small>
+                            </div>
                             
                             <!-- Promociones disponibles -->
                             <div class="mt-auto">

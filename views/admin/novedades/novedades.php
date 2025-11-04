@@ -201,7 +201,6 @@ $total_paginas = ceil($total_registros / $cant_por_pag);
     ?>
     </div>
     </div>
-    ?>
     
 
     <!-- Formulario de crear novedad -->

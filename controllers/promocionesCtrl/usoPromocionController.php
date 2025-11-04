@@ -55,7 +55,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["usar"])){
         $_SESSION["mensaje_warning"] = "Promocion ya en uso.";
 
     }
-    elseif($uso['estado'] === 'rechazada'){
+    elseif($uso['estado'] === 'rechazada' || $uso['estado'] === 'eliminada' ){
 
         $_SESSION["mensaje_warning"] = "Uso de promocion rechazado.";
 

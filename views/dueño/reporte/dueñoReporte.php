@@ -162,87 +162,89 @@ $totalSolcitudes = mysqli_fetch_assoc($resultadoSolicitudes)["totalSol"];
             <h3 class="text-center">Uso de promociones</h3>
 
             <div>
-                <table class='tabla table table-striped'>
-                    <thead>
-                        <tr>
-                            <th>Promocion</th>
-                            <th>Vigencia</th>
-                            <th>Dias disponble</th>            
-                            <th>Usos</th>
-                            <th>Accion</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-
-                        <?php while($reporte = mysqli_fetch_assoc($resultadoReporte)):                             
-                            ?>
+                <div class='table-responsive'>
+                    <table class='tabla table table-striped'>
+                        <thead>
                             <tr>
-                                <td>
-                                    #<?=htmlspecialchars($reporte['codPromo']) ?><br>
-                                    <?= htmlspecialchars($reporte['textoPromo']) ?><br>
-                                    <?php
-                                    $categoria = $reporte['categoriaCliente'];
-                                    $badge_class = '';
-                                    $icon = '';
-                                    switch($categoria) {
-                                        case 'Premium':
-                                            $badge_class = 'bg-warning text-dark';
-                                            $icon = 'bi bi-gem';
-                                            break;
-                                        case 'Medium':
-                                            $badge_class = 'bg-info';
-                                            $icon = 'bi bi-star-fill';
-                                            break;
-                                        case 'Inicial':
-                                        default:
-                                            $badge_class = 'bg-secondary';
-                                            $icon = 'bi bi-circle-fill';
-                                            break;
-                                    }
-                                    ?>
-                                    <span class="badge <?= $badge_class ?> rounded-pill">
-                                        <i class="<?= $icon ?>"></i> <?= $categoria ?>
-                                    </span>
-                                </td>
-                                <td>
-                                    <div class="small">
-                                        <div class="badge bg-success-subtle text-success-emphasis rounded-pill mb-1">
-                                            <i class="bi bi-calendar-check"></i> Desde: <?= date('d/m/Y', strtotime($reporte["fechaDesdePromo"])) ?>
-                                        </div>
-                                        <div class="badge bg-danger-subtle text-danger-emphasis rounded-pill">
-                                            <i class="bi bi-calendar-x"></i> Hasta: <?= date('d/m/Y', strtotime($reporte["fechaHastaPromo"])) ?>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td> 
-                                    <small class="text-muted">
-                                        <?php
-                                            //Si esta disponible toda la semana.
-                                            if(strlen($reporte["diasSemana"]) != 54){
-                                                echo $reporte["diasSemana"];
-                                            }
-                                            else{
-                                                echo "Todos los días";
-                                            }
-                                        ?>
-                                    </small>
-                                </td>
-                                <td>
-                                    <span class="badge bg-success fs-6 rounded-pill">
-                                        <i class="bi bi-graph-up"></i> <?= $reporte["totalUsos"] ?> usos
-                                    </span>
-                                </td>
-                                <td>
-                                    <a href="reporteDetallesDueño.php?codLocal=<?= $reporte["codLocal"] ?>&codPromo=<?= $reporte['codPromo'] ?>" 
-                                       class="btn btn-outline-secondary btn-sm rounded-pill px-3" 
-                                       title="Inspeccionar reporte promoción">
-                                        <i class="bi bi-search"></i> Ver detalles
-                                    </a>
-                                </td>
+                                <th>Promocion</th>
+                                <th>Vigencia</th>
+                                <th>Dias disponble</th>            
+                                <th>Usos</th>
+                                <th>Accion</th>
                             </tr>
-                        <?php endwhile; ?>
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+
+                            <?php while($reporte = mysqli_fetch_assoc($resultadoReporte)):                             
+                                ?>
+                                <tr>
+                                    <td>
+                                        #<?=htmlspecialchars($reporte['codPromo']) ?><br>
+                                        <?= htmlspecialchars($reporte['textoPromo']) ?><br>
+                                        <?php
+                                        $categoria = $reporte['categoriaCliente'];
+                                        $badge_class = '';
+                                        $icon = '';
+                                        switch($categoria) {
+                                            case 'Premium':
+                                                $badge_class = 'bg-warning text-dark';
+                                                $icon = 'bi bi-gem';
+                                                break;
+                                            case 'Medium':
+                                                $badge_class = 'bg-info';
+                                                $icon = 'bi bi-star-fill';
+                                                break;
+                                            case 'Inicial':
+                                            default:
+                                                $badge_class = 'bg-secondary';
+                                                $icon = 'bi bi-circle-fill';
+                                                break;
+                                        }
+                                        ?>
+                                        <span class="badge <?= $badge_class ?> rounded-pill">
+                                            <i class="<?= $icon ?>"></i> <?= $categoria ?>
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <div class="small">
+                                            <div class="badge bg-success-subtle text-success-emphasis rounded-pill mb-1">
+                                                <i class="bi bi-calendar-check"></i> Desde: <?= date('d/m/Y', strtotime($reporte["fechaDesdePromo"])) ?>
+                                            </div>
+                                            <div class="badge bg-danger-subtle text-danger-emphasis rounded-pill">
+                                                <i class="bi bi-calendar-x"></i> Hasta: <?= date('d/m/Y', strtotime($reporte["fechaHastaPromo"])) ?>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td> 
+                                        <small class="text-muted">
+                                            <?php
+                                                //Si esta disponible toda la semana.
+                                                if(strlen($reporte["diasSemana"]) != 54){
+                                                    echo $reporte["diasSemana"];
+                                                }
+                                                else{
+                                                    echo "Todos los días";
+                                                }
+                                            ?>
+                                        </small>
+                                    </td>
+                                    <td>
+                                        <span class="badge bg-success fs-6 rounded-pill">
+                                            <i class="bi bi-graph-up"></i> <?= $reporte["totalUsos"] ?> usos
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <a href="reporteDetallesDueño.php?codLocal=<?= $reporte["codLocal"] ?>&codPromo=<?= $reporte['codPromo'] ?>" 
+                                        class="btn btn-outline-secondary btn-sm rounded-pill px-3" 
+                                        title="Inspeccionar reporte promoción">
+                                            <i class="bi bi-search"></i> Ver detalles
+                                        </a>
+                                    </td>
+                                </tr>
+                            <?php endwhile; ?>
+                        </tbody>
+                    </table>
+                </div>
             </div>
             <?php
         }
@@ -253,8 +255,6 @@ $totalSolcitudes = mysqli_fetch_assoc($resultadoSolicitudes)["totalSol"];
             </div>
             <?php
         }
-
-
 
         mysqli_free_result($resultadoReporte);
 

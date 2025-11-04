@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 03-11-2025 a las 03:26:38
+-- Tiempo de generación: 04-11-2025 a las 01:48:05
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -51,7 +51,8 @@ INSERT INTO `imagenes` (`IdImg`, `tipoImg`, `nombreImg`, `rutaArchivo`, `tipoIde
 (7, 'portada', '1761854477_wilson2.webp', 'uploads/fondoPromo/1761854477_wilson2.webp', 'promocion', 9, '2025-10-30 17:01:17'),
 (8, 'portada', '1762091964_novedadPortada.jpg', 'uploads/fondoNovedad/1762091964_novedadPortada.jpg', 'novedad', 1, '2025-11-02 10:59:24'),
 (9, 'portada', '1762099106_28ca201e.png', 'uploads/fondoNovedad/1762099106_28ca201e.png', 'novedad', 2, '2025-11-02 12:58:26'),
-(10, 'portada', '1762135545_novedadPortada.jpg', 'uploads/fondoPromo/1762135545_novedadPortada.jpg', 'promocion', 11, '2025-11-02 23:05:45');
+(10, 'portada', '1762135545_novedadPortada.jpg', 'uploads/fondoPromo/1762135545_novedadPortada.jpg', 'promocion', 11, '2025-11-02 23:05:45'),
+(11, 'logo', '1762214717_adidas.png', 'uploads/logos/1762214717_adidas.png', 'local', 31, '2025-11-03 21:05:17');
 
 -- --------------------------------------------------------
 
@@ -73,10 +74,11 @@ CREATE TABLE `locales` (
 --
 
 INSERT INTO `locales` (`codLocal`, `nombreLocal`, `ubicacionLocal`, `rubroLocal`, `codUsuario`, `estadoLocal`) VALUES
-(19, 'Babolat', 'P3 - L22', 'Indumentaria', 13, 'activo'),
-(20, 'Mc Donald', 'P3 - L2', 'Gastronomia', 10, 'activo'),
+(19, 'Babolat', 'P3 - L21', 'Indumentaria', 13, 'activo'),
+(20, 'Mc Donald', 'P3 - L5', 'Gastronomia', 10, 'activo'),
 (21, 'Head', 'P1 - L10', 'Indumentaria', 15, 'activo'),
-(22, 'Wilson', 'P6 - L7', 'Indumentaria', 8, 'activo');
+(22, 'Wilson', 'P10- L3', 'Indumentaria', 8, 'activo'),
+(31, 'Adidas', 'P2-L4', 'Indumentaria', 12, 'activo');
 
 -- --------------------------------------------------------
 
@@ -99,7 +101,7 @@ CREATE TABLE `novedades` (
 --
 
 INSERT INTO `novedades` (`codNovedad`, `tituloNovedad`, `textoNovedad`, `fechaDesdeNovedad`, `fechaHastaNovedad`, `categoriaCliente`, `estado`) VALUES
-(1, 'Mira todos los descuentos de hallowen', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam ut commodi mollitia aliquam numquam labore accusantium repellendus delectus, quidem beatae voluptatibus similique sint dicta quos placeat quasi atque at et.', '2025-11-02', '2025-11-28', 'medium', 'activa'),
+(1, 'Mira todos los descuentos de hallowen', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam ut commodi mollitia aliquam numquam labore accusantium repellendus delectus, quidem beatae voluptatibus similique sint dicta quos placeat quasi atque at et.', '2025-11-02', '2025-11-29', 'premium', 'activa'),
 (2, 'Proximante descuentos en todos los locales', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam ut commodi mollitia aliquam numquam labore accusantium repellendus delectus, quidem beatae voluptatibus similique sint dicta quos placeat quasi atque at et.\r\nLorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam ut commodi mollitia aliquam numquam labore accusantium repellendus delectus, quidem beatae voluptatibus similique sint dicta quos placeat quasi atque at et.', '2025-11-02', '2025-11-28', 'premium', 'eliminada'),
 (3, '', 'dfdsfsdfdsfdsfsd', '2025-11-02', '2025-10-31', 'medium', 'eliminada');
 
@@ -163,7 +165,7 @@ CREATE TABLE `solicitudes_descuentos` (
 
 INSERT INTO `solicitudes_descuentos` (`id_solicitud`, `codCliente`, `codPromo`, `fecha_solicitud`, `estado`) VALUES
 (15, 2, 9, '2025-10-30 17:58:56', 'eliminada'),
-(16, 2, 6, '2025-10-30 17:58:58', 'aceptada'),
+(16, 2, 6, '2025-10-30 17:58:58', 'eliminada'),
 (21, 17, 5, '2025-11-02 16:45:27', 'aceptada'),
 (22, 17, 9, '2025-11-02 16:47:23', 'aceptada'),
 (23, 2, 5, '2025-11-02 19:48:33', 'pendiente');
@@ -191,7 +193,7 @@ INSERT INTO `uso_promociones` (`idUso`, `codCliente`, `codPromo`, `fechaUsoPromo
 (11, 2, 6, '2025-10-30 18:00:09', 'aceptada'),
 (18, 17, 5, '2025-11-02 16:45:27', 'aceptada'),
 (19, 17, 9, '2025-11-02 16:47:23', 'aceptada'),
-(20, 2, 5, '2025-11-02 19:48:33', 'enviada');
+(20, 2, 5, '2025-11-02 19:48:33', 'eliminada');
 
 -- --------------------------------------------------------
 
@@ -207,7 +209,7 @@ CREATE TABLE `usuarios` (
   `categoriaCliente` enum('inicial','medium','premium') DEFAULT 'inicial',
   `estadoUsuario` enum('activo','pendiente','eliminado') DEFAULT 'pendiente',
   `token` varchar(64) DEFAULT NULL,
-  `fechaRegistro` datetime DEFAULT current_timestamp()
+  `fechaRegistro` date DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -215,18 +217,20 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`codUsuario`, `nombreUsuario`, `claveUsuario`, `tipoUsuario`, `categoriaCliente`, `estadoUsuario`, `token`, `fechaRegistro`) VALUES
-(1, 'admin@dc.com', '$2y$10$qCL0YTwTjf961QJ3HbVJlO88WsbZ5idzZfFtVeb6DUjcgBxiAE4dG', 'admin', 'inicial', 'activo', NULL, '2025-10-20 22:07:45'),
-(2, 'gabilovato45@gmail.com', '$2y$10$/iwCg69xzMzHqcEtDEP8bu5l281ApK.Sx3nRCsgZQpuqdI2bdI5hq', 'cliente', 'premium', 'activo', NULL, '2025-10-20 22:09:05'),
-(3, 'latriesta@dc.com', '$2y$10$NRi.5jXdU29HFOfhEgz2Pu1EgBoVnNyCzxLdCJ.i8noDoejA0yOie', 'dueño', 'inicial', 'eliminado', 'd0c2ef7795dcb101ab43edb9acc263fb', '2025-10-20 22:24:44'),
-(8, 'wilson@dc.com', '$2y$10$yI8e/wHjG28SnMVZgmRchu9Olsjt9Z.QWe/XR39GNEgkNhw8wIJGi', 'dueño', 'inicial', 'activo', '4c7b4dfbdc2f80fb1ecf6342e2308f69', '2025-10-21 01:02:04'),
-(10, 'mc@dc.com', '$2y$10$G4vMk9YrpYbFN8pf5b4N2O0xhZDdfravas9Ff.Wrc0JNVDfz1C.7q', 'dueño', 'inicial', 'activo', '0d3049759e979a682a5fde0ad034e64a', '2025-10-21 10:18:16'),
-(11, 'niike@dc.com', '$2y$10$U2BUjqbkE1NK7zrrLnsYnudpTYFn80237hdd8DBnudf0w1XWJeVLu', 'dueño', 'inicial', 'activo', 'b45517d9d19ee7f9f531bae54fed1ef6', '2025-10-21 15:09:20'),
-(12, 'adidas@gmail.com', '$2y$10$OBQDi38RIP9jpSOdi7IcmeoDcISN0AdkqgeBEUWidLOGGaphLpruC', 'dueño', 'inicial', 'activo', '04dbe3dc6ba5018f3bf8d8b1eee0cc52', '2025-10-21 23:58:11'),
-(13, 'babolat@dc.com', '$2y$10$QYQcb5Uo/WiZZpIygZkx.ehvHNdAiu/7GZa3FCSVqeQNEMJDHbSBy', 'dueño', 'inicial', 'activo', '725d8f61565ee7cd607e6701e413d707', '2025-10-22 01:40:10'),
-(14, 'prince@dc.com', '$2y$10$9vNSnygFnRqEmscc6qFXOe5kGmovK0tUsD6Tb5DlnSzedZuCZl6vG', 'dueño', 'inicial', 'activo', 'c3ccfe4b33819e49f8717fcf4a9012f2', '2025-10-22 01:41:26'),
-(15, 'head@dc.com', '$2y$10$HLAs57Akxs2c78WDebtY5.HnHdqoC0auwXAwpp7v6uNy2.gI6pDDq', 'dueño', 'inicial', 'activo', '811bb65cb991850e3ef806894d2f471d', '2025-10-22 01:41:43'),
-(16, 'gabilovato2@gmail.com', '$2y$10$/iwCg69xzMzHqcEtDEP8bu5l281ApK.Sx3nRCsgZQpuqdI2bdI5hq', 'cliente', 'medium', 'activo', NULL, '2025-10-20 22:09:05'),
-(17, 'pruebaC@gmail.com', '$2y$10$/iwCg69xzMzHqcEtDEP8bu5l281ApK.Sx3nRCsgZQpuqdI2bdI5hq', 'cliente', 'premium', 'activo', NULL, '2025-10-20 22:09:05');
+(1, 'admin@dc.com', '$2y$10$qCL0YTwTjf961QJ3HbVJlO88WsbZ5idzZfFtVeb6DUjcgBxiAE4dG', 'admin', 'inicial', 'activo', NULL, '2025-10-20'),
+(2, 'gabilovato45@gmail.com', '$2y$10$/iwCg69xzMzHqcEtDEP8bu5l281ApK.Sx3nRCsgZQpuqdI2bdI5hq', 'cliente', 'premium', 'activo', NULL, '2025-10-20'),
+(3, 'latriesta@dc.com', '$2y$10$NRi.5jXdU29HFOfhEgz2Pu1EgBoVnNyCzxLdCJ.i8noDoejA0yOie', 'dueño', 'inicial', 'eliminado', 'd0c2ef7795dcb101ab43edb9acc263fb', '2025-10-20'),
+(8, 'wilson@dc.com', '$2y$10$yI8e/wHjG28SnMVZgmRchu9Olsjt9Z.QWe/XR39GNEgkNhw8wIJGi', 'dueño', 'inicial', 'activo', '4c7b4dfbdc2f80fb1ecf6342e2308f69', '2025-10-21'),
+(10, 'mc@dc.com', '$2y$10$G4vMk9YrpYbFN8pf5b4N2O0xhZDdfravas9Ff.Wrc0JNVDfz1C.7q', 'dueño', 'inicial', 'activo', '0d3049759e979a682a5fde0ad034e64a', '2025-10-21'),
+(11, 'niike@dc.com', '$2y$10$U2BUjqbkE1NK7zrrLnsYnudpTYFn80237hdd8DBnudf0w1XWJeVLu', 'dueño', 'inicial', 'activo', 'b45517d9d19ee7f9f531bae54fed1ef6', '2025-10-21'),
+(12, 'adidas@gmail.com', '$2y$10$OBQDi38RIP9jpSOdi7IcmeoDcISN0AdkqgeBEUWidLOGGaphLpruC', 'dueño', 'inicial', 'activo', '04dbe3dc6ba5018f3bf8d8b1eee0cc52', '2025-10-21'),
+(13, 'babolat@dc.com', '$2y$10$QYQcb5Uo/WiZZpIygZkx.ehvHNdAiu/7GZa3FCSVqeQNEMJDHbSBy', 'dueño', 'inicial', 'activo', '725d8f61565ee7cd607e6701e413d707', '2025-10-22'),
+(14, 'prince@dc.com', '$2y$10$9vNSnygFnRqEmscc6qFXOe5kGmovK0tUsD6Tb5DlnSzedZuCZl6vG', 'dueño', 'inicial', 'activo', 'c3ccfe4b33819e49f8717fcf4a9012f2', '2025-10-22'),
+(15, 'head@dc.com', '$2y$10$HLAs57Akxs2c78WDebtY5.HnHdqoC0auwXAwpp7v6uNy2.gI6pDDq', 'dueño', 'inicial', 'activo', '811bb65cb991850e3ef806894d2f471d', '2025-10-22'),
+(16, 'gabilovato2@gmail.com', '$2y$10$/iwCg69xzMzHqcEtDEP8bu5l281ApK.Sx3nRCsgZQpuqdI2bdI5hq', 'cliente', 'medium', 'activo', NULL, '2025-10-20'),
+(17, 'pruebaC@gmail.com', '$2y$10$/iwCg69xzMzHqcEtDEP8bu5l281ApK.Sx3nRCsgZQpuqdI2bdI5hq', 'cliente', 'premium', 'activo', NULL, '2025-10-20'),
+(18, 'gabilov@gmail.com', '$2y$10$V/nv.MttFU6YDBjgf.uAceTUt1kUogKdlgCSojkScG4N/OEN7nuDG', 'cliente', 'inicial', 'pendiente', 'f044ebe4187c5a3f1788c358a9a2f5bb', '2025-11-03'),
+(19, 'admidsn@descuentocity.com', '$2y$10$ESGVOAb9pRXsOT3stDP/UuQB9L5b.5TnXJyp6krE4olksKOon8Gia', 'cliente', 'inicial', 'pendiente', '428ac19da7c7ea843bdd6748505d62b6', '2025-11-03');
 
 --
 -- Índices para tablas volcadas
@@ -288,13 +292,13 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `imagenes`
 --
 ALTER TABLE `imagenes`
-  MODIFY `IdImg` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `IdImg` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de la tabla `locales`
 --
 ALTER TABLE `locales`
-  MODIFY `codLocal` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `codLocal` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT de la tabla `novedades`
@@ -324,7 +328,7 @@ ALTER TABLE `uso_promociones`
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `codUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `codUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- Restricciones para tablas volcadas

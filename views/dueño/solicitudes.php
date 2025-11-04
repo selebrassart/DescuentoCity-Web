@@ -157,7 +157,6 @@ include("../../conexionBD.php");?>
 
 
     echo "<div class='table-responsive'>";
-
     echo "<div class='d-flex justify-content-center align-items-center mb-2'>";
     echo "<div class='badge bg-primary text-white fs-6 px-2 py-1'>";
     echo "<i class='bi bi-shop me-1'></i>" . htmlspecialchars($nombreLocal);
@@ -273,7 +272,7 @@ include("../../conexionBD.php");?>
                         <?php elseif($solicitud['estado'] == 'aceptada'): ?>
 
                         <input type="hidden" name="id_solicitud" value="<?= $solicitud['id_solicitud']?>">
-                        <button type="submit" name="rechazar" class="btn btn-danger btn-sm rounded-pill px-3" title="Rechazar solicitud">
+                        <button type="submit" name="rechazar" class="btn btn-danger btn-sm rounded-pill px-3" title="Rechazar solicitud" onclick="return confirm('¿Está seguro de rechazar esta solicitud?')">
                             <i class="bi bi-x-lg"></i> Rechazar
                         </button>
                         <button type="submit" name="eliminar" class="btn btn-secondary btn-sm rounded-circle" title="Eliminar solicitud">
@@ -294,25 +293,25 @@ include("../../conexionBD.php");?>
             </tr>
     <?php
     }
-    echo "</tbody></table>";
-    echo "</div>";
+    echo "</tbody></table></div>";
 
     mysqli_free_result($resultadoPag);
 
-    mysqli_close($conexion);
+    mysqli_close($conexion);?>
 
-    echo "<div class='paginacion mt-3'>";
+    <div class='paginacion mt-3 text-center'>
+    <?php
     for($i = 1;$i <= $total_paginas;$i++){
         if($pagina == $i){
-            echo $pagina . "";
+            echo "<span class='btn btn-primary btn-sm mx-1'>$pagina</span>";
         }
         else{
-            echo "<a href='solicitudes.php?pagina=$i' class='btn btn-outline-primary btn-sm mx-1' id='paginacion'>$i</a>";
+            echo "<a href='promociones.php?pagina=$i' class='btn btn-outline-primary btn-sm mx-1'>$i</a>";
         }
     }
-    echo "</div><br>";
     ?>
-    </div> <!-- Cierre del contenedor principal -->
+    </div>
+    </div> 
 
     <?php include("../../includes/footer.php"); ?>
 

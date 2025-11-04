@@ -71,6 +71,7 @@ include("../../conexionBD.php");
 
     $total_paginas = ceil($total_registros / $cant_por_pag);
 
+    echo "<div class='table-responsive'>";
     echo "<table class='tabla table table-striped'>";
     echo "<caption>Promociones</caption>";
     echo "<tr>
@@ -94,8 +95,6 @@ include("../../conexionBD.php");
         <?php
     }
     while($fila = mysqli_fetch_assoc($listaPromociones)){
-
-
         ?>
         <tr>
             <td> <?= $fila["codPromo"]?></td>
@@ -133,20 +132,23 @@ include("../../conexionBD.php");
         </tr>
     <?php
     }
-    echo "</table>";
+    echo "</table></div>";
 
-    mysqli_free_result($listaPromociones);
+    mysqli_free_result($listaPromociones);?>
 
-    echo "<div class='paginacion mt-3'>";
+    <div class='paginacion mt-3 text-center'>
+    <?php
     for($i = 1;$i <= $total_paginas;$i++){
         if($pagina == $i){
-            echo $pagina . "";
+            echo "<span class='btn btn-primary btn-sm mx-1'>$pagina</span>";
         }
         else{
-            echo "<a href='mis_promos.php?pagina=$i' class='btn btn-outline-primary btn-sm mx-1' id='paginacion'>$i</a>";
+            echo "<a href='mis_promos.php?pagina=$i' class='btn btn-outline-primary btn-sm mx-1'>$i</a>";
         }
     }
-    echo "</div><br>";?>
+    
+    ?>
+    </div>
 
     <!-- Mensajes de alerta -->
     <div class="container">
@@ -201,18 +203,18 @@ include("../../conexionBD.php");
 
                 <form action="../../controllers/dueñoCtrl/promocionesDueñoController.php" method="POST" enctype="multipart/form-data" class="p-4 border rounded shadow-sm bg-white">
                     
-                    <div class="input-group mb-3">
-                        <span class="input-group-text"><i class="bi bi-text-paragraph"></i></span>
+                    <div class=" mb-3">
+                        <label for="fechaDesde" class="form-label fw-bold"><i class="bi bi-card-text"></i> Descripcion</label>
                         <input type="text" class="form-control" name="textoPromo" placeholder="Descripción de la promoción" aria-label="Descripción" required>
                     </div>
                     
                     <div class="row mb-3">
                         <div class="col-md-6">
-                            <label for="fechaDesde" class="form-label"><i class="bi bi-calendar-check"></i> Fecha Desde</label>
+                            <label for="fechaDesde" class="form-label fw-bold"><i class="bi bi-calendar-check"></i> Fecha Desde</label>
                             <input type="date" class="form-control" name="fechaDesdePromo" id="fechaDesde" required>
                         </div>
                         <div class="col-md-6">
-                            <label for="fechaHasta" class="form-label"><i class="bi bi-calendar-x"></i> Fecha Hasta</label>
+                            <label for="fechaHasta" class="form-label fw-bold"><i class="bi bi-calendar-x"></i> Fecha Hasta</label>
                             <input type="date" class="form-control" name="fechaHastaPromo" id="fechaHasta" required>
                         </div>
                     </div>
@@ -274,7 +276,7 @@ include("../../conexionBD.php");
                     </div>
                     
                     <div class="mb-3">
-                        <label for="imgPromo" class="form-label"><i class="bi bi-image"></i> Imagen de la Promoción</label>
+                        <label for="imgPromo" class="form-label fw-bold"><i class="bi bi-image"></i> Imagen de la Promoción</label>
                         <input type="file" class="form-control" name="imgPromo" id="imgPromo" accept="image/*">
                         <div class="form-text">Selecciona una imagen para la promoción (JPG, PNG, GIF)</div>
                     </div>
@@ -289,22 +291,25 @@ include("../../conexionBD.php");
         </div>
     </div>
 
-<script>
-    // Selecciona el checkbox de "seleccionar todos"
-    const seleccionarTodos = document.getElementById('seleccionarTodos');
-    // Selecciona todos los checkbox de los días
-    const dias = document.querySelectorAll('input[name="diasSemana[]"]');
+    <script>
+        // Selecciona el checkbox de "seleccionar todos"
+        const seleccionarTodos = document.getElementById('seleccionarTodos');
+        // Selecciona todos los checkbox de los días
+        const dias = document.querySelectorAll('input[name="diasSemana[]"]');
 
-    seleccionarTodos.addEventListener('change', function() {
-        dias.forEach(dia => dia.checked = this.checked);
-    });
-</script>
+        seleccionarTodos.addEventListener('change', function() {
+            dias.forEach(dia => dia.checked = this.checked);
+        });
+    </script>
 
-<?php include("../../includes/footer.php"); ?>
+    <?php 
+    include("../../includes/footer.php");
+    mysqli_close($conexion);
+
+    ?>
 
 </body>
 </html>
 
-mysqli_close($conexion);
 
-?>
+

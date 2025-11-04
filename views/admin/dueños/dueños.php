@@ -14,8 +14,32 @@ include("../../../conexionBD.php");
 
 //llamo a funcion consultDueños.Donde selecciono dueños que esten pendientes.
 //$listaDueños = consultaDueños($conexion);
-?>
 
+
+//paginacion
+
+$cant_por_pag =6;
+$pagina = isset($_GET["pagina"]) ? $_GET["pagina"] : 1;
+
+if(!$pagina){
+    $inicio = 0;
+    $pagina=1;
+}
+else{
+    $inicio = ($pagina - 1) * $cant_por_pag;
+}
+
+//total dueños
+$consulta = "SELECT * FROM usuarios WHERE tipoUsuario='dueño'";
+$resultado = mysqli_query($conexion,$consulta);
+$total_registros = mysqli_num_rows($resultado);
+
+//Consulta Paginada
+$consultaDueños = "SELECT * FROM usuarios WHERE tipoUsuario='dueño' ORDER BY FIELD(LOWER(estadoUsuario), 'pendiente','activo','eliminado'), fechaRegistro  DESC LIMIT $inicio,$cant_por_pag;";
+$listaDueños = mysqli_query($conexion,$consultaDueños);
+
+$total_paginas = ceil($total_registros / $cant_por_pag);
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -77,35 +101,9 @@ include("../../../conexionBD.php");
 
     <div class="container mt-4">
 
-
-    <?php
-
-        //paginacion
-
-        $cant_por_pag =6;
-        $pagina = isset($_GET["pagina"]) ? $_GET["pagina"] : 1;
-
-        if(!$pagina){
-            $inicio = 0;
-            $pagina=1;
-        }
-        else{
-            $inicio = ($pagina - 1) * $cant_por_pag;
-        }
-
-        //total dueños
-        $consulta = "SELECT * FROM usuarios WHERE tipoUsuario='dueño'";
-        $resultado = mysqli_query($conexion,$consulta);
-        $total_registros = mysqli_num_rows($resultado);
-
-        //Consulta Paginada
-        $consultaDueños = "SELECT * FROM usuarios WHERE tipoUsuario='dueño' ORDER BY FIELD(LOWER(estadoUsuario), 'pendiente','activo','eliminado'), fechaRegistro  DESC LIMIT $inicio,$cant_por_pag;";
-        $listaDueños = mysqli_query($conexion,$consultaDueños);
-
-        $total_paginas = ceil($total_registros / $cant_por_pag);
-
-
+        <?php
         //Lista dueños pendientes.
+        echo "<div class='table-responsive'>";
         echo "<table class='tabla table table-striped'>";
         echo "<caption>Solicitudes de Dueños</caption>";
         echo "<tr>
@@ -155,12 +153,12 @@ include("../../../conexionBD.php");
                             <button type="submit" name="activar" class="btn btn-success btn-sm rounded-pill px-3" title="Activar dueño">
                                 <i class="bi bi-check-lg"></i> Activar
                             </button>
-                            <button type="submit" name="eliminar" class="btn btn-danger btn-sm rounded-pill px-3" title="Eliminar dueño">
+                            <button type="submit" name="eliminar" class="btn btn-danger btn-sm rounded-pill px-3" title="Eliminar dueño" onclick="return confirm('¿Está seguro de eliminar dueño?')">
                                 <i class="bi bi-x-lg"></i> Eliminar
                             </button>
                             <!-- Si dueño = activo -->
                         <?php elseif($dueño["estadoUsuario"] == 'activo'): ?>
-                            <button type="submit" name="eliminar" class="btn btn-danger btn-sm rounded-pill px-3" title="Eliminar dueño">
+                            <button type="submit" name="eliminar" class="btn btn-danger btn-sm rounded-pill px-3" title="Eliminar dueño" onclick="return confirm('¿Está seguro de eliminar dueño?')">
                                 <i class="bi bi-x-lg"></i> Eliminar
                             </button>
                             <!-- Si dueño = eliminado -->
@@ -174,23 +172,25 @@ include("../../../conexionBD.php");
             </tr>
         <?php
         }
-        echo "</table>"; 
+        echo "</table></div>"; 
 
         mysqli_free_result($listaDueños); //libera la memoria que fue utilizada por un resultado de consulta de base de datos
     
-        mysqli_close($conexion);
+        mysqli_close($conexion);?>
 
-        echo "<div class='paginacion mt-3'>";
-        for($i = 1;$i <= $total_paginas;$i++){
-            if($pagina == $i){
-                echo $pagina . "";
-            }
-            else{
-                echo "<a href='dueños.php?pagina=$i' class='btn btn-outline-primary btn-sm mx-1' id='paginacion'>$i</a>";
-            }
-        }
-        echo "</div>";?>
+        <div class='paginacion mt-3 text-center'>
+            <?php
+            for($i = 1;$i <= $total_paginas;$i++){
+                if($pagina == $i){
+                    echo "<span class='btn btn-primary btn-sm mx-1'>$pagina</span>";
+                }
+                else{
+                    echo "<a href='dueños.php?pagina=$i' class='btn btn-outline-primary btn-sm mx-1'>$i</a>";
+                }
+            }?>
+        </div>
     </div> <!-- Cierre del contenedor principal -->
 
-    <?php include("../../../includes/footer.php"); ?></body>
+    <?php include("../../../includes/footer.php"); ?>
+</body>
 </html>

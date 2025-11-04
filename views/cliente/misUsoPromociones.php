@@ -144,7 +144,6 @@ include("../../conexionBD.php");
     $total_paginas = ceil($total_registros / $cant_por_pag);
 
     echo "<div class='table-responsive'>";
-
     echo "<div class='d-flex justify-content-center align-items-center mb-2'>";
     echo "<div class='badge bg-primary text-white fs-6 px-2 py-1'>";
     echo "</div>";
@@ -264,8 +263,7 @@ include("../../conexionBD.php");
         </tr>
     <?php
     }
-    echo "</tbody></table>";  // <- CORREGIR: quitar punto y coma extra
-    echo "</div>";
+    echo "</tbody></table></div>" ;
 
     mysqli_free_result($listaUsos);
 

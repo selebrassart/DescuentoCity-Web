@@ -220,7 +220,7 @@ $resultado_locales = mysqli_query($conexion, $sql_locales);
                                 <p class="card-text">
                                     <small class="text-muted"><i class="bi bi-geo-alt"></i> <?= htmlspecialchars($local['ubicacionLocal']) ?></small><br>
                                     <small class="text-muted"><i class="bi bi-tag"></i> <?= htmlspecialchars($local['rubroLocal']) ?></small><br>
-                                    <small class="text-muted"><i class="bi bi-tag"></i> <?= htmlspecialchars($local['codLocal']) ?></small>
+                                    <small class="text-muted"><i class="bi bi-upc-scan"></i> <?= htmlspecialchars($local['codLocal']) ?></small>
                                 </p>
                             </div>
                         </div>

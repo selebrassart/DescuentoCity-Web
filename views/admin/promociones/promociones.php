@@ -109,6 +109,7 @@ include("../../../conexionBD.php");
     <?php
 
     //Lista promociones 
+    echo "<div class='table-responsive'>";
     echo "<table class='tabla table table-striped'>";
     echo "<caption>Solicitudes de promociones</caption>";
     echo "<tr>
@@ -221,12 +222,12 @@ include("../../../conexionBD.php");
                         <button type="submit" name="aprobar" class="btn btn-success btn-sm rounded-pill px-3" title="Aprobar promoción">
                             <i class="bi bi-check-lg"></i> Aprobar
                         </button>
-                        <button type="submit" name="denegar" class="btn btn-danger btn-sm rounded-pill px-3" title="Denegar promoción">
+                        <button type="submit" name="denegar" class="btn btn-danger btn-sm rounded-pill px-3" title="Denegar promoción" onclick="return confirm('¿Está seguro de denegar esta solicitud?')">
                             <i class="bi bi-x-lg"></i> Denegar
                         </button>
                         <!-- Si promocion = aprobada -->
                     <?php elseif($promo["estadoPromo"] == 'aprobada'): ?>
-                        <button type="submit" name="denegar" class="btn btn-danger btn-sm rounded-pill px-3" title="Denegar promoción">
+                        <button type="submit" name="denegar" class="btn btn-danger btn-sm rounded-pill px-3" title="Denegar promoción" onclick="return confirm('¿Está seguro de denegar esta solicitud?')">
                             <i class="bi bi-x-lg"></i> Denegar
                         </button>
                         <!-- Si promocion = denegada -->
@@ -234,7 +235,7 @@ include("../../../conexionBD.php");
                         <button type="submit" name="aprobar" class="btn btn-success btn-sm rounded-pill px-3" title="Aprobar promoción">
                             <i class="bi bi-check-lg"></i> Aprobar
                         </button>
-                        <button type="submit" name="eliminar" class="btn btn-secondary btn-sm rounded-circle" title="Eliminar promoción">
+                        <button type="submit" name="eliminar" class="btn btn-secondary btn-sm rounded-circle" title="Eliminar promoción" >
                             <i class="bi bi-trash3-fill"></i>
                         </button>
                     <?php endif; ?>
@@ -243,23 +244,24 @@ include("../../../conexionBD.php");
         </tr>
     <?php
     }
-    echo "</table>"; 
+    echo "</table></div>"; 
 
     mysqli_free_result($listaPromociones);
 
-    mysqli_close($conexion);
+    mysqli_close($conexion);?>
 
-    echo "<div class='paginacion mt-3'>";
+    <div class='paginacion mt-3 text-center'>
+    <?php
     for($i = 1;$i <= $total_paginas;$i++){
         if($pagina == $i){
-            echo $pagina . "";
+            echo "<span class='btn btn-primary btn-sm mx-1'>$pagina</span>";
         }
         else{
-            echo "<a href='promociones.php?pagina=$i' class='btn btn-outline-primary btn-sm mx-1' id='paginacion'>$i</a>";
+            echo "<a href='promociones.php?pagina=$i' class='btn btn-outline-primary btn-sm mx-1'>$i</a>";
         }
     }
-    echo "</div>";
     ?>
+    </div>
     </div> <!-- Cierre del contenedor principal -->
 
     <?php include("../../../includes/footer.php"); ?>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 03-11-2025 a las 03:27:28
+-- Tiempo de generación: 04-11-2025 a las 01:47:28
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -141,7 +141,7 @@ CREATE TABLE `usuarios` (
   `categoriaCliente` enum('inicial','medium','premium') DEFAULT 'inicial',
   `estadoUsuario` enum('activo','pendiente','eliminado') DEFAULT 'pendiente',
   `token` varchar(64) DEFAULT NULL,
-  `fechaRegistro` datetime DEFAULT current_timestamp()
+  `fechaRegistro` date DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --

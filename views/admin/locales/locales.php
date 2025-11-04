@@ -94,6 +94,7 @@ require("../../../funciones/funcionesSQL.php");
 
     $total_paginas = ceil($total_registros / $cant_por_pag);
 
+    echo "<div class='table-responsive'>";
     echo "<table class='tabla table table-striped'>";
     echo "<caption>Locales</caption>";
     echo "<tr>
@@ -167,7 +168,7 @@ require("../../../funciones/funcionesSQL.php");
                         </a>
                         <form action="../../../controllers/localesCtrl/localesController.php" method="POST" class="d-inline">
                             <input type="hidden" name="codLocal" value="<?= $fila["codLocal"] ?>">
-                            <button type="submit" name="eliminar" class="btn btn-danger btn-sm rounded-pill px-3" title="Eliminar local">
+                            <button type="submit" name="eliminar" class="btn btn-danger btn-sm rounded-pill px-3" title="Eliminar local" onclick="return confirm('¿Está seguro de eliminar local?')">
                                 <i class="bi bi-x-lg"></i> Eliminar
                             </button>
                         </form>
@@ -177,24 +178,24 @@ require("../../../funciones/funcionesSQL.php");
         </tr>
     <?php
     }
-    echo "</table>";
+    echo "</table></div>";
 
     mysqli_free_result($listaLocales);
 
-    mysqli_close($conexion);
+    mysqli_close($conexion);?>
 
-    echo "<div class='paginacion mt-3'>";
+    <div class='paginacion mt-3 text-center'>
+    <?php
     for($i = 1;$i <= $total_paginas;$i++){
         if($pagina == $i){
-            echo $pagina . "";
+            echo "<span class='btn btn-primary btn-sm mx-1'>$pagina</span>";
         }
         else{
-            echo "<a href='locales.php?pagina=$i' class='btn btn-outline-primary btn-sm mx-1' id='paginacion'>$i</a>";
+            echo "<a href='locales.php?pagina=$i' class='btn btn-outline-primary btn-sm mx-1'>$i</a>";
         }
     }
-    echo "</div><br>";
-
     ?>
+    </div>
     </div> <!-- Cierre del contenedor principal -->
 
     <!-- Formulario de crear local -->

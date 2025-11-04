@@ -103,17 +103,17 @@ if ($usuario_logueado && $tipo_usuario) {
                     </div>
                     
                     <div class="mb-3">
-                        <label for="email" class="form-label">Email</label>
+                        <label for="email" class="form-label fw-bold">Email</label>
                         <input type="email" class="form-control" name="email" id="email" placeholder="tu@email.com" required>
                     </div>
                     
-                    <div class="input-group mb-3">
-                        <span class="input-group-text">📋</span>
+                    <div class="mb-3">
+                        <label for="mensaje" class="form-label fw-bold">Asunto</label>                        
                         <input type="text" class="form-control" name="asunto" placeholder="Asunto del mensaje" aria-label="asunto" required>
                     </div>
                     
                     <div class="mb-3">
-                        <label for="mensaje" class="form-label">Mensaje</label>
+                        <label for="mensaje" class="form-label fw-bold">Mensaje</label>
                         <textarea class="form-control" name="mensaje" id="mensaje" rows="5" placeholder="Escribe tu mensaje aquí..." required></textarea>
                     </div>
                     

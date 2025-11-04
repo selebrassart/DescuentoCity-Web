@@ -84,52 +84,20 @@ if (session_status() === PHP_SESSION_NONE) {
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    const navbarToggler = document.querySelector('.navbar-toggler');
     const navbarCollapse = document.querySelector('#navbarDC');
     
-    if (navbarToggler && navbarCollapse) {
-        // Función para alternar el menú
-        navbarToggler.addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            
-            // Toggle manual del menú
-            if (navbarCollapse.classList.contains('show')) {
-                navbarCollapse.classList.remove('show');
-                navbarToggler.setAttribute('aria-expanded', 'false');
-            } else {
-                navbarCollapse.classList.add('show');
-                navbarToggler.setAttribute('aria-expanded', 'true');
-            }
-        });
-        
+    if (navbarCollapse) {
         // Cerrar menú al hacer clic en un enlace (solo en móvil)
         const navLinks = navbarCollapse.querySelectorAll('.nav-link');
         navLinks.forEach(function(link) {
             link.addEventListener('click', function() {
                 if (window.innerWidth < 992) { // Solo en dispositivos móviles
-                    navbarCollapse.classList.remove('show');
-                    navbarToggler.setAttribute('aria-expanded', 'false');
+                    const bsCollapse = new bootstrap.Collapse(navbarCollapse, {
+                        toggle: false
+                    });
+                    bsCollapse.hide();
                 }
             });
-        });
-        
-        // Cerrar menú al hacer clic fuera de él
-        document.addEventListener('click', function(e) {
-            if (!navbarToggler.contains(e.target) && !navbarCollapse.contains(e.target)) {
-                if (navbarCollapse.classList.contains('show')) {
-                    navbarCollapse.classList.remove('show');
-                    navbarToggler.setAttribute('aria-expanded', 'false');
-                }
-            }
-        });
-        
-        // Cerrar menú al cambiar el tamaño de ventana
-        window.addEventListener('resize', function() {
-            if (window.innerWidth >= 992 && navbarCollapse.classList.contains('show')) {
-                navbarCollapse.classList.remove('show');
-                navbarToggler.setAttribute('aria-expanded', 'false');
-            }
         });
     }
 });

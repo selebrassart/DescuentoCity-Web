@@ -480,6 +480,7 @@ img {
 
 /* Mejorar la responsividad de las tablas */
 .table-responsive {
+    margin-top: 1.5rem;
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     margin-bottom: 1.5rem;
@@ -518,9 +519,10 @@ img {
     padding: 0.75rem 0.5rem;
 }
 
-/* Responsive breakpoints específicos para tablas */
+/* Responsive */
 @media (max-width: 576px) {
     .tabla {
+        margin-top: 2rem;
         font-size: 0.8rem;
     }
     
@@ -543,6 +545,7 @@ img {
 
 @media (max-width: 768px) {
     .tabla {
+        margin-top: 2rem;
         font-size: 0.85rem;
     }
     
@@ -664,6 +667,13 @@ img {
     font-weight: 500;
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     animation: slideIn 0.3s ease-out;
+    text-transform: none !important;
+}
+
+/* Asegurar que títulos y texto no tengan capitalize */
+h1, h2, h3, h4, h5, h6, .card-title, .alert, .alert *, 
+.breadcrumb, .breadcrumb *, .navbar *, .btn , .portada{
+    text-transform: none !important;
 }
 
 .alert-success {

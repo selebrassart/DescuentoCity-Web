@@ -156,47 +156,49 @@ $totalPromos = mysqli_fetch_assoc($resultadoPromos)['totalPromos'];
             <h2 class="text-center mb-4">Reporte de Uso de Promociones</h2>
 
             <div>
-                <table class='tabla table table-striped'>
-                    <thead>
-                        <tr>
-                            <th>Local</th>
-                            <th>Promocion</th>
-                            <th>Cantidad usos</th>            
-                            <th>Accion</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-
-                        <?php while($reporte = mysqli_fetch_assoc($resultadoReporte)):                             
-                            ?>
+                <div class="table-responsive">
+                    <table class='tabla table table-striped'>
+                        <thead>
                             <tr>
-                                <td>
-                                    #<?=htmlspecialchars($reporte['codLocal']) ?><br>
-                                    <?= htmlspecialchars($reporte['nombreLocal']) ?><br>
-                                    <span class="badge bg-secondary rounded-pill">
-                                        <i class="bi bi-tag"></i> <?= htmlspecialchars($reporte['rubroLocal']) ?>
-                                    </span>
-                                </td>
-                                <td>
-                                    #<?= htmlspecialchars($reporte['codPromo']) ?><br>
-                                    <?= htmlspecialchars($reporte['textoPromo']) ?>
-                                </td>
-                                <td>
-                                    <span class="badge bg-success fs-6 rounded-pill">
-                                        <i class="bi bi-graph-up"></i> <?= $reporte["totalUsos"] ?> usos
-                                    </span>
-                                </td>
-                                <td>
-                                    <a href="reporteDetalles.php?codLocal=<?= $reporte['codLocal'] ?>&codPromo=<?= $reporte['codPromo'] ?>" 
-                                       class="btn btn-outline-secondary btn-sm rounded-pill px-3" 
-                                       title="Inspeccionar reporte promoción">
-                                        <i class="bi bi-search"></i> Ver detalles
-                                    </a>
-                                </td>
+                                <th>Local</th>
+                                <th>Promocion</th>
+                                <th>Cantidad usos</th>            
+                                <th>Accion</th>
                             </tr>
-                        <?php endwhile; ?>
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+
+                            <?php while($reporte = mysqli_fetch_assoc($resultadoReporte)):                             
+                                ?>
+                                <tr>
+                                    <td>
+                                        #<?=htmlspecialchars($reporte['codLocal']) ?><br>
+                                        <?= htmlspecialchars($reporte['nombreLocal']) ?><br>
+                                        <span class="badge bg-secondary rounded-pill">
+                                            <i class="bi bi-tag"></i> <?= htmlspecialchars($reporte['rubroLocal']) ?>
+                                        </span>
+                                    </td>
+                                    <td>
+                                        #<?= htmlspecialchars($reporte['codPromo']) ?><br>
+                                        <?= htmlspecialchars($reporte['textoPromo']) ?>
+                                    </td>
+                                    <td>
+                                        <span class="badge bg-success fs-6 rounded-pill">
+                                            <i class="bi bi-graph-up"></i> <?= $reporte["totalUsos"] ?> usos
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <a href="reporteDetalles.php?codLocal=<?= $reporte['codLocal'] ?>&codPromo=<?= $reporte['codPromo'] ?>" 
+                                        class="btn btn-outline-secondary btn-sm rounded-pill px-3" 
+                                        title="Inspeccionar reporte promoción">
+                                            <i class="bi bi-search"></i> Ver detalles
+                                        </a>
+                                    </td>
+                                </tr>
+                            <?php endwhile; ?>
+                        </tbody>
+                    </table>
+                </div>
             </div>
             <?php
         }
