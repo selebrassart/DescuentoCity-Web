@@ -712,3 +712,16 @@ h1, h2, h3, h4, h5, h6, .card-title, .alert, .alert *,
         transform: translateY(0);
     }
 }
+
+
+/* Estilos de Foco para Accesibilidad */
+a:focus-visible, 
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+    outline: 3px solid #007BFF;
+    outline-offset: 2px;         
+    box-shadow: 0 0 0 4px rgba(0,123,255,0.4); 
+    border-radius: 4px; 
+}
