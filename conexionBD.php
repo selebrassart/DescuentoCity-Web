@@ -2,7 +2,7 @@
 
 //conexion BD descuento City
 try{
-    $conexion = mysqli_connect("localhost","root","","descuentocitydb");
+    $conexion = mysqli_connect("localhost","root","","u442652021_descuentocity");
 
 }
 catch(mysqli_sql_exception){
