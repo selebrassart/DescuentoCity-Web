@@ -112,6 +112,16 @@ $total_paginas = ceil($total_registros / $cant_por_pag);
                 </thead>
                 <tbody>
                 <?php
+                if(mysqli_num_rows($listaNovedades) <= 0) {
+                    ?>
+                    <tr>
+                        <td colspan="8" style="text-align: center; padding: 20px; color: #666; font-style: italic;">
+                            No existen novedades cargadas.
+                        </td>
+                    </tr>
+                <?php
+                }
+
                 while($nov = mysqli_fetch_assoc($listaNovedades)){
                     ?>
                     <tr>

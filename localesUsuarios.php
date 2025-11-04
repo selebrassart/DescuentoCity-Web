@@ -87,6 +87,7 @@ $resultado_locales = mysqli_query($conexion, $sql_locales);
 
 <div class="container my-4">
 
+
     <!-- Mensaje de búsqueda -->
     <div id="mensaje-busqueda-locales" class="alert alert-info text-center" style="display: none;">
         <i class="bi bi-search"></i> Mostrando resultados para: <span id="termino-busqueda-locales"></span>
@@ -163,7 +164,13 @@ $resultado_locales = mysqli_query($conexion, $sql_locales);
                 </div>
             <?php } ?>
         <?php } else { ?>
-            <p class="text-center mt-3">No se encontraron locales activos.</p>
+            <div class="col-12">
+                <div class="alert alert-info text-center" role="alert">
+                    <i class="bi bi-info-circle-fill"></i> 
+                    <strong>No existen locales en este momento.</strong><br>
+                    <small>Vuelve pronto aprovechar sus promociones.</small>
+                </div>
+            </div>
         <?php } ?>
     </div>
 

@@ -108,6 +108,15 @@ require("../../../funciones/funcionesSQL.php");
             <th>Editar/Eliminar</th>
         </th>";
 
+    if(mysqli_num_rows($listaLocales) <= 0){
+        ?>
+        <tr>
+            <td colspan="8" style="text-align: center; padding: 20px; color: #666; font-style: italic;">
+                No existen locales cargados.
+            </td>
+        </tr>
+        <?php
+    }
     while($fila = mysqli_fetch_assoc($listaLocales)){
         ?>
         <tr>

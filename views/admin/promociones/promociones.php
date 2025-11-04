@@ -122,6 +122,17 @@ include("../../../conexionBD.php");
             <th>Estado</th>
             <th>Acciones</th>
         </tr>";
+
+
+    if(mysqli_num_rows($listaPromociones) <= 0) {
+        ?>
+        <tr>
+            <td colspan="8" style="text-align: center; padding: 20px; color: #666; font-style: italic;">
+                No existen solicitudes.
+            </td>
+        </tr>
+    <?php
+    }
     
     while($promo = mysqli_fetch_assoc($listaPromociones)){
         ?>

@@ -87,7 +87,7 @@ include("../../conexionBD.php");?>
         $nombreLocal = $local['nombreLocal'];
     } else {
         $_SESSION['mensaje_error'] = "No tienes un local activo asignado.";
-        header("location:../dueño/dueñoDashboard.php");
+        header("location:../dueño/solicitudes.php");
         exit();
     }
 

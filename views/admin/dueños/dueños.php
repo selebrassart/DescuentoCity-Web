@@ -113,7 +113,15 @@ $total_paginas = ceil($total_registros / $cant_por_pag);
                 <th>Fecha registro</th>
                 <th>Activar/Eliminar</th>
             </tr>";
-        
+        if(mysqli_num_rows($listaDueños) <= 0){
+        ?>
+        <tr>
+            <td colspan="8" style="text-align: center; padding: 20px; color: #666; font-style: italic;">
+                No existen solicitudes.
+            </td>
+        </tr>
+        <?php
+        }
         while($dueño = mysqli_fetch_assoc($listaDueños)){
             ?>
             <tr>
