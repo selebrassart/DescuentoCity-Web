@@ -93,10 +93,10 @@ function subirCategoria($codCliente,$conexion){
     $nuevaCategoria = $categoriaActual; 
     
     //defino valores 
-    if($totalUsos >= 2 && $categoriaActual != 'premium'){
+    if($totalUsos >= 20 && $categoriaActual != 'premium'){
         $nuevaCategoria = 'premium';
     }
-    elseif($totalUsos >= 1 && $categoriaActual == 'inicial'){
+    elseif($totalUsos >= 8 && $categoriaActual == 'inicial'){
         $nuevaCategoria = 'medium';
     }
     
