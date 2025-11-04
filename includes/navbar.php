@@ -84,22 +84,58 @@ if (session_status() === PHP_SESSION_NONE) {
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
+    const navbarToggler = document.querySelector('.navbar-toggler');
     const navbarCollapse = document.querySelector('#navbarDC');
     
-    if (navbarCollapse) {
-        // Cerrar menú al hacer clic en un enlace (solo en móvil)
-        const navLinks = navbarCollapse.querySelectorAll('.nav-link');
-        navLinks.forEach(function(link) {
-            link.addEventListener('click', function() {
-                if (window.innerWidth < 992) { // Solo en dispositivos móviles
-                    const bsCollapse = new bootstrap.Collapse(navbarCollapse, {
-                        toggle: false
-                    });
-                    bsCollapse.hide();
-                }
-            });
-        });
+    if (!navbarToggler || !navbarCollapse) return;
+    
+    // Función para alternar el menú
+    function toggleNavbar() {
+        const isOpen = navbarCollapse.classList.contains('show');
+        
+        if (isOpen) {
+            navbarCollapse.classList.remove('show');
+            navbarToggler.setAttribute('aria-expanded', 'false');
+            navbarToggler.classList.add('collapsed');
+        } else {
+            navbarCollapse.classList.add('show');
+            navbarToggler.setAttribute('aria-expanded', 'true');
+            navbarToggler.classList.remove('collapsed');
+        }
     }
+    
+    // Función para cerrar el menú
+    function closeNavbar() {
+        navbarCollapse.classList.remove('show');
+        navbarToggler.setAttribute('aria-expanded', 'false');
+        navbarToggler.classList.add('collapsed');
+    }
+    
+    // Evento click en el botón hamburguesa
+    navbarToggler.addEventListener('click', function(e) {
+        e.preventDefault();
+        toggleNavbar();
+    });
+    
+    // Cerrar menú al hacer clic en un enlace (solo móvil)
+    const navLinks = navbarCollapse.querySelectorAll('.nav-link');
+    navLinks.forEach(function(link) {
+        link.addEventListener('click', function() {
+            if (window.innerWidth < 992) {
+                closeNavbar();
+            }
+        });
+    });
+    
+    // Cerrar menú al hacer clic fuera (solo móvil)
+    document.addEventListener('click', function(e) {
+        if (window.innerWidth < 992) {
+            const isClickInsideNav = navbarCollapse.contains(e.target) || navbarToggler.contains(e.target);
+            if (!isClickInsideNav && navbarCollapse.classList.contains('show')) {
+                closeNavbar();
+            }
+        }
+    });
 });
 </script>
 
