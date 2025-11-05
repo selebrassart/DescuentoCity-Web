@@ -18,7 +18,7 @@ function enviar_mail($email, $tipoUsuario, $estadoUsuario, $token) {
         $mail->Host       = 'smtp.hostinger.com';
         $mail->SMTPAuth   = true;
         $mail->Username   = 'descuentocity@descuentocity.shop';  
-        $mail->Password   = 'Descuentocity123!';           
+        $mail->Password   = ''; //solicitar contraseña especial a admin           
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;      
         $mail->Port       = 587;                                 
         $mail->CharSet    = 'UTF-8';
