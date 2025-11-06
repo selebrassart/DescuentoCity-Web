@@ -97,106 +97,111 @@ $total_paginas = ceil($total_registros / $cant_por_pag);
     </div>
 
     <div class="container mt-4">
-        <div class="table-responsive">
-            <table class='tabla table table-striped'>
-                <caption>Novedades Activas</caption>
-                <thead>
-                    <tr>
-                        <th>Codigo</th>
-                        <th>Descripcion</th>
-                        <th>Portada</th>
-                        <th>Fechas</th>
-                        <th>Categoria Cliente</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                <?php
-                if(mysqli_num_rows($listaNovedades) <= 0) {
+
+        <?php
+        echo "<div class='table-responsive'>";
+        echo "<table class='tabla table table-striped'>";
+        echo "<caption>Novedades activas</caption>";
+        echo "<tr>
+                <th>Codigo</th>
+                <th>Descripcion</th>
+                <th>Portada</th>
+                <th>Fechas</th>
+                <th>Categoria Cliente</th>
+                <th>Acciones</th>
+            </tr>";
+
+        if(mysqli_num_rows($listaNovedades) <= 0) {
+            ?>
+            <tr>
+                <td colspan="8" style="text-align: center; padding: 20px; color: #666; font-style: italic;">
+                    No existen novedades cargadas.
+                </td>
+            </tr>
+        <?php
+        }
+
+        while($nov = mysqli_fetch_assoc($listaNovedades)){
+            ?>
+            <tr>
+                <td> #<?= $nov["codNovedad"] ?></td>
+                <td> 
+                    <strong><?= !empty($nov['tituloNovedad']) ? htmlspecialchars($nov['tituloNovedad']) : 'Sin título' ?></strong><br>
+                    <small class="text-muted"><?= htmlspecialchars(substr($nov["textoNovedad"], 0, 100)) ?><?= strlen($nov["textoNovedad"]) > 100 ? '...' : '' ?></small>
+                </td>
+                <td>
+                    <?php 
+                        $consultoImg = "SELECT * FROM imagenes WHERE tipoImg='portada'";
+                        $resultadoImg = mysqli_query($conexion,$consultoImg);
+                        $img = mysqli_fetch_assoc($resultadoImg);
+                        if(!empty($nov["rutaArchivo"]))
+                    :?>
+                        <img src="../../../<?= $nov["rutaArchivo"] ?>" alt="Imagen represantita de la novedad" width="80" height="40" style="object-fit:cover;border-radius:8px;">
+
+                    <?php else: ?>
+                        <span style="color: gray;">Sin portada</p></p></span>
+
+                    <?php endif; ?>
+                </td>
+                <td>
+                    <div style="background-color: #e8f5e8; padding: 2px 5px; border-radius: 3px; margin-bottom: 2px;">
+                        Desde: <?= $nov["fechaDesdeNovedad"] ?>
+                    </div>
+                    <div style="background-color: #ffe8e8; padding: 2px 5px; border-radius: 3px;">
+                        Hasta: <?= $nov["fechaHastaNovedad"] ?>
+                    </div>
+                </td>
+                <td>
+                    <?php
+                    $categoria = $nov['categoriaCliente'];
+                    $badge_class = '';
+                    $icon = '';
+                    switch($categoria) {
+                        case 'premium':
+                            $badge_class = 'bg-warning text-dark';
+                            $icon = 'bi bi-gem';
+                            break;
+                        case 'medium':
+                            $badge_class = 'bg-info';
+                            $icon = 'bi bi-star-fill';
+                            break;
+                        case 'nicial':
+                        default:
+                            $badge_class = 'bg-secondary';
+                            $icon = 'bi bi-circle-fill';
+                            break;
+                    }
                     ?>
-                    <tr>
-                        <td colspan="8" style="text-align: center; padding: 20px; color: #666; font-style: italic;">
-                            No existen novedades cargadas.
-                        </td>
-                    </tr>
-                <?php
-                }
-
-                while($nov = mysqli_fetch_assoc($listaNovedades)){
-                    ?>
-                    <tr>
-                        <td> #<?= $nov["codNovedad"] ?></td>
-                        <td> 
-                            <strong><?= !empty($nov['tituloNovedad']) ? htmlspecialchars($nov['tituloNovedad']) : 'Sin título' ?></strong><br>
-                            <small class="text-muted"><?= htmlspecialchars(substr($nov["textoNovedad"], 0, 100)) ?><?= strlen($nov["textoNovedad"]) > 100 ? '...' : '' ?></small>
-                        </td>
-                        <td>
-                            <?php 
-                                $consultoImg = "SELECT * FROM imagenes WHERE tipoImg='portada'";
-                                $resultadoImg = mysqli_query($conexion,$consultoImg);
-                                $img = mysqli_fetch_assoc($resultadoImg);
-                                if(!empty($nov["rutaArchivo"]))
-                            :?>
-                                <img src="../../../<?= $nov["rutaArchivo"] ?>" alt="Imagen represantita de la novedad" width="80" height="40" style="object-fit:cover;border-radius:8px;">
-
-                            <?php else: ?>
-                                <span style="color: gray;">Sin portada</p></p></span>
-
-                            <?php endif; ?>
-                        </td>
-                        <td>
-                            <div style="background-color: #e8f5e8; padding: 2px 5px; border-radius: 3px; margin-bottom: 2px;">
-                                Desde: <?= $nov["fechaDesdeNovedad"] ?>
-                            </div>
-                            <div style="background-color: #ffe8e8; padding: 2px 5px; border-radius: 3px;">
-                                Hasta: <?= $nov["fechaHastaNovedad"] ?>
-                            </div>
-                        </td>
-                        <td>
-                            <?php
-                            $categoria = $nov['categoriaCliente'];
-                            $badge_class = '';
-                            $icon = '';
-                            switch($categoria) {
-                                case 'premium':
-                                    $badge_class = 'bg-warning text-dark';
-                                    $icon = 'bi bi-gem';
-                                    break;
-                                case 'medium':
-                                    $badge_class = 'bg-info';
-                                    $icon = 'bi bi-star-fill';
-                                    break;
-                                case 'nicial':
-                                default:
-                                    $badge_class = 'bg-secondary';
-                                    $icon = 'bi bi-circle-fill';
-                                    break;
-                            }
-                            ?>
-                            <span class="badge <?= $badge_class ?>">
-                                <i class="<?= $icon ?>"></i> <?= $categoria ?>
-                            </span>
-                        </td>
-                        <td>
-                            <div class="d-flex flex-wrap gap-1 justify-content-center">
-                                <a href="../../../views/admin/novedades/novedadesUpdate.php?codNovedad=<?= $nov['codNovedad'] ?>" 
-                                   class="btn btn-warning btn-sm rounded-pill px-3" title="Editar novedad">
-                                    <i class="bi bi-pencil"></i> Editar
-                                </a>
-                                <form action="../../../controllers/novedadesCtrl/eliminarNovedadController.php" method="POST" class="d-inline">
-                                    <input type="hidden" name="codNovedad" value="<?= $nov['codNovedad'] ?>">
-                                    <button type="submit" name="eliminar" class="btn btn-danger btn-sm rounded-pill px-3" title="Eliminar novedad" onclick="return confirm('¿Está seguro de eliminar esta novedad?')">
-                                        <i class="bi bi-x-lg"></i> Eliminar
-                                    </button>
-                                </form>
-                            </div>
-                        </td>
-                    </tr>
-                <?php
-                }?>
-            </tbody>
-        </table>
+                    <span class="badge <?= $badge_class ?>">
+                        <i class="<?= $icon ?>"></i> <?= $categoria ?>
+                    </span>
+                </td>
+                <td>
+                    <div class="d-flex flex-wrap gap-1 justify-content-center">
+                        <a href="../../../views/admin/novedades/novedadesUpdate.php?codNovedad=<?= $nov['codNovedad'] ?>" 
+                        class="btn btn-warning btn-sm rounded-pill px-3" title="Editar novedad">
+                            <i class="bi bi-pencil"></i> Editar
+                        </a>
+                        <form action="../../../controllers/novedadesCtrl/eliminarNovedadController.php" method="POST" class="d-inline">
+                            <input type="hidden" name="codNovedad" value="<?= $nov['codNovedad'] ?>">
+                            <button type="submit" name="eliminar" class="btn btn-danger btn-sm rounded-pill px-3" title="Eliminar novedad" onclick="return confirm('¿Está seguro de eliminar esta novedad?')">
+                                <i class="bi bi-x-lg"></i> Eliminar
+                            </button>
+                        </form>
+                    </div>
+                </td>
+            </tr>
+        <?php
+        }
+        echo "</table></div>";?>
     </div>
+    
+    <?php 
+    mysqli_free_result($listaLocales);
+
+    mysqli_close($conexion);
+    ?>
+
     
     <div class='paginacion mt-3 text-center'>
         <?php

@@ -110,7 +110,7 @@ require("../../../funciones/funcionesSQL.php");
                 <th>Codigo Dueño</th>
                 <th>Estado</th>
                 <th>Editar/Eliminar</th>
-            </th>";
+            </tr>";
 
         if(mysqli_num_rows($listaLocales) <= 0){
             ?>
