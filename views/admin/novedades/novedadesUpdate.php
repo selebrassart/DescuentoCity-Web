@@ -1,6 +1,7 @@
 <?php
 
 session_start();
+
 require("../../../conexionBD.php");
 
 $codNovedad = isset($_GET['codNovedad']) ? intval($_GET['codNovedad']) : 0;
@@ -37,6 +38,8 @@ if ($codNovedad > 0) {
 
 
 ?>
+
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -177,6 +180,7 @@ if ($codNovedad > 0) {
     <?php include("../../../includes/footer.php"); ?>
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    
 </body>
 </html>
 

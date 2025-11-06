@@ -1,3 +1,61 @@
+        
+        
+<?php
+
+    include("../../../conexionBD.php");
+
+    $codPromo = $_GET['codPromo'] ?? '';
+    $codLocal = $_GET['codLocal'] ?? '';
+
+    if (empty($codPromo) || empty($codLocal)) {
+        echo '<div class="alert alert-danger">Parámetros requeridos no encontrados</div>';
+        exit;
+    }
+
+    $consultaDetalle = "SELECT 
+                    p.*,
+                    l.nombreLocal,
+                    l.rubroLocal,
+                    l.ubicacionLocal
+                    FROM promociones p
+                    JOIN locales l ON p.codLocal = l.codLocal
+                    WHERE p.codPromo = '$codPromo' AND l.codLocal = '$codLocal'";
+
+    $resultadoDetalle = mysqli_query($conexion, $consultaDetalle);
+    $detalle = mysqli_fetch_assoc($resultadoDetalle);
+
+    if (!$detalle) {
+        echo '<div class="alert alert-danger">Promoción no encontrada</div>';
+        exit;
+    }
+
+    //Consulto total de solicitudes aceptados
+    $consultaAceptadas = "SELECT COUNT(*) as totalAceptadas FROM uso_promociones WHERE estado = 'aceptada' AND codPromo='$codPromo'";
+    $resultadoAceptadas = mysqli_query($conexion,$consultaAceptadas);
+    $aceptadas = mysqli_fetch_assoc($resultadoAceptadas)["totalAceptadas"];
+    //Consulto total de solicitudes rechazados
+    $consultaRechazadas = "SELECT COUNT(*) as totalRechazadas FROM uso_promociones WHERE estado = 'rechazada' AND codPromo='$codPromo'";
+    $resultadoRechazadas = mysqli_query($conexion,$consultaRechazadas);
+    $rechazadas = mysqli_fetch_assoc($resultadoRechazadas)["totalRechazadas"];
+
+
+    $consultaUsuarios = "SELECT 
+                    u.nombreUsuario,
+                    up.fechaUsoPromo,
+                    up.estado
+                    FROM uso_promociones up
+                    JOIN usuarios u ON up.codCliente = u.codUsuario
+                    WHERE up.codPromo = '$codPromo'
+                    ORDER BY up.fechaUsoPromo DESC
+                    LIMIT 10";
+        
+    $resultadoUsuarios = mysqli_query($conexion, $consultaUsuarios);
+
+?>
+
+
+
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -12,58 +70,6 @@
 <body>
     <div class="container my-4">
         <h1 class="text-center mb-4">Detalle de Promoción</h1>
-
-        <?php
-        include("../../../conexionBD.php");
-        
-        $codPromo = $_GET['codPromo'] ?? '';
-        $codLocal = $_GET['codLocal'] ?? '';
-        
-        if (empty($codPromo) || empty($codLocal)) {
-            echo '<div class="alert alert-danger">Parámetros requeridos no encontrados</div>';
-            exit;
-        }
-
-        $consultaDetalle = "SELECT 
-                        p.*,
-                        l.nombreLocal,
-                        l.rubroLocal,
-                        l.ubicacionLocal
-                        FROM promociones p
-                        JOIN locales l ON p.codLocal = l.codLocal
-                        WHERE p.codPromo = '$codPromo' AND l.codLocal = '$codLocal'";
-
-        $resultadoDetalle = mysqli_query($conexion, $consultaDetalle);
-        $detalle = mysqli_fetch_assoc($resultadoDetalle);
-
-        if (!$detalle) {
-            echo '<div class="alert alert-danger">Promoción no encontrada</div>';
-            exit;
-        }
-
-        //Consulto total de solicitudes aceptados
-        $consultaAceptadas = "SELECT COUNT(*) as totalAceptadas FROM uso_promociones WHERE estado = 'aceptada' AND codPromo='$codPromo'";
-        $resultadoAceptadas = mysqli_query($conexion,$consultaAceptadas);
-        $aceptadas = mysqli_fetch_assoc($resultadoAceptadas)["totalAceptadas"];
-        //Consulto total de solicitudes rechazados
-        $consultaRechazadas = "SELECT COUNT(*) as totalRechazadas FROM uso_promociones WHERE estado = 'rechazada' AND codPromo='$codPromo'";
-        $resultadoRechazadas = mysqli_query($conexion,$consultaRechazadas);
-        $rechazadas = mysqli_fetch_assoc($resultadoRechazadas)["totalRechazadas"];
-
-   
-        $consultaUsuarios = "SELECT 
-                        u.nombreUsuario,
-                        up.fechaUsoPromo,
-                        up.estado
-                        FROM uso_promociones up
-                        JOIN usuarios u ON up.codCliente = u.codUsuario
-                        WHERE up.codPromo = '$codPromo'
-                        ORDER BY up.fechaUsoPromo DESC
-                        LIMIT 10";
-            
-        $resultadoUsuarios = mysqli_query($conexion, $consultaUsuarios);
-        
-        ?>
 
         <!--  -->
         <div class="row">

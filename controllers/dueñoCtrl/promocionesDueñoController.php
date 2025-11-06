@@ -102,19 +102,33 @@ elseif($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["eliminar"])){
 
     $codPromo = $_POST["codPromo"] ?? '';
 
-    //Elimino datos de la BD. No intereza tenerlo guardado en BD.
-    $consultaPromo = "DELETE FROM promociones WHERE codPromo=$codPromo";
-    $resultado = mysqli_query($conexion,$consultaPromo);
+    // Verificar si existen existen solicitudes para la promociones que quiero eliminar.
+
+    $consultaVerificacion = "SELECT id_solicitud FROM solicitudes_descuentos WHERE codPromo = $codPromo";
+    $resultadoVerificacion = mysqli_query($conexion, $consultaVerificacion);
+    $verificacion = mysqli_fetch_assoc($resultadoVerificacion);
+    
+    if($verificacion && mysqli_num_rows($resultadoVerificacion) > 0) {
+        // Si existen solicitudes aviso que no se puede eleminar.
+
+        $mensaje_error = "No es posible eliminar promocion. Existen solicitudes activas en este momento.";
+
+    } else {
+        // Si no existen solicitudes, elimino promocion
+        $consultaPromo = "DELETE FROM promociones WHERE codPromo = $codPromo";
+        $mensaje_exito = "Promoción eliminada correctamente.";
+        $mensaje_error = "Error al eliminar la promoción.";    
+        $resultado = mysqli_query($conexion, $consultaPromo);
+    }
+    
 
     if($resultado){
-
-        $_SESSION["mensaje2"] = "Promocion eliminada.";
+        $_SESSION["mensaje_exito"] = $mensaje_exito;
         header("location: ../../views/dueño/mis_promos.php");
         exit();
     }
     else{
-
-        $_SESSION["mensaje2"] = "Error al eliminar promocion.";
+        $_SESSION["mensaje_error"] = $mensaje_error;
         header("location: ../../views/dueño/mis_promos.php");
         exit();
     }

@@ -33,8 +33,6 @@ $totalPromos = mysqli_fetch_assoc($resultadoPromos)['totalPromos'];
 //Consulta para reporte de uso de descuentoss.
 
 
-
-
 ?>
 
 <!DOCTYPE html>

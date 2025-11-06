@@ -19,7 +19,36 @@ require("../../../funciones/funcionesSQL.php");
     <link rel="icon" type="image/png" href="/assets/img/logo-ventana/logo-fondo-b-circular.png"/>
 </head>
 <body>
-    <?php include("../../../includes/navbar.php");?>
+    
+    <?php include("../../../includes/navbar.php");
+
+        //paginacion
+
+        $cant_por_pag =3;
+        $pagina = isset($_GET["pagina"]) ? $_GET["pagina"] : 1;
+        if(!$pagina){
+
+        $inicio = 0;
+        $pagina=1;
+
+        }
+        else{
+            $inicio = ($pagina - 1) * $cant_por_pag;
+        }
+
+        //Total locales
+        $consulta = "SELECT l.* , i.rutaArchivo FROM locales l LEFT JOIN imagenes i ON i.idIdentidad = l.codLocal AND i.tipoImg = 'logo'";
+        $resultado = mysqli_query($conexion,$consulta);
+        $total_registros = mysqli_num_rows($resultado);
+
+        //consulta Páginada
+        $consultaLocales = "SELECT l.* , i.rutaArchivo FROM locales l LEFT JOIN imagenes i ON i.idIdentidad = l.codLocal AND i.tipoImg = 'logo' ORDER BY FIELD(LOWER(estadoLocal), 'eliminado'), codLocal DESC  LIMIT $inicio,$cant_por_pag";
+        $listaLocales = mysqli_query($conexion,$consultaLocales);
+
+        $total_paginas = ceil($total_registros / $cant_por_pag);
+
+
+    ?>
 
     <!-- Mensajes de alerta -->
     <div class="container mt-3">
@@ -65,147 +94,125 @@ require("../../../funciones/funcionesSQL.php");
         ?>
     </div>
 
+
     <div class="container mt-4">
 
-    <?php
-
-    //paginacion
-
-    $cant_por_pag =3;
-    $pagina = isset($_GET["pagina"]) ? $_GET["pagina"] : 1;
-    if(!$pagina){
-
-    $inicio = 0;
-    $pagina=1;
-
-    }
-    else{
-        $inicio = ($pagina - 1) * $cant_por_pag;
-    }
-
-    //Total locales
-    $consulta = "SELECT l.* , i.rutaArchivo FROM locales l LEFT JOIN imagenes i ON i.idIdentidad = l.codLocal AND i.tipoImg = 'logo'";
-    $resultado = mysqli_query($conexion,$consulta);
-    $total_registros = mysqli_num_rows($resultado);
-
-    //consulta Páginada
-    $consultaLocales = "SELECT l.* , i.rutaArchivo FROM locales l LEFT JOIN imagenes i ON i.idIdentidad = l.codLocal AND i.tipoImg = 'logo' ORDER BY FIELD(LOWER(estadoLocal), 'eliminado'), codLocal DESC  LIMIT $inicio,$cant_por_pag";
-    $listaLocales = mysqli_query($conexion,$consultaLocales);
-
-    $total_paginas = ceil($total_registros / $cant_por_pag);
-
-    echo "<div class='table-responsive'>";
-    echo "<table class='tabla table table-striped'>";
-    echo "<caption>Locales</caption>";
-    echo "<tr>
-            <th>Codigo</th>
-            <th>Nombre</th>
-            <th>Logo</th>
-            <th>Ubicacion</th>
-            <th>Rubro</th>
-            <th>Codigo Dueño</th>
-            <th>Estado</th>
-            <th>Editar/Eliminar</th>
-        </th>";
-
-    if(mysqli_num_rows($listaLocales) <= 0){
-        ?>
-        <tr>
-            <td colspan="8" style="text-align: center; padding: 20px; color: #666; font-style: italic;">
-                No existen locales cargados.
-            </td>
-        </tr>
         <?php
-    }
-    while($fila = mysqli_fetch_assoc($listaLocales)){
-        ?>
-        <tr>
-            <td> #<?= $fila["codLocal"]?></td>
-            <td> <?= $fila["nombreLocal"]?></td>
-            <!-- Logo -->
-            <td>
-                <?php if(!empty($fila["rutaArchivo"])):?>
-                    <img src="../../../<?= $fila["rutaArchivo"] ?>" alt="Logo corporativo del local" width="70" height="50" style="object-fit:cover;border-radius:8px;">
-                <?php else: ?>
-                    <span style="color: gray;">Sin logo</span>
-                <?php endif; ?>
-            </td>
-            <td> <?= $fila["ubicacionLocal"]?></td>
-            <td> <?= $fila["rubroLocal"]?></td>
-            <td> #<?= $fila["codUsuario"]?></td>
-            <td>
-                <?php
-                $estado = $fila['estadoLocal'];
-                $estado_class = '';
-                $estado_icon = '';
-                switch($estado) {
-                    case 'activo':
-                        $estado_class = 'bg-success';
-                        $estado_icon = 'bi bi-check';
-                        break;
-                    case 'eliminado':
-                        $estado_class = 'bg-danger';
-                        $estado_icon = 'bi bi-x';
-                        break;
-                }
-                ?>
-                <span class="badge <?= $estado_class ?>">
-                    <i class="<?= $estado_icon ?>"></i> <?= ucfirst($estado) ?>
-                </span>
-            <td>
-                <div class="d-flex flex-wrap gap-1 justify-content-center">
-                    <!-- Si local esta eliminado -->
-                    <?php if($fila["estadoLocal"] == 'eliminado' ):?>
-                        <form action="../../../controllers/localesCtrl/localesController.php" method="POST" class="d-inline">
-                            <input type="hidden" name="codLocal" value="<?= $fila["codLocal"] ?>">
-                            <button type="submit" name="activar" class="btn btn-success btn-sm rounded-pill px-3" title="Activar local">
-                                <i class="bi bi-check-lg"></i> Activar
-                            </button>
-                        </form>
-                        <!-- Boton para editar -->
-                        <a href="/views/admin/locales/localUpdate.php?codLocal=<?php echo $fila['codLocal']; ?>" 
-                           class="btn btn-warning btn-sm rounded-pill px-3" title="Editar local">
-                            <i class="bi bi-pencil"></i> Editar
-                        </a>
+        echo "<div class='table-responsive'>";
+        echo "<table class='tabla table table-striped'>";
+        echo "<caption>Locales</caption>";
+        echo "<tr>
+                <th>Codigo</th>
+                <th>Nombre</th>
+                <th>Logo</th>
+                <th>Ubicacion</th>
+                <th>Rubro</th>
+                <th>Codigo Dueño</th>
+                <th>Estado</th>
+                <th>Editar/Eliminar</th>
+            </th>";
 
-                    <!-- Si local esta activo, Permitir editar o eliminar -->
-                    <?php elseif($fila["estadoLocal"] == 'activo' ):?>
-                        <!-- Boton para editar -->
-                        <a href="/views/admin/locales/localUpdate.php?codLocal=<?php echo $fila['codLocal']; ?>" 
-                           class="btn btn-warning btn-sm rounded-pill px-3" title="Editar local">
-                            <i class="bi bi-pencil"></i> Editar
-                        </a>
-                        <form action="../../../controllers/localesCtrl/localesController.php" method="POST" class="d-inline">
-                            <input type="hidden" name="codLocal" value="<?= $fila["codLocal"] ?>">
-                            <button type="submit" name="eliminar" class="btn btn-danger btn-sm rounded-pill px-3" title="Eliminar local" onclick="return confirm('¿Está seguro de eliminar local?')">
-                                <i class="bi bi-x-lg"></i> Eliminar
-                            </button>
-                        </form>
-                    <?php endif;?>
-                </div>
-            </td>
-        </tr>
+        if(mysqli_num_rows($listaLocales) <= 0){
+            ?>
+            <tr>
+                <td colspan="8" style="text-align: center; padding: 20px; color: #666; font-style: italic;">
+                    No existen locales cargados.
+                </td>
+            </tr>
+            <?php
+        }
+        while($fila = mysqli_fetch_assoc($listaLocales)){
+            ?>
+            <tr>
+                <td> #<?= $fila["codLocal"]?></td>
+                <td> <?= $fila["nombreLocal"]?></td>
+                <!-- Logo -->
+                <td>
+                    <?php if(!empty($fila["rutaArchivo"])):?>
+                        <img src="../../../<?= $fila["rutaArchivo"] ?>" alt="Logo corporativo del local" width="70" height="50" style="object-fit:cover;border-radius:8px;">
+                    <?php else: ?>
+                        <span style="color: gray;">Sin logo</span>
+                    <?php endif; ?>
+                </td>
+                <td> <?= $fila["ubicacionLocal"]?></td>
+                <td> <?= $fila["rubroLocal"]?></td>
+                <td> #<?= $fila["codUsuario"]?></td>
+                <td>
+                    <?php
+                    $estado = $fila['estadoLocal'];
+                    $estado_class = '';
+                    $estado_icon = '';
+                    switch($estado) {
+                        case 'activo':
+                            $estado_class = 'bg-success';
+                            $estado_icon = 'bi bi-check';
+                            break;
+                        case 'eliminado':
+                            $estado_class = 'bg-danger';
+                            $estado_icon = 'bi bi-x';
+                            break;
+                    }
+                    ?>
+                    <span class="badge <?= $estado_class ?>">
+                        <i class="<?= $estado_icon ?>"></i> <?= ucfirst($estado) ?>
+                    </span>
+                <td>
+                    <div class="d-flex flex-wrap gap-1 justify-content-center">
+                        <!-- Si local esta eliminado -->
+                        <?php if($fila["estadoLocal"] == 'eliminado' ):?>
+                            <form action="../../../controllers/localesCtrl/localesController.php" method="POST" class="d-inline">
+                                <input type="hidden" name="codLocal" value="<?= $fila["codLocal"] ?>">
+                                <button type="submit" name="activar" class="btn btn-success btn-sm rounded-pill px-3" title="Activar local">
+                                    <i class="bi bi-check-lg"></i> Activar
+                                </button>
+                            </form>
+                            <!-- Boton para editar -->
+                            <a href="/views/admin/locales/localUpdate.php?codLocal=<?php echo $fila['codLocal']; ?>" 
+                            class="btn btn-warning btn-sm rounded-pill px-3" title="Editar local">
+                                <i class="bi bi-pencil"></i> Editar
+                            </a>
+
+                        <!-- Si local esta activo, Permitir editar o eliminar -->
+                        <?php elseif($fila["estadoLocal"] == 'activo' ):?>
+                            <!-- Boton para editar -->
+                            <a href="/views/admin/locales/localUpdate.php?codLocal=<?php echo $fila['codLocal']; ?>" 
+                            class="btn btn-warning btn-sm rounded-pill px-3" title="Editar local">
+                                <i class="bi bi-pencil"></i> Editar
+                            </a>
+                            <form action="../../../controllers/localesCtrl/localesController.php" method="POST" class="d-inline">
+                                <input type="hidden" name="codLocal" value="<?= $fila["codLocal"] ?>">
+                                <button type="submit" name="eliminar" class="btn btn-danger btn-sm rounded-pill px-3" title="Eliminar local" onclick="return confirm('¿Está seguro de eliminar local?')">
+                                    <i class="bi bi-x-lg"></i> Eliminar
+                                </button>
+                            </form>
+                        <?php endif;?>
+                    </div>
+                </td>
+            </tr>
+        <?php
+        }
+        echo "</table></div>";?>
+    </div>
+
     <?php
-    }
-    echo "</table></div>";
 
     mysqli_free_result($listaLocales);
 
     mysqli_close($conexion);?>
 
     <div class='paginacion mt-3 text-center'>
-    <?php
-    for($i = 1;$i <= $total_paginas;$i++){
-        if($pagina == $i){
-            echo "<span class='btn btn-primary btn-sm mx-1'>$pagina</span>";
+        <?php
+        for($i = 1;$i <= $total_paginas;$i++){
+            if($pagina == $i){
+                echo "<span class='btn btn-primary btn-sm mx-1'>$pagina</span>";
+            }
+            else{
+                echo "<a href='locales.php?pagina=$i' class='btn btn-outline-primary btn-sm mx-1'>$i</a>";
+            }
         }
-        else{
-            echo "<a href='locales.php?pagina=$i' class='btn btn-outline-primary btn-sm mx-1'>$i</a>";
-        }
-    }
-    ?>
+        ?>
     </div>
-    </div> <!-- Cierre del contenedor principal -->
+    <!-- Cierre del contenedor principal -->
 
     <!-- Formulario de crear local -->
     <div class="container my-5">
@@ -253,6 +260,8 @@ require("../../../funciones/funcionesSQL.php");
     </div>
 
     <?php include("../../../includes/footer.php"); ?>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
     
 </body>
 </html>

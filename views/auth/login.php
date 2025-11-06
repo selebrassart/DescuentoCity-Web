@@ -22,10 +22,11 @@ $breadcrumb_titulo_activo = 'Iniciar Sesión';
 </head>
 <body>
 <?php include("../../includes/navbar.php"); ?>
+
     <!--ruta de navegacion -->
     <div class="container mt-3 small">
             <?php include '../../includes/breadcrumb.php'; ?> 
-        </div>
+    </div>
 
     <!-- Mensajes de alerta -->
     <div class="container mt-3">
@@ -108,7 +109,7 @@ $breadcrumb_titulo_activo = 'Iniciar Sesión';
                     <div class="mb-3 text-center"> 
                         <span class="small text-muted">¿Olvidó su contraseña? </span>
                         <a href="/views/auth/restablecer-contraseña.php" class="text-primary">
-                            Click aquí
+                            Restablecer contraseña
                         </a>
                     </div>
                     
@@ -130,29 +131,29 @@ $breadcrumb_titulo_activo = 'Iniciar Sesión';
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
     
     <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const toggleButtons = document.querySelectorAll('.toggle-password');
+        document.addEventListener('DOMContentLoaded', function() {
+            const toggleButtons = document.querySelectorAll('.toggle-password');
 
-        toggleButtons.forEach(button => {
-            button.addEventListener('click', function () {
-                const targetId = this.dataset.target; 
-                const passwordInput = document.getElementById(targetId);
-                const icon = this.querySelector('i');
+            toggleButtons.forEach(button => {
+                button.addEventListener('click', function () {
+                    const targetId = this.dataset.target; 
+                    const passwordInput = document.getElementById(targetId);
+                    const icon = this.querySelector('i');
 
-                // Alternar el atributo 'type' y el ícono
-                if (passwordInput.getAttribute('type') === 'password') {
-                    passwordInput.setAttribute('type', 'text');
-                    icon.classList.remove('bi-eye-slash-fill');
-                    icon.classList.add('bi-eye-fill');
-                } else {
-                    passwordInput.setAttribute('type', 'password');
-                    icon.classList.remove('bi-eye-fill');
-                    icon.classList.add('bi-eye-slash-fill');
-                }
+                    // Alternar el atributo 'type' y el ícono
+                    if (passwordInput.getAttribute('type') === 'password') {
+                        passwordInput.setAttribute('type', 'text');
+                        icon.classList.remove('bi-eye-slash-fill');
+                        icon.classList.add('bi-eye-fill');
+                    } else {
+                        passwordInput.setAttribute('type', 'password');
+                        icon.classList.remove('bi-eye-fill');
+                        icon.classList.add('bi-eye-slash-fill');
+                    }
+                });
             });
         });
-    });
-</script>
+    </script>
 </body>
 </html>
 

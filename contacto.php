@@ -1,12 +1,11 @@
 <?php
 session_start();
+
 include("conexionBD.php");
 
 // Variable para breadcrumb
 $breadcrumb_titulo_activo = 'Contacto';
 
-// Debug - Puedes descomentar esta línea para ver el contenido de la sesión
-// echo "<pre>SESSION: "; var_dump($_SESSION); echo "</pre>";
 
 ?>
 
@@ -23,34 +22,34 @@ $breadcrumb_titulo_activo = 'Contacto';
 </head>
 <body>
 
-<?php
-// Verificar si el usuario está logueado y qué tipo de usuario es
-$usuario_logueado = isset($_SESSION['usuario_logueado']) && $_SESSION['usuario_logueado'] === true;
-$tipo_usuario = isset($_SESSION['tipoUsuario']) ? $_SESSION['tipoUsuario'] : null;
+    <?php
+    // Verificar si el usuario está logueado y qué tipo de usuario es
+    $usuario_logueado = isset($_SESSION['usuario_logueado']) && $_SESSION['usuario_logueado'] === true;
+    $tipo_usuario = isset($_SESSION['tipoUsuario']) ? $_SESSION['tipoUsuario'] : null;
 
-if ($usuario_logueado && $tipo_usuario) {
-    switch ($tipo_usuario) {
-        case 'admin':
-            include("includes/admin/adminHeader.php");
-            break;
-        case 'dueño':
-            include("includes/dueño/dueñoHeader.php");
-            break;
-        case 'cliente':
-            include("includes/cliente/clienteHeader.php");
-            break;
-        default:
-            include("includes/navbar.php"); 
-            break;
+    if ($usuario_logueado && $tipo_usuario) {
+        switch ($tipo_usuario) {
+            case 'admin':
+                include("includes/admin/adminHeader.php");
+                break;
+            case 'dueño':
+                include("includes/dueño/dueñoHeader.php");
+                break;
+            case 'cliente':
+                include("includes/cliente/clienteHeader.php");
+                break;
+            default:
+                include("includes/navbar.php"); 
+                break;
+        }
+    } else {
+        include("includes/navbar.php"); 
     }
-} else {
-    include("includes/navbar.php"); 
-}
-?>
-    <!--ruta de navegacion -->
-    <div class="container mt-3 small">
-            <?php include 'includes/breadcrumb.php'; ?> 
-    </div>
+    ?>
+        <!--ruta de navegacion -->
+        <div class="container mt-3 small">
+                <?php include 'includes/breadcrumb.php'; ?> 
+        </div>
         
 
 
@@ -125,10 +124,10 @@ if ($usuario_logueado && $tipo_usuario) {
         </div>
     </div>
 
-<?php include("includes/footer.php"); ?>
+    <?php include("includes/footer.php"); ?>
 
     
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>

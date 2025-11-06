@@ -10,26 +10,6 @@ if (!isset($_SESSION['tipoUsuario']) || $_SESSION['tipoUsuario'] !== 'dueño') {
 
 include("../../conexionBD.php");
 
-?>
-
-
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/assets/css/estilos.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
-    <link rel="icon" type="image/png" href="/assets/img/logo-ventana/logo-fondo-b-circular.png"/>
-    <title>Mis Promociones - Descuento City</title>
-</head>
-<body>
-
-    <?php
-    include("../../includes/dueño/dueñoHeader.php");
-
-
     //paginacion
 
     $cant_por_pag =5;
@@ -70,88 +50,27 @@ include("../../conexionBD.php");
     $listaPromociones = mysqli_query($conexion,$consultaPromociones);
 
     $total_paginas = ceil($total_registros / $cant_por_pag);
-
-    echo "<div class='table-responsive'>";
-    echo "<table class='tabla table table-striped'>";
-    echo "<caption>Promociones</caption>";
-    echo "<tr>
-            <th>Codigo</th>
-            <th>Descripcion</th>
-            <th>Portada</th>
-            <th>fechas</th>
-            <th>Cat Cliente</th>
-            <th>Dias semana</th>
-            <th>Estado</th>
-            <th>Eliminar</th>
-        </th>";
-
-    if(mysqli_num_rows($listaPromociones) <= 0){
-        ?>
-        <tr>
-            <td colspan="9" style="text-align: center; padding: 20px; color: #666; font-style: italic;">
-                No hay promociones creadas
-            </td>
-        </tr>
-        <?php
-    }
-    while($fila = mysqli_fetch_assoc($listaPromociones)){
-        ?>
-        <tr>
-            <td> <?= $fila["codPromo"]?></td>
-            <td> <?= $fila["textoPromo"]?></td>
-            <!-- Logo -->
-            <td>
-                <?php if(!empty($fila["rutaArchivo"])):?>
-                    <img src="../../<?= $fila["rutaArchivo"] ?>" alt="portada promocion" width="70" height="50" style="object-fit:cover;border-radius:8px;">
-                <?php else: ?>
-                    <span style="color: gray;">Sin portada</span>
-                <?php endif; ?>
-            </td>
-            <td>
-                <div style="background-color: #e8f5e8; padding: 2px 5px; border-radius: 3px; margin-bottom: 2px;">
-                    Desde: <?= $fila["fechaDesdePromo"] ?>
-                </div>
-                <div style="background-color: #ffe8e8; padding: 2px 5px; border-radius: 3px;">
-                    Hasta: <?= $fila["fechaHastaPromo"] ?>
-                </div>
-            </td>
-            <td> <?= $fila["categoriaCliente"]?></td>
-            <td> <?= $fila["diasSemana"]?></td>
-            <td> <?= ucfirst($fila["estadoPromo"])?></td>
-            <td>
-                <form action="../../controllers/dueñoCtrl/promocionesDueñoController.php" method="POST" class="d-inline">
-                    <!-- Si local esta eliminado -->
-                    <?php if($fila["estadoPromo"] == 'pendiente' OR 'aprobada' OR 'denegada'):?>
-                        <input type="hidden" name="codPromo" value="<?= $fila["codPromo"] ?>">
-                        <button type="submit" name="eliminar" class="btn btn-secondary btn-sm rounded-circle" title="Eliminar promoción">
-                            <i class="bi bi-trash3-fill"></i>
-                        </button>
-                    <?php endif;?>
-                </form>
-            </td>
-        </tr>
-    <?php
-    }
-    echo "</table></div>";
-
-    mysqli_free_result($listaPromociones);?>
-
-    <div class='paginacion mt-3 text-center'>
-    <?php
-    for($i = 1;$i <= $total_paginas;$i++){
-        if($pagina == $i){
-            echo "<span class='btn btn-primary btn-sm mx-1'>$pagina</span>";
-        }
-        else{
-            echo "<a href='mis_promos.php?pagina=$i' class='btn btn-outline-primary btn-sm mx-1'>$i</a>";
-        }
-    }
     
     ?>
-    </div>
+
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/assets/css/estilos.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link rel="icon" type="image/png" href="/assets/img/logo-ventana/logo-fondo-b-circular.png"/>
+    <title>Mis Promociones - Descuento City</title>
+</head>
+<body>
+
+    <?php include("../../includes/navbar.php"); ?>
 
     <!-- Mensajes de alerta -->
-    <div class="container">
+    <div class="container mt-3">
         <?php
         // Sistema de mensajes organizados
         if(isset($_SESSION['mensaje_exito'])){
@@ -193,6 +112,147 @@ include("../../conexionBD.php");
         }
         ?>
     </div>
+
+    <div class="container mt-4">
+        <?php
+        echo "<div class='table-responsive'>";
+        echo "<table class='tabla table table-striped'>";
+        echo "<caption>Promociones</caption>";
+        echo "<tr>
+                <th>Codigo</th>
+                <th>Descripcion</th>
+                <th>Portada</th>
+                <th>fechas</th>
+                <th>Cat Cliente</th>
+                <th>Dias semana</th>
+                <th>Estado</th>
+                <th>Eliminar</th>
+            </tr>";
+
+        if(mysqli_num_rows($listaPromociones) <= 0){
+            ?>
+            <tr>
+                <td colspan="9" style="text-align: center; padding: 20px; color: #666; font-style: italic;">
+                    No hay promociones creadas
+                </td>
+            </tr>
+            <?php
+        }
+        while($fila = mysqli_fetch_assoc($listaPromociones)){
+            ?>
+            <tr>
+                <td> <?= $fila["codPromo"]?></td>
+                <td> <?= $fila["textoPromo"]?></td>
+                <!-- Logo -->
+                <td>
+                    <?php if(!empty($fila["rutaArchivo"])):?>
+                        <img src="../../<?= $fila["rutaArchivo"] ?>" alt="portada promocion" width="70" height="50" style="object-fit:cover;border-radius:8px;">
+                    <?php else: ?>
+                        <span style="color: gray;">Sin portada</span>
+                    <?php endif; ?>
+                </td>
+                <td>
+                    <div style="background-color: #e8f5e8; padding: 2px 5px; border-radius: 3px; margin-bottom: 2px;">
+                        Desde: <?= $fila["fechaDesdePromo"] ?>
+                    </div>
+                    <div style="background-color: #ffe8e8; padding: 2px 5px; border-radius: 3px;">
+                        Hasta: <?= $fila["fechaHastaPromo"] ?>
+                    </div>
+                </td>
+                <td>
+                    <?php
+                    $categoria = $fila['categoriaCliente'];
+                    $badge_class = '';
+                    $icon = '';
+                    switch($categoria) {
+                        case 'Premium':
+                            $badge_class = 'bg-warning text-dark';
+                            $icon = 'bi bi-gem';
+                            break;
+                        case 'Medium':
+                            $badge_class = 'bg-info';
+                            $icon = 'bi bi-star-fill';
+                            break;
+                        case 'Inicial':
+                        default:
+                            $badge_class = 'bg-secondary';
+                            $icon = 'bi bi-circle-fill';
+                            break;
+                    }
+                    ?>
+                    <span class="badge <?= $badge_class ?>">
+                        <i class="<?= $icon ?>"></i> <?= $categoria ?>
+                    </span>
+                </td>
+                <td> 
+                    <?php
+                        //Si esta disponible toda la semana.
+                        if(strlen($fila["diasSemana"]) != 54){
+                            
+                            echo $fila["diasSemana"];
+                        }
+                        else{
+                            echo "Todos los dias";
+                        }
+                    ?>
+                </td>
+                <td>
+                    <?php
+                    $estado = $fila['estadoPromo'];
+                    $estado_class = '';
+                    $estado_icon = '';
+                    switch($estado) {
+                        case 'pendiente':
+                            $estado_class = 'bg-warning text-dark';
+                            $estado_icon = 'bi bi-clock';
+                            break;
+                        case 'aprobada':
+                            $estado_class = 'bg-success';
+                            $estado_icon = 'bi bi-check-circle-fill';
+                            break;
+                        case 'denegada':
+                            $estado_class = 'bg-danger';
+                            $estado_icon = 'bi bi-x-circle-fill';
+                            break;
+                    }
+                    ?>
+                    <span class="badge <?= $estado_class ?>">
+                        <i class="<?= $estado_icon ?>"></i> <?= ucfirst($estado) ?>
+                    </span>
+                </td>
+
+                <td>
+                    <form action="../../controllers/dueñoCtrl/promocionesDueñoController.php" method="POST" class="d-inline">
+                        <!-- Si local esta eliminado -->
+                        <?php if($fila["estadoPromo"] == 'pendiente' OR 'aprobada' OR 'denegada'):?>
+                            <input type="hidden" name="codPromo" value="<?= $fila["codPromo"] ?>">
+                            <button type="submit" name="eliminar" class="btn btn-secondary btn-sm rounded-circle" title="Eliminar promoción">
+                                <i class="bi bi-trash3-fill"></i>
+                            </button>
+                        <?php endif;?>
+                    </form>
+                </td>
+            </tr>
+        <?php
+        }
+        echo "</table></div>";?>
+    </div>
+
+    <?php
+    mysqli_free_result($listaPromociones);?>
+
+    <div class='paginacion mt-3 text-center'>
+        <?php
+        for($i = 1;$i <= $total_paginas;$i++){
+            if($pagina == $i){
+                echo "<span class='btn btn-primary btn-sm mx-1'>$pagina</span>";
+            }
+            else{
+                echo "<a href='mis_promos.php?pagina=$i' class='btn btn-outline-primary btn-sm mx-1'>$i</a>";
+            }
+        }?>
+    </div>
+
 
     <!-- Formulario de crear promoción -->
     <div class="container my-5">
@@ -291,6 +351,8 @@ include("../../conexionBD.php");
         </div>
     </div>
 
+
+
     <script>
         // Selecciona el checkbox de "seleccionar todos"
         const seleccionarTodos = document.getElementById('seleccionarTodos');
@@ -302,10 +364,11 @@ include("../../conexionBD.php");
         });
     </script>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
     <?php 
     include("../../includes/footer.php");
     mysqli_close($conexion);
-
     ?>
 
 </body>

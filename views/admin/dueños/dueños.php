@@ -39,6 +39,7 @@ $consultaDueños = "SELECT * FROM usuarios WHERE tipoUsuario='dueño' ORDER BY F
 $listaDueños = mysqli_query($conexion,$consultaDueños);
 
 $total_paginas = ceil($total_registros / $cant_por_pag);
+
 ?>
 
 <!DOCTYPE html>
@@ -200,5 +201,8 @@ $total_paginas = ceil($total_registros / $cant_por_pag);
     </div> <!-- Cierre del contenedor principal -->
 
     <?php include("../../../includes/footer.php"); ?>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 </html>

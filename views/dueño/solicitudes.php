@@ -8,7 +8,90 @@ if (!isset($_SESSION['tipoUsuario']) || $_SESSION['tipoUsuario'] !== 'dueño') {
     exit();
 }
 
-include("../../conexionBD.php");?>
+include("../../conexionBD.php");
+
+
+    
+$codDueño = $_SESSION['codUsuario'];
+
+//Consulto local del dueño
+$sql_local = "SELECT codLocal, nombreLocal FROM locales WHERE codUsuario = '$codDueño' AND estadoLocal = 'activo' LIMIT 1";
+$resultado_local = mysqli_query($conexion, $sql_local);
+
+if ($resultado_local && mysqli_num_rows($resultado_local) == 1) {
+    $local = mysqli_fetch_assoc($resultado_local);
+    $codLocal = $local['codLocal'];
+    $nombreLocal = $local['nombreLocal'];
+} else {
+    $_SESSION['mensaje_error'] = "No tienes un local activo asignado.";
+    header("location:../dueño/solicitudes.php");
+    exit();
+}
+
+// Paginación
+
+$cant_por_pag =5;
+$pagina = isset($_GET["pagina"]) ? $_GET["pagina"] : 1;
+if(!$pagina){
+
+$inicio = 0;
+$pagina=1;
+
+}
+else{
+    $inicio = ($pagina - 1) * $cant_por_pag;
+}
+
+
+//consulta solicitudesz
+$consultaSolicitudes = "SELECT 
+                        sd.id_solicitud,
+                        sd.codCliente,
+                        sd.codPromo,
+                        sd.fecha_solicitud,
+                        sd.estado,
+                        u.nombreUsuario,
+                        p.textoPromo,
+                        p.fechaDesdePromo,
+                        p.fechaHastaPromo,
+                        p.categoriaCliente
+                    FROM solicitudes_descuentos sd
+                    JOIN promociones p ON sd.codPromo = p.codPromo
+                    JOIN usuarios u ON sd.codCliente = u.codUsuario
+                    WHERE p.codLocal = '$codLocal'";
+
+
+$resultadoSolicitudes = mysqli_query($conexion,$consultaSolicitudes);
+$total_registros = mysqli_num_rows($resultadoSolicitudes);
+
+
+// Consulta paginada
+$consultaSolicitudesPag = "SELECT 
+                        sd.id_solicitud,
+                        sd.codCliente,
+                        sd.codPromo,
+                        sd.fecha_solicitud,
+                        sd.estado,
+                        u.nombreUsuario,
+                        p.textoPromo,
+                        p.fechaDesdePromo,
+                        p.fechaHastaPromo,
+                        p.categoriaCliente
+                    FROM solicitudes_descuentos sd
+                    JOIN promociones p ON sd.codPromo = p.codPromo
+                    JOIN usuarios u ON sd.codCliente = u.codUsuario
+                    WHERE p.codLocal = '$codLocal' AND
+                    sd.estado IN ('aceptada','pendiente','rechazada')
+                    ORDER BY FIELD(estado, 'pendiente','aceptada','rechazada'),
+                    sd.fecha_solicitud DESC
+                    LIMIT $inicio, $cant_por_pag";
+
+$resultadoPag = mysqli_query($conexion, $consultaSolicitudesPag);
+
+$total_paginas = ceil($total_registros / $cant_por_pag);
+
+
+?>
 
 
 <!DOCTYPE html>
@@ -72,249 +155,171 @@ include("../../conexionBD.php");?>
     </div>
 
     <div class="container mt-4">
-
-    <?php
-    
-    $codDueño = $_SESSION['codUsuario'];
-
-    //Consulto local del dueño
-    $sql_local = "SELECT codLocal, nombreLocal FROM locales WHERE codUsuario = '$codDueño' AND estadoLocal = 'activo' LIMIT 1";
-    $resultado_local = mysqli_query($conexion, $sql_local);
-
-    if ($resultado_local && mysqli_num_rows($resultado_local) == 1) {
-        $local = mysqli_fetch_assoc($resultado_local);
-        $codLocal = $local['codLocal'];
-        $nombreLocal = $local['nombreLocal'];
-    } else {
-        $_SESSION['mensaje_error'] = "No tienes un local activo asignado.";
-        header("location:../dueño/solicitudes.php");
-        exit();
-    }
-
-    // Paginación
-
-    $cant_por_pag =5;
-    $pagina = isset($_GET["pagina"]) ? $_GET["pagina"] : 1;
-    if(!$pagina){
-
-    $inicio = 0;
-    $pagina=1;
-
-    }
-    else{
-        $inicio = ($pagina - 1) * $cant_por_pag;
-    }
-
-
-    //consulta solicitudesz
-    $consultaSolicitudes = "SELECT 
-                            sd.id_solicitud,
-                            sd.codCliente,
-                            sd.codPromo,
-                            sd.fecha_solicitud,
-                            sd.estado,
-                            u.nombreUsuario,
-                            p.textoPromo,
-                            p.fechaDesdePromo,
-                            p.fechaHastaPromo,
-                            p.categoriaCliente
-                        FROM solicitudes_descuentos sd
-                        JOIN promociones p ON sd.codPromo = p.codPromo
-                        JOIN usuarios u ON sd.codCliente = u.codUsuario
-                        WHERE p.codLocal = '$codLocal'";
-
-
-    $resultadoSolicitudes = mysqli_query($conexion,$consultaSolicitudes);
-    $total_registros = mysqli_num_rows($resultadoSolicitudes);
-
-
-    // Consulta paginada
-    $consultaSolicitudesPag = "SELECT 
-                            sd.id_solicitud,
-                            sd.codCliente,
-                            sd.codPromo,
-                            sd.fecha_solicitud,
-                            sd.estado,
-                            u.nombreUsuario,
-                            p.textoPromo,
-                            p.fechaDesdePromo,
-                            p.fechaHastaPromo,
-                            p.categoriaCliente
-                        FROM solicitudes_descuentos sd
-                        JOIN promociones p ON sd.codPromo = p.codPromo
-                        JOIN usuarios u ON sd.codCliente = u.codUsuario
-                        WHERE p.codLocal = '$codLocal' AND
-                        sd.estado IN ('aceptada','pendiente','rechazada')
-                        ORDER BY FIELD(estado, 'pendiente','aceptada','rechazada'),
-                        sd.fecha_solicitud DESC
-                        LIMIT $inicio, $cant_por_pag";
-
-    $resultadoPag = mysqli_query($conexion, $consultaSolicitudesPag);
-
-    $total_paginas = ceil($total_registros / $cant_por_pag);
-
-
-
-
-    echo "<div class='table-responsive'>";
-    echo "<div class='d-flex justify-content-center align-items-center mb-2'>";
-    echo "<div class='badge bg-primary text-white fs-6 px-2 py-1'>";
-    echo "<i class='bi bi-shop me-1'></i>" . htmlspecialchars($nombreLocal);
-    echo "</div>";
-    echo "</div>";
-
-    echo "<table class='tabla table table-striped'>";
-    echo "<caption>Solicitudes de clientes</caption>";
-    echo "<thead><tr>
-            <th>ID</th>
-            <th>Cliente</th>
-            <th>Promocion</th>            
-            <th>Categoria</th>
-            <th>Fecha Solicitud</th>
-            <th>Estado</th>
-            <th>Accion</th>
-        </tr></thead><tbody>";
-
-        if(mysqli_num_rows($resultadoPag) <= 0){
-        ?>
-        <tr>
-            <td colspan="9" style="text-align: center; padding: 20px; color: #666; font-style: italic;">
-                No exiten solicitudes pendientes. 
-            </td>
-        </tr>
         <?php
-        }
-        while($solicitud = mysqli_fetch_assoc($resultadoPag)){
+        echo "<div class='d-flex justify-content-center align-items-center mb-2'>";
+        echo "<div class='badge bg-primary text-white fs-6 px-3 py-2 mt-4'>";
+        echo "<i class='bi bi-shop me-1'></i>" . htmlspecialchars($nombreLocal);
+        echo "</div>";
+        echo "</div>";
+
+        echo "<div class='table-responsive'>";    
+        echo "<table class='tabla table table-striped'>";    
+        echo "<caption>Solicitudes de clientes</caption>";
+        echo "<thead><tr>
+                <th>ID</th>
+                <th>Cliente</th>
+                <th>Promocion</th>            
+                <th>Categoria</th>
+                <th>Fecha Solicitud</th>
+                <th>Estado</th>
+                <th>Accion</th>
+            </tr></thead><tbody>";
+
+            if(mysqli_num_rows($resultadoPag) <= 0){
             ?>
             <tr>
-                <td>#<?= $solicitud["id_solicitud"] ?></td>
-                <td>#<?= $solicitud["codCliente"] ?></td>
-                <td>                        
-                    <?= "#". $solicitud['codPromo']?>
-                    <br>
-                    <span class="fw-bold"><?= htmlspecialchars($solicitud['textoPromo']) ?></span>
-                    <br>
-                    <small class="text-muted">
-                        <i class="bi bi-calendar3"></i> 
-                        Válida: <?= date('d/m/Y', strtotime($solicitud['fechaDesdePromo'])) ?> - 
-                        <?= date('d/m/Y', strtotime($solicitud['fechaHastaPromo'])) ?><br>
-                    </small>
-                </td>
-                <td>
-                    <?php
-                    $categoria = $solicitud['categoriaCliente'];
-                    $badge_class = '';
-                    $icon = '';
-                    switch($categoria) {
-                        case 'Premium':
-                            $badge_class = 'bg-warning text-dark';
-                            $icon = 'bi bi-gem';
-                            break;
-                        case 'Medium':
-                            $badge_class = 'bg-info';
-                            $icon = 'bi bi-star-fill';
-                            break;
-                        case 'Inicial':
-                        default:
-                            $badge_class = 'bg-secondary';
-                            $icon = 'bi bi-circle-fill';
-                            break;
-                    }
-                    ?>
-                    <span class="badge <?= $badge_class ?>">
-                        <i class="<?= $icon ?>"></i> <?= $categoria ?>
-                    </span>
-                </td>
-                <td>
-                    <?= date('d/m/Y', strtotime($solicitud['fecha_solicitud'])) ?>
-                </td>
-                <td>
-                    <?php
-                    $estado = $solicitud['estado'];
-                    $estado_class = '';
-                    $estado_icon = '';
-                    switch($estado) {
-                        case 'pendiente':
-                            $estado_class = 'bg-warning text-dark';
-                            $estado_icon = 'bi bi-clock';
-                            break;
-                        case 'aceptada':
-                            $estado_class = 'bg-success';
-                            $estado_icon = 'bi bi-check-circle-fill';
-                            break;
-                        case 'rechazada':
-                            $estado_class = 'bg-danger';
-                            $estado_icon = 'bi bi-x-circle-fill';
-                            break;
-                        default:
-                            $estado_class = 'bg-secondary';
-                            $estado_icon = 'bi bi-question-circle';
-                            break;
-                    }
-                    ?>
-                    <span class="badge <?= $estado_class ?>">
-                        <i class="<?= $estado_icon ?>"></i> <?= ucfirst($estado) ?>
-                    </span>
-                </td>
-                <td>
-                    <form action="../../controllers/dueñoCtrl/gestionarSolicitudesController.php" method="POST" class="d-inline-flex flex-wrap gap-1 justify-content-center">
-                    <!-- Si estado solicitud == pendiente -->
-                        <?php if($solicitud['estado'] == 'pendiente' ): ?>
-                        <input type="hidden" name="id_solicitud" value="<?= $solicitud['id_solicitud']?>">
-                        <button type="submit" name="aceptar" class="btn btn-success btn-sm rounded-pill px-3" title="Aceptar solicitud">
-                            <i class="bi bi-check-lg"></i> Aceptar
-                        </button>
-                        <button type="submit" name="rechazar" class="btn btn-danger btn-sm rounded-pill px-3" title="Rechazar solicitud">
-                            <i class="bi bi-x-lg"></i> Rechazar
-                        </button>
-
-                    <!-- Si estado solicitud == aceptada -->
-                        <?php elseif($solicitud['estado'] == 'aceptada'): ?>
-
-                        <input type="hidden" name="id_solicitud" value="<?= $solicitud['id_solicitud']?>">
-                        <button type="submit" name="rechazar" class="btn btn-danger btn-sm rounded-pill px-3" title="Rechazar solicitud" onclick="return confirm('¿Está seguro de rechazar esta solicitud?')">
-                            <i class="bi bi-x-lg"></i> Rechazar
-                        </button>
-                        <button type="submit" name="eliminar" class="btn btn-secondary btn-sm rounded-circle" title="Eliminar solicitud">
-                            <i class="bi bi-trash3-fill"></i>
-                        </button>
-                        <!-- Si estado solicitud == rechazada -->
-                        <?php elseif($solicitud['estado'] == 'rechazada'): ?>
-                        <input type="hidden" name="id_solicitud" value="<?= $solicitud['id_solicitud']?>">
-                        <button type="submit" name="aceptar" class="btn btn-success btn-sm rounded-pill px-3" title="Aceptar solicitud">
-                            <i class="bi bi-check-lg"></i> Aceptar
-                        </button>
-                        <button type="submit" name="eliminar" class="btn btn-secondary btn-sm rounded-circle" title="Eliminar solicitud">
-                            <i class="bi bi-trash3-fill"></i>
-                        </button>
-                        <?php endif;?>
-                    </form>
+                <td colspan="9" style="text-align: center; padding: 20px; color: #666; font-style: italic;">
+                    No exiten solicitudes pendientes. 
                 </td>
             </tr>
+            <?php
+            }
+            while($solicitud = mysqli_fetch_assoc($resultadoPag)){
+                ?>
+                <tr>
+                    <td>#<?= $solicitud["id_solicitud"] ?></td>
+                    <td>#<?= $solicitud["codCliente"] ?></td>
+                    <td>                        
+                        <?= "#". $solicitud['codPromo']?>
+                        <br>
+                        <span class="fw-bold"><?= htmlspecialchars($solicitud['textoPromo']) ?></span>
+                        <br>
+                        <small class="text-muted">
+                            <i class="bi bi-calendar3"></i> 
+                            Válida: <?= date('d/m/Y', strtotime($solicitud['fechaDesdePromo'])) ?> - 
+                            <?= date('d/m/Y', strtotime($solicitud['fechaHastaPromo'])) ?><br>
+                        </small>
+                    </td>
+                    <td>
+                        <?php
+                        $categoria = $solicitud['categoriaCliente'];
+                        $badge_class = '';
+                        $icon = '';
+                        switch($categoria) {
+                            case 'Premium':
+                                $badge_class = 'bg-warning text-dark';
+                                $icon = 'bi bi-gem';
+                                break;
+                            case 'Medium':
+                                $badge_class = 'bg-info';
+                                $icon = 'bi bi-star-fill';
+                                break;
+                            case 'Inicial':
+                            default:
+                                $badge_class = 'bg-secondary';
+                                $icon = 'bi bi-circle-fill';
+                                break;
+                        }
+                        ?>
+                        <span class="badge <?= $badge_class ?>">
+                            <i class="<?= $icon ?>"></i> <?= $categoria ?>
+                        </span>
+                    </td>
+                    <td>
+                        <?= date('d/m/Y', strtotime($solicitud['fecha_solicitud'])) ?>
+                    </td>
+                    <td>
+                        <?php
+                        $estado = $solicitud['estado'];
+                        $estado_class = '';
+                        $estado_icon = '';
+                        switch($estado) {
+                            case 'pendiente':
+                                $estado_class = 'bg-warning text-dark';
+                                $estado_icon = 'bi bi-clock';
+                                break;
+                            case 'aceptada':
+                                $estado_class = 'bg-success';
+                                $estado_icon = 'bi bi-check-circle-fill';
+                                break;
+                            case 'rechazada':
+                                $estado_class = 'bg-danger';
+                                $estado_icon = 'bi bi-x-circle-fill';
+                                break;
+                            default:
+                                $estado_class = 'bg-secondary';
+                                $estado_icon = 'bi bi-question-circle';
+                                break;
+                        }
+                        ?>
+                        <span class="badge <?= $estado_class ?>">
+                            <i class="<?= $estado_icon ?>"></i> <?= ucfirst($estado) ?>
+                        </span>
+                    </td>
+                    <td>
+                        <form action="../../controllers/dueñoCtrl/gestionarSolicitudesController.php" method="POST" class="d-inline-flex flex-wrap gap-1 justify-content-center">
+                        <!-- Si estado solicitud == pendiente -->
+                            <?php if($solicitud['estado'] == 'pendiente' ): ?>
+                            <input type="hidden" name="id_solicitud" value="<?= $solicitud['id_solicitud']?>">
+                            <button type="submit" name="aceptar" class="btn btn-success btn-sm rounded-pill px-3" title="Aceptar solicitud">
+                                <i class="bi bi-check-lg"></i> Aceptar
+                            </button>
+                            <button type="submit" name="rechazar" class="btn btn-danger btn-sm rounded-pill px-3" title="Rechazar solicitud">
+                                <i class="bi bi-x-lg"></i> Rechazar
+                            </button>
+
+                        <!-- Si estado solicitud == aceptada -->
+                            <?php elseif($solicitud['estado'] == 'aceptada'): ?>
+
+                            <input type="hidden" name="id_solicitud" value="<?= $solicitud['id_solicitud']?>">
+                            <button type="submit" name="rechazar" class="btn btn-danger btn-sm rounded-pill px-3" title="Rechazar solicitud" onclick="return confirm('¿Está seguro de rechazar esta solicitud?')">
+                                <i class="bi bi-x-lg"></i> Rechazar
+                            </button>
+                            <button type="submit" name="eliminar" class="btn btn-secondary btn-sm rounded-circle" title="Eliminar solicitud">
+                                <i class="bi bi-trash3-fill"></i>
+                            </button>
+                            <!-- Si estado solicitud == rechazada -->
+                            <?php elseif($solicitud['estado'] == 'rechazada'): ?>
+                            <input type="hidden" name="id_solicitud" value="<?= $solicitud['id_solicitud']?>">
+                            <button type="submit" name="aceptar" class="btn btn-success btn-sm rounded-pill px-3" title="Aceptar solicitud">
+                                <i class="bi bi-check-lg"></i> Aceptar
+                            </button>
+                            <button type="submit" name="eliminar" class="btn btn-secondary btn-sm rounded-circle" title="Eliminar solicitud">
+                                <i class="bi bi-trash3-fill"></i>
+                            </button>
+                            <?php endif;?>
+                        </form>
+                    </td>
+                </tr>
+        <?php
+        }
+        echo "</tbody></table></div>";?>
+
+    </div>
+
     <?php
-    }
-    echo "</tbody></table></div>";
 
     mysqli_free_result($resultadoPag);
 
     mysqli_close($conexion);?>
 
     <div class='paginacion mt-3 text-center'>
-    <?php
-    for($i = 1;$i <= $total_paginas;$i++){
-        if($pagina == $i){
-            echo "<span class='btn btn-primary btn-sm mx-1'>$pagina</span>";
+        <?php
+        for($i = 1;$i <= $total_paginas;$i++){
+            if($pagina == $i){
+                echo "<span class='btn btn-primary btn-sm mx-1'>$pagina</span>";
+            }
+            else{
+                echo "<a href='promociones.php?pagina=$i' class='btn btn-outline-primary btn-sm mx-1'>$i</a>";
+            }
         }
-        else{
-            echo "<a href='promociones.php?pagina=$i' class='btn btn-outline-primary btn-sm mx-1'>$i</a>";
-        }
-    }
-    ?>
+        ?>
     </div>
-    </div> 
+
 
     <?php include("../../includes/footer.php"); ?>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 </html>

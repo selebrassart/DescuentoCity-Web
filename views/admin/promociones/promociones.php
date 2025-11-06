@@ -255,25 +255,28 @@ include("../../../conexionBD.php");
         </tr>
     <?php
     }
-    echo "</table></div>"; 
+    echo "</table></div>";?>
+
+    </div>
+
+    <?php
 
     mysqli_free_result($listaPromociones);
 
     mysqli_close($conexion);?>
 
     <div class='paginacion mt-3 text-center'>
-    <?php
-    for($i = 1;$i <= $total_paginas;$i++){
-        if($pagina == $i){
-            echo "<span class='btn btn-primary btn-sm mx-1'>$pagina</span>";
+        <?php
+        for($i = 1;$i <= $total_paginas;$i++){
+            if($pagina == $i){
+                echo "<span class='btn btn-primary btn-sm mx-1'>$pagina</span>";
+            }
+            else{
+                echo "<a href='promociones.php?pagina=$i' class='btn btn-outline-primary btn-sm mx-1'>$i</a>";
+            }
         }
-        else{
-            echo "<a href='promociones.php?pagina=$i' class='btn btn-outline-primary btn-sm mx-1'>$i</a>";
-        }
-    }
-    ?>
+        ?>
     </div>
-    </div> <!-- Cierre del contenedor principal -->
 
     <?php include("../../../includes/footer.php"); ?>
     

@@ -54,9 +54,10 @@ $resultado_locales = mysqli_query($conexion, $sql_locales);
     <link rel="icon" type="image/png" href="/assets/img/logo-ventana/logo-fondo-b-circular.png"/>
 </head>
 <body>
-<?php include("includes/navbar.php"); ?>
 
-<!-- Portada -->
+    <?php include("includes/navbar.php"); ?>
+
+    <!-- Portada -->
      <section class="portada position-relative">
         <img src="/assets/img/locales-portada.png" alt="Portada Locales"class="portada-img img-fluid">
         <div class="portada-overlay text-center">
@@ -66,7 +67,7 @@ $resultado_locales = mysqli_query($conexion, $sql_locales);
     </section>
 
 
-<!-- Breadcrumb debajo de la portada -->
+    <!-- Breadcrumb debajo de la portada -->
     <div class="container mt-3">
         <?php include 'includes/breadcrumb.php'; ?>
     </div>
@@ -85,165 +86,164 @@ $resultado_locales = mysqli_query($conexion, $sql_locales);
         </div>
     </div>
 
-<div class="container my-4">
+    <div class="container my-4">
 
 
-    <!-- Mensaje de búsqueda -->
-    <div id="mensaje-busqueda-locales" class="alert alert-info text-center" style="display: none;">
-        <i class="bi bi-search"></i> Mostrando resultados para: <span id="termino-busqueda-locales"></span>
-    </div>
-    
-    <!-- Mensaje de no encontrado -->
-    <div id="mensaje-no-encontrado-locales" class="alert alert-warning text-center" style="display: none;">
-        <i class="bi bi-exclamation-triangle"></i> No se encontraron locales que coincidan con la búsqueda.
-    </div>
-    <!--  filtros -->
-    <div class="row justify-content-center mb-4">
-        <div class="col-lg-8">
-            <form class="row" method="POST">
-                <div class="col-md-6 mb-2">
-                    <select name="local" class="form-select">
-                        <option value="" hidden selected>Buscar por local</option>
-                        <option value="">Todos los locales</option>
-                        <?php 
-                        while ($local = mysqli_fetch_assoc($resultado_nombres)) { 
-                            $selected = ($nombreSeleccionado == $local['codLocal']) ? 'selected' : '';
-                        ?>
-                            <option value="<?= $local['codLocal'] ?>" <?= $selected ?>>
-                                <?= htmlspecialchars($local['nombreLocal']) ?>
-                            </option>
-                        <?php } ?>
-                    </select>
-                </div>
-
-                <div class="col-md-6 mb-2">
-                    <select name="rubro" class="form-select">
-                        <option value="" hidden selected>Buscar por rubro</option>
-                        <option value="">Todos los rubros</option>
-                        <?php 
-                        while ($rubro = mysqli_fetch_assoc($resultado_rubros)) { 
-                            $selected = ($rubroSeleccionado == $rubro['rubroLocal']) ? 'selected' : '';
-                        ?>
-                            <option value="<?= $rubro['rubroLocal'] ?>" <?= $selected ?>>
-                                <?= htmlspecialchars($rubro['rubroLocal']) ?>
-                            </option>
-                        <?php } ?>
-                    </select>
-                </div>
-           
-                <div class="col-12 text-center mt-3">
-                    <button type="button" class="btn btn-outline-secondary me-2" onclick="limpiarTodosFiltrosLocales()">
-                        <i class="bi bi-arrow-clockwise"></i> Borrar Filtros
-                    </button>
-                    <button type="submit" class="btn btn-primary">
-                        <i class="bi bi-funnel"></i> Filtrar
-                    </button>
-                </div>
-            </form>
+        <!-- Mensaje de búsqueda -->
+        <div id="mensaje-busqueda-locales" class="alert alert-info text-center" style="display: none;">
+            <i class="bi bi-search"></i> Mostrando resultados para: <span id="termino-busqueda-locales"></span>
         </div>
-    </div>
+        
+        <!-- Mensaje de no encontrado -->
+        <div id="mensaje-no-encontrado-locales" class="alert alert-warning text-center" style="display: none;">
+            <i class="bi bi-exclamation-triangle"></i> No se encontraron locales que coincidan con la búsqueda.
+        </div>
+        <!--  filtros -->
+        <div class="row justify-content-center mb-4">
+            <div class="col-lg-8">
+                <form class="row" method="POST">
+                    <div class="col-md-6 mb-2">
+                        <select name="local" class="form-select">
+                            <option value="" hidden selected>Buscar por local</option>
+                            <option value="">Todos los locales</option>
+                            <?php 
+                            while ($local = mysqli_fetch_assoc($resultado_nombres)) { 
+                                $selected = ($nombreSeleccionado == $local['codLocal']) ? 'selected' : '';
+                            ?>
+                                <option value="<?= $local['codLocal'] ?>" <?= $selected ?>>
+                                    <?= htmlspecialchars($local['nombreLocal']) ?>
+                                </option>
+                            <?php } ?>
+                        </select>
+                    </div>
 
-    <!-- RESULTADOS -->
-    <div class="row">
-        <?php if ($resultado_locales && mysqli_num_rows($resultado_locales) > 0) { ?>
-            <?php while ($local = mysqli_fetch_assoc($resultado_locales)) { ?>
-                <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
-                    <div class="card h-100 shadow-sm ">
-                        <div class="card-header bg-white p-5" style="min-height: 120px; display: flex; align-items: center; justify-content: center;">
-                            <img src="/<?= $local['logo'] ?: 'assets/img/default-logo.png'; ?>" 
-                                 class="img-fluid" alt="<?= $local['nombreLocal']; ?>"
-                                 style="max-height: 100px; max-width: 100%; object-fit: contain;">
+                    <div class="col-md-6 mb-2">
+                        <select name="rubro" class="form-select">
+                            <option value="" hidden selected>Buscar por rubro</option>
+                            <option value="">Todos los rubros</option>
+                            <?php 
+                            while ($rubro = mysqli_fetch_assoc($resultado_rubros)) { 
+                                $selected = ($rubroSeleccionado == $rubro['rubroLocal']) ? 'selected' : '';
+                            ?>
+                                <option value="<?= $rubro['rubroLocal'] ?>" <?= $selected ?>>
+                                    <?= htmlspecialchars($rubro['rubroLocal']) ?>
+                                </option>
+                            <?php } ?>
+                        </select>
+                    </div>
+            
+                    <div class="col-12 text-center mt-3">
+                        <button type="button" class="btn btn-outline-secondary me-2" onclick="limpiarTodosFiltrosLocales()">
+                            <i class="bi bi-arrow-clockwise"></i> Borrar Filtros
+                        </button>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="bi bi-funnel"></i> Filtrar
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- RESULTADOS -->
+        <div class="row">
+            <?php if ($resultado_locales && mysqli_num_rows($resultado_locales) > 0) { ?>
+                <?php while ($local = mysqli_fetch_assoc($resultado_locales)) { ?>
+                    <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                        <div class="card h-100 shadow-sm ">
+                            <div class="card-header bg-white p-5" style="min-height: 120px; display: flex; align-items: center; justify-content: center;">
+                                <img src="/<?= $local['logo'] ?: 'assets/img/default-logo.png'; ?>" 
+                                    class="img-fluid" alt="<?= $local['nombreLocal']; ?>"
+                                    style="max-height: 100px; max-width: 100%; object-fit: contain;">
+                            </div>
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title"><?= $local['nombreLocal']; ?></h5>
+                                <p class="card-text text-muted"><i class="bi bi-tag"></i><?= $local['rubroLocal']; ?></p>
+                                <p class="card-text"><small class="text-secondary"><i class="bi bi-geo-alt"></i><?= $local['ubicacionLocal']; ?></small></p>
+                                <p class="card-text"><small class="text-secondary"><i class="bi bi-tag"></i><?= $local['codLocal']; ?></small></p>
+                            </div>
                         </div>
-                        <div class="card-body d-flex flex-column">
-                            <h5 class="card-title"><?= $local['nombreLocal']; ?></h5>
-                            <p class="card-text text-muted"><i class="bi bi-tag"></i><?= $local['rubroLocal']; ?></p>
-                            <p class="card-text"><small class="text-secondary"><i class="bi bi-geo-alt"></i><?= $local['ubicacionLocal']; ?></small></p>
-                            <p class="card-text"><small class="text-secondary"><i class="bi bi-tag"></i><?= $local['codLocal']; ?></small></p>
-                        </div>
+                    </div>
+                <?php } ?>
+            <?php } else { ?>
+                <div class="col-12">
+                    <div class="alert alert-info text-center" role="alert">
+                        <i class="bi bi-info-circle-fill"></i> 
+                        <strong>No existen locales en este momento.</strong><br>
+                        <small>Vuelve pronto aprovechar sus promociones.</small>
                     </div>
                 </div>
             <?php } ?>
-        <?php } else { ?>
-            <div class="col-12">
-                <div class="alert alert-info text-center" role="alert">
-                    <i class="bi bi-info-circle-fill"></i> 
-                    <strong>No existen locales en este momento.</strong><br>
-                    <small>Vuelve pronto aprovechar sus promociones.</small>
-                </div>
-            </div>
-        <?php } ?>
+        </div>
     </div>
 
-</div>
+    <?php include("includes/footer.php"); ?>
 
-<?php include("includes/footer.php"); ?>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-
-<script>
-    function filtrarLocales(termino) {
-        const cards = document.querySelectorAll('.row .col-lg-3, .row .col-md-4, .row .col-sm-6');
-        const mensajeBusqueda = document.getElementById('mensaje-busqueda-locales');
-        const mensajeNoEncontrado = document.getElementById('mensaje-no-encontrado-locales');
-        const terminoBusqueda = document.getElementById('termino-busqueda-locales');
-        let encontrados = 0;
-        
-        // Si el término está vacío, mostrar todos los locales
-        if (termino.trim() === '') {
+    <script>
+        function filtrarLocales(termino) {
+            const cards = document.querySelectorAll('.row .col-lg-3, .row .col-md-4, .row .col-sm-6');
+            const mensajeBusqueda = document.getElementById('mensaje-busqueda-locales');
+            const mensajeNoEncontrado = document.getElementById('mensaje-no-encontrado-locales');
+            const terminoBusqueda = document.getElementById('termino-busqueda-locales');
+            let encontrados = 0;
+            
+            // Si el término está vacío, mostrar todos los locales
+            if (termino.trim() === '') {
+                cards.forEach(card => {
+                    card.style.display = 'block';
+                });
+                mensajeBusqueda.style.display = 'none';
+                mensajeNoEncontrado.style.display = 'none';
+                return;
+            }
+            
+            // Filtrar locales
             cards.forEach(card => {
-                card.style.display = 'block';
+                const titulo = card.querySelector('.card-title');
+                const rubro = card.querySelector('.card-text');
+                const ubicacion = card.querySelector('small');
+                
+                let textoCompleto = '';
+                
+                if (titulo) textoCompleto += ' ' + titulo.textContent.toLowerCase();
+                if (rubro) textoCompleto += ' ' + rubro.textContent.toLowerCase();
+                if (ubicacion) textoCompleto += ' ' + ubicacion.textContent.toLowerCase();
+                
+                if (textoCompleto.includes(termino.toLowerCase())) {
+                    card.style.display = 'block';
+                    encontrados++;
+                } else {
+                    card.style.display = 'none';
+                }
             });
-            mensajeBusqueda.style.display = 'none';
-            mensajeNoEncontrado.style.display = 'none';
-            return;
+            
+            // Mostrar mensajes apropiados
+            if (encontrados > 0) {
+                terminoBusqueda.textContent = termino;
+                mensajeBusqueda.style.display = 'block';
+                mensajeNoEncontrado.style.display = 'none';
+            } else {
+                mensajeBusqueda.style.display = 'none';
+                mensajeNoEncontrado.style.display = 'block';
+            }
         }
         
-        // Filtrar locales
-        cards.forEach(card => {
-            const titulo = card.querySelector('.card-title');
-            const rubro = card.querySelector('.card-text');
-            const ubicacion = card.querySelector('small');
+        function limpiarTodosFiltrosLocales() {
+            // Limpiar el buscador de texto
+            document.getElementById('buscar-locales').value = '';
+            filtrarLocales('');
             
-            let textoCompleto = '';
-            
-            if (titulo) textoCompleto += ' ' + titulo.textContent.toLowerCase();
-            if (rubro) textoCompleto += ' ' + rubro.textContent.toLowerCase();
-            if (ubicacion) textoCompleto += ' ' + ubicacion.textContent.toLowerCase();
-            
-            if (textoCompleto.includes(termino.toLowerCase())) {
-                card.style.display = 'block';
-                encontrados++;
-            } else {
-                card.style.display = 'none';
+            // Redirigir a la página sin parámetros POST para limpiar los selects
+            window.location.href = window.location.pathname;
+        }
+        
+        // Auto-limpiar cuando se borre el input
+        document.getElementById('buscar-locales').addEventListener('input', function(e) {
+            if (e.target.value === '') {
+                filtrarLocales('');
             }
         });
-        
-        // Mostrar mensajes apropiados
-        if (encontrados > 0) {
-            terminoBusqueda.textContent = termino;
-            mensajeBusqueda.style.display = 'block';
-            mensajeNoEncontrado.style.display = 'none';
-        } else {
-            mensajeBusqueda.style.display = 'none';
-            mensajeNoEncontrado.style.display = 'block';
-        }
-    }
-    
-    function limpiarTodosFiltrosLocales() {
-        // Limpiar el buscador de texto
-        document.getElementById('buscar-locales').value = '';
-        filtrarLocales('');
-        
-        // Redirigir a la página sin parámetros POST para limpiar los selects
-        window.location.href = window.location.pathname;
-    }
-    
-    // Auto-limpiar cuando se borre el input
-    document.getElementById('buscar-locales').addEventListener('input', function(e) {
-        if (e.target.value === '') {
-            filtrarLocales('');
-        }
-    });
-</script>
+    </script>
 </body>
 </html>

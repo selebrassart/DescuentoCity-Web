@@ -199,18 +199,18 @@ $total_paginas = ceil($total_registros / $cant_por_pag);
     </div>
     
     <div class='paginacion mt-3 text-center'>
-    <?php
-    for($i = 1;$i <= $total_paginas;$i++){
-        if($pagina == $i){
-            echo "<span class='btn btn-primary btn-sm mx-1'>$pagina</span>";
+        <?php
+        for($i = 1;$i <= $total_paginas;$i++){
+            if($pagina == $i){
+                echo "<span class='btn btn-primary btn-sm mx-1'>$pagina</span>";
+            }
+            else{
+                echo "<a href='novedades.php?pagina=$i' class='btn btn-outline-primary btn-sm mx-1'>$i</a>";
+            }
         }
-        else{
-            echo "<a href='novedades.php?pagina=$i' class='btn btn-outline-primary btn-sm mx-1'>$i</a>";
-        }
-    }
-    ?>
+        ?>
     </div>
-    </div>
+
     
 
     <!-- Formulario de crear novedad -->
@@ -270,6 +270,7 @@ $total_paginas = ceil($total_registros / $cant_por_pag);
     <?php include("../../../includes/footer.php"); ?>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
 
 </body>
 </html>

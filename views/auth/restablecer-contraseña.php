@@ -1,6 +1,7 @@
 <?php
 
 session_start(); 
+
 ?>
 
 <!DOCTYPE html>
@@ -15,7 +16,7 @@ session_start();
     <link rel="icon" type="image/png" href="/assets/img/logo-ventana/logo-fondo-b-circular.png"/>
 </head>
 <body>
- <div class="container my-5">
+    <div class="container my-5">
         <div class="row justify-content-center">
             <div class="col-md-8 col-lg-6">
 
@@ -23,19 +24,17 @@ session_start();
 
                 <form action="/controllers/contraseñaController.php" method="POST" class="p-4 border rounded shadow-sm bg-white">
                     
-                    
                     <div class="mb-3">
                         <label for="email" class="form-label">Email</label>
                         <input type="email" class="form-control" name="email" id="email" placeholder="tu@email.com" required>
                     </div>
                     
-                   
                     <div class="d-grid">
                         <button type="submit" class="btn btn-primary btn-lg" name="enviar">Enviar</button>
                     </div>
-                     <p>¿No tiene cuenta? <a href="/views/auth/registro.php" class="text-primary">  Crear una
-                 </a></p>
-                  
+
+                    <p>¿No tiene cuenta? <a href="/views/auth/registro.php" class="text-primary">  Crear una</a></p>
+            
                 </form>
             </div>
         </div>

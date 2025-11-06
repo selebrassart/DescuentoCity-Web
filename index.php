@@ -51,11 +51,11 @@ $resultado_locales = mysqli_query($conexion, $sql_locales);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/assets/css/estilos.css">
+    <link rel="stylesheet" href="/Descuento-City/assets/css/estilos.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     <title>Descuento City</title>
-    <link rel="icon" type="image/png" href="/assets/img/logo-ventana/logo-fondo-b-circular.png"/>
+    <link rel="icon" type="image/png" href="/Descuento-City/assets/img/logo-ventana/logo-fondo-b-circular.png"/>
 
 </head>
 <body>
@@ -85,23 +85,23 @@ $resultado_locales = mysqli_query($conexion, $sql_locales);
         <!-- Imágenes del carrusel -->
         <div class="carousel-inner">
             <div class="carousel-item active" role="group" aria-label="1 de 4">
-                <img src="/assets/img/carrusel/dc.png" class="d-block w-100 carousel-img" alt="Banner de promociones  vigentes en Descuento City">
+                <img src="/Descuento-City/assets/img/carrusel/dc.png" class="d-block w-100 carousel-img" alt="Banner de promociones  vigentes en Descuento City">
             </div>
 
             <div class="carousel-item" role="group" aria-label="2 de 4">
-                <img src="/assets/img/carrusel/40578.png"
+                <img src="/Descuento-City/assets/img/carrusel/40578.png"
                 class="d-block w-100 carousel-img"
                 alt="Imagen de locales participantes del shopping Descuento City">
             </div>
 
             <div class="carousel-item" role="group" aria-label="3 de 4">
-                <img src="/assets/img/carrusel/wilsonsalebanner.webp"
+                <img src="/Descuento-City/assets/img/carrusel/wilsonsalebanner.webp"
                 class="d-block w-100 carousel-img"
                 alt="Banner de promociones y descuentos Wilson en Descuento City">
             </div>
 
             <div class="carousel-item" role="group" aria-label="4 de 4">
-                <img src="/assets/img/carrusel/banner.png"
+                <img src="/Descuento-City/assets/img/carrusel/banner.png"
                 class="d-block w-100 carousel-img"
                 alt="Promociones y eventos actuales de Descuento City">
             </div>
@@ -207,7 +207,7 @@ $resultado_locales = mysqli_query($conexion, $sql_locales);
                     $sql_imagen = "SELECT rutaArchivo FROM imagenes WHERE idIdentidad = '$codLocal' AND tipoImg = 'logo' LIMIT 1";
                     $resultado_imagen = mysqli_query($conexion, $sql_imagen);
                     $imagen = mysqli_fetch_assoc($resultado_imagen);
-                    $rutaImagen = $imagen ? $imagen['rutaArchivo'] : '/assets/img/default-local.jpg';
+                    $rutaImagen = $imagen ? $imagen['rutaArchivo'] : '/Descuento-City/assets/img/default-local.jpg';
                     ?>
                     <div class="col-lg-3 col-md-4 col-sm-6">
                         <div class="card h-100 shadow-sm">
@@ -232,7 +232,7 @@ $resultado_locales = mysqli_query($conexion, $sql_locales);
                 
                 <!-- Botón "Ver más locales" fuera de las cards -->
                 <div class="text-center mt-4">
-                    <a href="/localesUsuarios.php" class="btn btn-outline-primary btn-lg">
+                    <a href="/Descuento-City/localesUsuarios.php" class="btn btn-outline-primary btn-lg">
                         Ver más locales <i class="bi bi-arrow-right ms-2"></i>
                     </a>
                 </div>
@@ -259,7 +259,7 @@ $resultado_locales = mysqli_query($conexion, $sql_locales);
                             <h5 class="card-title">PROMOCIONES</h5>
                             <p class="card-text">Descubre todas las promociones disponibles en nuestros locales participantes.</p>
                             <div class="mt-auto">
-                                <a href="/promocionesUsuario.php" class="btn btn-primary btn-lg">Ver más</a>
+                                <a href="/Descuento-City/promocionesUsuario.php" class="btn btn-primary btn-lg">Ver más</a>
                             </div>
                         </div>
                     </div>
@@ -271,7 +271,7 @@ $resultado_locales = mysqli_query($conexion, $sql_locales);
                             <h5 class="card-title">NOVEDADES</h5>
                             <p class="card-text">Mantente al día con las últimas noticias y actualizaciones de Descuento City.</p>
                             <div class="mt-auto">
-                                <a href="/novedadesUsuarios.php" class="btn btn-success btn-lg">Ver más</a>
+                                <a href="/Descuento-City/novedadesUsuarios.php" class="btn btn-success btn-lg">Ver más</a>
                             </div>
                         </div>
                     </div>

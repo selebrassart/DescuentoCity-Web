@@ -20,7 +20,7 @@ require("../../funciones/funcionesMail.php");
 </head>
 <body>
     <div>
-        <h2>Registro Exitoso !</h2>
+        <h2>Registro Exitoso !</h2><br>
         
         <!-- tipoUsuario = cliente -->
         <?php if($rol == "cliente"): 
