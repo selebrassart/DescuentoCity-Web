@@ -268,9 +268,9 @@ if (!$resultado_promos) {
                 while($promo = mysqli_fetch_assoc($resultado_promos)){
                     ?>
                     <div class="col-lg-4 col-md-6 mb-4">
-                        <div class="card h-100 shadow-sm">
+                        <div class="card h-100 ">
                             <?php if(!empty($promo["rutaArchivo"])):?>
-                            <img src="/<?= htmlspecialchars($promo["rutaArchivo"]) ?>" class="card-img-top img-fluid" alt="portada promocion" style="height: 250px; object-fit: cover; width: 100%;"> 
+                            <img src="/<?= htmlspecialchars($promo["rutaArchivo"]) ?>" class="card-img-top img-fluid" alt="portada promocion" style="height: 300px; object-fit: cover; width: 100%;"> 
                             <?php else: ?>
                                 <div class="card-img-top d-flex align-items-center justify-content-center bg-light" style="height: 250px; width: 100%;">
                                     <span class="text-muted"><i class="bi bi-image"></i> Sin portada</span>
@@ -278,8 +278,8 @@ if (!$resultado_promos) {
                             <?php endif; ?>
                             <div class="card-body d-flex flex-column">
                                 <div class="d-flex justify-content-between align-items-start mb-3">
-                                    <h5 class="card-title mb-0 flex-grow-1 me-2">
-                                        <i class="bi bi-shop"></i> <?= htmlspecialchars($promo['nombreLocal']) ?>
+                                    <h5 class="card-title flex-grow-1 ">
+                                        <i class="bi bi-shop small me-1 "></i> <?= htmlspecialchars($promo['nombreLocal']) ?>
                                     </h5>
                                     <?php 
 
@@ -303,8 +303,8 @@ if (!$resultado_promos) {
                                             break;
                                     }
                                     ?>
-                                    <span class="badge <?= $color ?> small">
-                                        <i class="<?= $icono ?>"></i> <?= ucfirst($categoria_promo) ?>
+                                    <span class="badge <?= $color ?> small m-0" title="<?= ucfirst($categoria_promo) ?>">
+                                        <i class="<?= $icono ?>"></i>
                                     </span>
                                 </div>
                                 <p class="card-text "><?= htmlspecialchars($promo['textoPromo']) ?></p>

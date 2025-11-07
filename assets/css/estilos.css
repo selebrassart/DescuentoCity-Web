@@ -120,6 +120,7 @@ img {
 .card-body-p , .card-body-n {
     padding: 2rem;
     box-shadow: 0 6px 16px rgba(0,0,0,0.02);
+    border-radius: 8px;
 }
 
 .card-portada i{

@@ -210,17 +210,17 @@ $resultado_locales = mysqli_query($conexion, $sql_locales);
                     $rutaImagen = $imagen ? $imagen['rutaArchivo'] : '/assets/img/default-local.jpg';
                     ?>
                     <div class="col-lg-3 col-md-4 col-sm-6">
-                        <div class="card h-100 shadow-sm">
-                            <div class="card-header bg-white p-5" style="min-height: 120px; display: flex; align-items: center; justify-content: center;">
+                        <div class="card h-100 ">
+                            <div class="card-header bg-white p-4" style="min-height: 120px; display: flex; align-items: center; justify-content: center;">
                                 <img src="<?= htmlspecialchars($rutaImagen) ?>" class="img-fluid" alt="Logo <?= htmlspecialchars($local['nombreLocal']) ?>" style="max-height: 100px; max-width: 100%; object-fit: contain;">
 
                             </div>
-                            <div class="card-body d-flex flex-column">
+                            <div class="card-body d-flex flex-column bg-light">
                                 <h5 class="card-title"><?= htmlspecialchars($local['nombreLocal']) ?></h5>
                                 <p class="card-text">
-                                    <small class="text-muted"><i class="bi bi-geo-alt"></i> <?= htmlspecialchars($local['ubicacionLocal']) ?></small><br>
-                                    <small class="text-muted"><i class="bi bi-tag"></i> <?= htmlspecialchars($local['rubroLocal']) ?></small><br>
-                                    <small class="text-muted"><i class="bi bi-upc-scan"></i> <?= htmlspecialchars($local['codLocal']) ?></small>
+                                    <small class="text-muted"><i class="bi bi-geo-alt me-1 "></i> <?= htmlspecialchars($local['ubicacionLocal']) ?></small><br>
+                                    <small class="text-muted"><i class="bi bi-tag me-1"></i> <?= htmlspecialchars($local['rubroLocal']) ?></small><br>
+                                    <small class="text-muted"><i class="bi bi-upc-scan me-1"></i> <?= htmlspecialchars($local['codLocal']) ?></small>
                                 </p>
                             </div>
                         </div>

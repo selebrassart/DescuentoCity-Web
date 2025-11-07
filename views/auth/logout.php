@@ -19,7 +19,7 @@ session_start();
     <div class="container my-5">
         <div class="row justify-content-center">
             <div class="col-md-6 col-lg-4">
-                <div class="card shadow">
+                <div class="card">
                     <div class="card-body text-center p-5">
                         <div class="mb-4">
                             <i class="bi bi-box-arrow-right text-warning" style="font-size: 4rem;"></i>

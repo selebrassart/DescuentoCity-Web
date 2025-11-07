@@ -172,7 +172,7 @@ $resultado_locales = mysqli_query($conexion, $sql_locales);
             
                     <div class="col-12 text-center mt-3">
                         <button type="button" class="btn btn-outline-secondary me-2" onclick="limpiarTodosFiltrosLocales()">
-                            <i class="bi bi-arrow-clockwise"></i> Borrar Filtros
+                            <i class="bi bi-arrow-clockwise"></i> Borrar filtros
                         </button>
                         <button type="submit" class="btn btn-primary">
                             <i class="bi bi-funnel"></i> Filtrar
@@ -203,10 +203,10 @@ $resultado_locales = mysqli_query($conexion, $sql_locales);
                     $promos_disponibles = mysqli_fetch_assoc($resultado_promos)['total_promos'];
                 ?>
                     <div class="col-md-4 mb-4">
-                        <div class="card h-100 shadow-sm">
+                        <div class="card h-100 ">
 
                             <!-- Header del card con logo -->
-                            <div class="card-header bg-white text-center p-3" style="min-height: 120px; display: flex; align-items: center; justify-content: center;">
+                            <div class="card-header bg-white text-center p-3" style="height: 150px; display: flex; align-items: center; justify-content: center;">
                                 <img src="/<?= $local['logo'] ?: 'assets/img/default-logo.png'; ?>" 
                                     class="img-fluid" alt="<?= htmlspecialchars($local['nombreLocal']); ?>"
                                     style="max-height: 100px; max-width: 100%; object-fit: contain;">
@@ -215,7 +215,7 @@ $resultado_locales = mysqli_query($conexion, $sql_locales);
                             <!-- Cuerpo del card -->
                             <div class="card-body d-flex flex-column">
                                 <h5 class="card-title text-center">
-                                    <i class="bi bi-shop"></i> <?= htmlspecialchars($local['nombreLocal']); ?>
+                                    <i class="bi bi-shop small"></i> <?= htmlspecialchars($local['nombreLocal']); ?>
                                 </h5>
                                 
                                 <div class="mb-2">
@@ -224,13 +224,13 @@ $resultado_locales = mysqli_query($conexion, $sql_locales);
                                     </small>
                                 </div>
                                 
-                                <div class="mb-3">
+                                <div class="mb-2">
                                     <small class="text-muted">
                                         <i class="bi bi-geo-alt"></i> <strong>Ubicación:</strong> <?= htmlspecialchars($local['ubicacionLocal']); ?>
                                     </small>
                                 </div>
 
-                                <div class="mb-3">
+                                <div class="mb-1">
                                     <small class="text-muted">
                                         <i class="bi bi-upc-scan"></i> <strong>Codigo:</strong> <?= htmlspecialchars($local['codLocal']); ?>
                                     </small>
@@ -248,7 +248,7 @@ $resultado_locales = mysqli_query($conexion, $sql_locales);
                                             </button>
                                         </div>
                                     <?php else: ?>
-                                        <div class="alert alert-secondary text-center mb-2">
+                                        <div class="alert alert-light  text-center mb-2">
                                             <i class="bi bi-info-circle"></i> Sin promociones disponibles
                                         </div>
                                     <?php endif; ?>

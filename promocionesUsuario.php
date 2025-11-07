@@ -209,7 +209,7 @@ if (!$resultado_promos) {
             while($promo = mysqli_fetch_assoc($resultado_promos)){
                 ?>
                 <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="card h-100 shadow-sm">
+                    <div class="card h-100 ">
                         <?php if(!empty($promo["rutaArchivo"])):?>
                         <img src="<?= htmlspecialchars($promo["rutaArchivo"]) ?>" class="card-img-top img-fluid" alt="imagen promocional" style="height: 250px; object-fit: cover; width: 100%;"> 
                         <?php else: ?>
@@ -219,10 +219,10 @@ if (!$resultado_promos) {
                         <?php endif; ?>
                         <div class="card-body d-flex flex-column">
                             <h5 class="card-title">
-                                <i class="bi bi-shop"></i> <?= htmlspecialchars($promo['nombreLocal']) ?>
+                                <i class="bi bi-shop small me-1"></i> <?= htmlspecialchars($promo['nombreLocal']) ?>
                             </h5>
-                            <h6 class="card-subtitle mb-2 text-muted">
-                                <i class="fas fa-tag"></i> <?= htmlspecialchars($promo['rubroLocal']) ?>
+                            <h6 class="card-subtitle mb-3 text-muted">
+                                <i class="fas fa-tag me-1"></i> <?= htmlspecialchars($promo['rubroLocal']) ?>
                             </h6>
                             <p class="card-text"><?= htmlspecialchars($promo['textoPromo']) ?></p>
                             <p class="card-text">
