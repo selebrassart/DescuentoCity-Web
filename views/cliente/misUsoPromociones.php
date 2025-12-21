@@ -2,6 +2,8 @@
 
 session_start();
 
+$breadcrumb_titulo_activo = 'Mis uso Promociones';
+
 // Verificar que el usuario esté logueado y sea cliente
 if (!isset($_SESSION['tipoUsuario']) || $_SESSION['tipoUsuario'] !== 'cliente') {
     header('Location: ../../views/auth/login.php');

@@ -13,57 +13,61 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['confirm'])) {
 
     if (!empty($textoNovedad) && !empty($fechaDesdeNovedad) && !empty($fechaHastaNovedad) && !empty($catCliente)) {
 
-        $consultaNovedad = "INSERT INTO novedades (tituloNovedad, textoNovedad, fechaDesdeNovedad, fechaHastaNovedad, categoriaCliente) VALUES ('$tituloNovedad', '$textoNovedad', '$fechaDesdeNovedad', '$fechaHastaNovedad', '$catCliente')";
-        $resultadoInsert = mysqli_query($conexion,$consultaNovedad);
+        if($fechaDesdeNovedad >= 1 && $fechaHastaNovedad > date('Y-m-d')){
 
-        if ($resultadoInsert) {
+            $consultaNovedad = "INSERT INTO novedades (tituloNovedad, textoNovedad, fechaDesdeNovedad, fechaHastaNovedad, categoriaCliente) VALUES ('$tituloNovedad', '$textoNovedad', '$fechaDesdeNovedad', '$fechaHastaNovedad', '$catCliente')";
+            $resultadoInsert = mysqli_query($conexion,$consultaNovedad);
 
-            if($img && $img["error"] == 0){
-                
-                //Defino nombre del archivo.
-                $nombreArchivo = time() . "_" . basename($img["name"]);
-                $rutaDestino = "../../uploads/fondoNovedad/". $nombreArchivo;
-                if(!is_dir("../../uploads/fondoNovedad/")){ 
+            if ($resultadoInsert) {
 
-                    //Creo carpeta o archivo
-                    mkdir("../../uploads/fondoNovedad/",0777,true); 
-                }
-
-                //valido que el archivo fue subido por POST , exista ubicacion temporal , valido permisos de escritura.
-                if(move_uploaded_file($img["tmp_name"],$rutaDestino)){
-                    $codNovedad = mysqli_insert_id($conexion);
-
-                    $rutaBD = "uploads/fondoNovedad/" . $nombreArchivo;
-                    $insertImg = "INSERT INTO imagenes (tipoImg,nombreImg,rutaArchivo,tipoIdentidad,idIdentidad,fechaSubida) VALUES ('portada','$nombreArchivo','$rutaBD','novedad','$codNovedad',NOW())";
+                if($img && $img["error"] == 0){
                     
-                    $resultadoImg = mysqli_query($conexion,$insertImg);
-                    
-                    if($resultadoImg){
-                        $_SESSION["mensaje_exito"] = "Noevedad e imagen creadas con éxito";
-                    } else {
-                        $_SESSION["mensaje_warning"] = "Novedad creada, pero error al guardar imagen: " . mysqli_error($conexion);
+                    //Defino nombre del archivo.
+                    $nombreArchivo = time() . "_" . basename($img["name"]);
+                    $rutaDestino = "../../uploads/fondoNovedad/". $nombreArchivo;
+                    if(!is_dir("../../uploads/fondoNovedad/")){ 
+
+                        //Creo carpeta o archivo
+                        mkdir("../../uploads/fondoNovedad/",0777,true); 
                     }
-                } else {
-                    $_SESSION["mensaje_warning"] = "Novedad creada, pero error al subir el archivo de imagen";
-                }
 
-            } else {
-                if($img && $img["error"] != 0){
-                    $_SESSION["mensaje_warning"] = "Novedad creada, pero error en archivo de imagen: " . $img["error"];
+                    //valido que el archivo fue subido por POST , exista ubicacion temporal , valido permisos de escritura.
+                    if(move_uploaded_file($img["tmp_name"],$rutaDestino)){
+                        $codNovedad = mysqli_insert_id($conexion);
+
+                        $rutaBD = "uploads/fondoNovedad/" . $nombreArchivo;
+                        $insertImg = "INSERT INTO imagenes (tipoImg,nombreImg,rutaArchivo,tipoIdentidad,idIdentidad,fechaSubida) VALUES ('portada','$nombreArchivo','$rutaBD','novedad','$codNovedad',NOW())";
+                        
+                        $resultadoImg = mysqli_query($conexion,$insertImg);
+                        
+                        if($resultadoImg){
+                            $_SESSION["mensaje_exito"] = "Novedad creada con éxito";
+                        } else {
+                            $_SESSION["mensaje_warning"] = "Novedad creada, pero error al guardar imagen: " . mysqli_error($conexion);
+                        }
+                    } else {
+                        $_SESSION["mensaje_warning"] = "Novedad creada, pero error al subir el archivo de imagen";
+                    }
+
                 } else {
                     $_SESSION["mensaje_exito"] = "Novedad creada sin imagen";
+            
                 }
-            }
 
-            header("location: ../../views/admin/novedades/novedades.php");
-            exit();
+                header("location: ../../views/admin/novedades/novedades.php");
+                exit();
+            }
+            else{
+                $_SESSION["mensaje_error"] = "Error al cargar datos...";
+                header("location: ../../views/admin/novedades/novedades.php");
+                exit();
+            }
         }
         else{
-            $_SESSION["mensaje_error"] = "Error al cargar datos...";
+            $_SESSION["mensaje_warning"] = "Eliga un rango de fecha correcto ";
             header("location: ../../views/admin/novedades/novedades.php");
             exit();
         }
-
     }
     else{
         $_SESSION["mensaje_warning"] = "Complete todos los campos";
@@ -71,8 +75,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['confirm'])) {
         exit();
     }
 }
-
-
 
 
 ?>

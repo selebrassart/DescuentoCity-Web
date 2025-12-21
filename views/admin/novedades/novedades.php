@@ -197,7 +197,7 @@ $total_paginas = ceil($total_registros / $cant_por_pag);
     </div>
     
     <?php 
-    mysqli_free_result($listaLocales);
+    mysqli_free_result($listaNovedades);
 
     mysqli_close($conexion);
     ?>

@@ -30,7 +30,7 @@ $segments = $segments_filtrados; // lista limpia
 if (empty($segments)) {
     echo '<nav style="--bs-breadcrumb-divider: \'>\';" aria-label="breadcrumb">';
     echo '<ol class="breadcrumb">';
-    echo '<li class="breadcrumb-item active" aria-current="page">Home</li>';
+    echo '<li class="breadcrumb-item active" aria-current="page">Inicio</li>';
     echo '</ol>';
     echo '</nav>';
     return;
@@ -115,7 +115,7 @@ if (isset($_SESSION['tipoUsuario'])) {
     }
 }
 
-echo '<li class="breadcrumb-item"><a href="' . $home_link . '">Home</a></li>';
+echo '<li class="breadcrumb-item"><a href="' . $home_link . '">Inicio</a></li>';
 
 $total_segments = count($segments);
 

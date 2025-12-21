@@ -31,65 +31,75 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["confirm"])){
             header("location: ../../views/dueño/mis_promos.php");
             exit();
         }
-        
 
-        //inserto datos de promocion.
-        $consultaPromo = "INSERT INTO promociones (textoPromo,fechaDesdePromo,fechaHastaPromo,categoriaCliente,diasSemana,codLocal) VALUES ('$textoPromo','$fechaDesde','$fechaHasta','$catCliente','$diasSemana',$codLocal)";
+        $hoy = date('Y-m-d');
 
-        $resultadoInsert = mysqli_query($conexion,$consultaPromo);
 
-        if($resultadoInsert){
 
-            if($img && $img["error"] == 0){
-                
-                //Defino nombre del archivo.
-                $nombreArchivo = time() . "_" . basename($img["name"]);
-                $rutaDestino = "../../uploads/fondoPromo/". $nombreArchivo;
+        if($fechaDesde >= $hoy && $fechaHasta > $hoy){
 
-                //si no existe la carpeta o archivo.
-                if(!is_dir("../../uploads/fondoPromo/")){ 
+            //inserto datos de promocion.
+            $consultaPromo = "INSERT INTO promociones (textoPromo,fechaDesdePromo,fechaHastaPromo,categoriaCliente,diasSemana,codLocal) VALUES ('$textoPromo','$fechaDesde','$fechaHasta','$catCliente','$diasSemana',$codLocal)";
 
-                    //Creo carpeta o archivo
-                    mkdir("../../uploads/fondoPromo/",0777,true); 
-                }
+            $resultadoInsert = mysqli_query($conexion,$consultaPromo);
 
-                //valido que el archivo fue subido por POST , exista ubicacion temporal , valido permisos de escritura.
+            if($resultadoInsert){
 
-                if(move_uploaded_file($img["tmp_name"],$rutaDestino)){
-
-                    $codPromo = mysqli_insert_id($conexion);
-
-                    $rutaBD = "uploads/fondoPromo/" . $nombreArchivo;
-                    $insertImg = "INSERT INTO imagenes (tipoImg,nombreImg,rutaArchivo,tipoIdentidad,idIdentidad,fechaSubida) VALUES ('portada','$nombreArchivo','$rutaBD','promocion','$codPromo',NOW())";
+                if($img && $img["error"] == 0){
                     
-                    $resultadoImg = mysqli_query($conexion,$insertImg);
-                    
-                    if($resultadoImg){
-                        $_SESSION["mensaje_exito"] = "Promoción e imagen creadas con éxito";
-                    } else {
-                        $_SESSION["mensaje_warning"] = "Promoción creada, pero error al guardar imagen: " . mysqli_error($conexion);
+                    //Defino nombre del archivo.
+                    $nombreArchivo = time() . "_" . basename($img["name"]);
+                    $rutaDestino = "../../uploads/fondoPromo/". $nombreArchivo;
+
+                    //si no existe la carpeta o archivo.
+                    if(!is_dir("../../uploads/fondoPromo/")){ 
+
+                        //Creo carpeta o archivo
+                        mkdir("../../uploads/fondoPromo/",0777,true); 
                     }
+
+                    //valido que el archivo fue subido por POST , exista ubicacion temporal , valido permisos de escritura.
+
+                    if(move_uploaded_file($img["tmp_name"],$rutaDestino)){
+
+                        $codPromo = mysqli_insert_id($conexion);
+
+                        $rutaBD = "uploads/fondoPromo/" . $nombreArchivo;
+                        $insertImg = "INSERT INTO imagenes (tipoImg,nombreImg,rutaArchivo,tipoIdentidad,idIdentidad,fechaSubida) VALUES ('portada','$nombreArchivo','$rutaBD','promocion','$codPromo',NOW())";
+                        
+                        $resultadoImg = mysqli_query($conexion,$insertImg);
+                        
+                        if($resultadoImg){
+                            $_SESSION["mensaje_exito"] = "Promoción e imagen creadas con éxito";
+                        } else {
+                            $_SESSION["mensaje_warning"] = "Promoción creada, pero error al guardar imagen: " . mysqli_error($conexion);
+                        }
+                    } else {
+                        $_SESSION["mensaje_warning"] = "Promoción creada, pero error al subir el archivo de imagen";
+                    }
+
                 } else {
-                    $_SESSION["mensaje_warning"] = "Promoción creada, pero error al subir el archivo de imagen";
+                        $_SESSION["mensaje_exito"] = "Promoción creada sin imagen";
                 }
 
-            } else {
-                if($img && $img["error"] != 0){
-                    $_SESSION["mensaje_warning"] = "Promoción creada, pero error en archivo de imagen: " . $img["error"];
-                } else {
-                    $_SESSION["mensaje_exito"] = "Promoción creada sin imagen";
-                }
+                header("location: ../../views/dueño/mis_promos.php");
+                exit();
+            }
+            else{
+                $_SESSION["mensaje_error"] = "Error al cargar datos...";
+                header("location: ../../views/dueño/mis_promos.php");
+                exit();
             }
 
-            header("location: ../../views/dueño/mis_promos.php");
-            exit();
+
         }
         else{
-            $_SESSION["mensaje_error"] = "Error al cargar datos...";
+            $_SESSION["mensaje_warning"] = "Eliga un rango de fecha correcto ";
             header("location: ../../views/dueño/mis_promos.php");
             exit();
-        }
 
+        }
+        
     }
     else{
         $_SESSION["mensaje_warning"] = "Complete todos los campos";

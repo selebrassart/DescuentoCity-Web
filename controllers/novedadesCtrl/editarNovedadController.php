@@ -27,14 +27,18 @@ if ($codNovedad <= 0) {
     header("Location: ../../views/admin/novedades/novedades.php");
     exit;
 }
+
 if ($textoNovedad === '' || $fechaDesdeNovedad === '' || $fechaHastaNovedad === '' || $categoriaCliente === '') {
     $_SESSION['mensaje_warning'] = "Complete todos los campos requeridos";
     header("Location: ../../views/admin/novedades/editarNovedad.php?codNovedad=" . urlencode($codNovedad));
     exit;
 }
 
-// Update simple con mysqli_query
-$consultaUpdate = "UPDATE novedades SET 
+// Realizo actualizacion de datos 
+
+if($fechaDesdeNovedad >= date('Y-m-d') && $fechaHastaNovedad > date('Y-m-d')){
+
+    $consultaUpdate = "UPDATE novedades SET 
     tituloNovedad = '$tituloNovedad',
     textoNovedad = '$textoNovedad', 
     fechaDesdeNovedad = '$fechaDesdeNovedad', 
@@ -42,12 +46,21 @@ $consultaUpdate = "UPDATE novedades SET
     categoriaCliente = '$categoriaCliente'
     WHERE codNovedad = $codNovedad";
 
-$resUpdate = mysqli_query($conexion, $consultaUpdate);
-if (!$resUpdate) {
-    $_SESSION['mensaje_error'] = "Error al actualizar novedad: " . mysqli_error($conexion);
-    header("Location: ../../views/admin/novedades/editarNovedad.php?codNovedad=" . urlencode($codNovedad));
-    exit;
+    $resUpdate = mysqli_query($conexion, $consultaUpdate);
+    if (!$resUpdate) {
+        $_SESSION['mensaje_error'] = "Error al actualizar novedad: " . mysqli_error($conexion);
+        header("Location: ../../views/admin/novedades/editarNovedad.php?codNovedad=" . urlencode($codNovedad));
+        exit;
+    }
+    
+
+} 
+else{
+    $_SESSION["mensaje_warning"] = "Eliga rango de fecha correcto ";
+    header("location: ../../views/admin/novedades/novedades.php");
+    exit();
 }
+
 
 // Si se subió nueva imagen, la guardo y actualizo/insert en tabla imagenes
 if ($nuevaImg && isset($nuevaImg['error']) && $nuevaImg['error'] !== UPLOAD_ERR_NO_FILE) {
