@@ -1,5 +1,6 @@
 <?php
 include("conexionBD.php");
+
 //var para rutas
 $breadcrumb_titulo_activo = 'Locales';
 

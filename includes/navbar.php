@@ -53,6 +53,7 @@ if (session_status() === PHP_SESSION_NONE) {
           <li class="nav-item"><a class="nav-link" href="/views/cliente/novedades.php"><i class="bi bi-newspaper"></i> Novedades</a></li>
           <li class="nav-item"><a class="nav-link" href="/views/cliente/misUsoPromociones.php"><i class="bi bi-collection"></i> Mis Uso Promos</a></li>
           <li class="nav-item"><a class="nav-link" href="/contacto.php"><i class="bi bi-envelope"></i> Contacto</a></li>
+          <li class="nav-item"><a class="nav-link" href="/views/miPerfil.php"><i class="bi bi-person-circle"></i> Mi Perfil</a></li>
           <li class="nav-item"><a class="nav-link text-danger" href="/views/auth/logout.php"><i class="bi bi-box-arrow-right"></i> Cerrar Sesión</a></li>
 
         <?php elseif ($_SESSION['tipoUsuario'] === 'dueño'): ?>
@@ -61,6 +62,7 @@ if (session_status() === PHP_SESSION_NONE) {
           <li class="nav-item"><a class="nav-link" href="/views/dueño/solicitudes.php"><i class="bi bi-clipboard-check"></i> Solicitudes</a></li>
           <li class="nav-item"><a class="nav-link" href="/views/dueño/reporte/dueñoReporte.php"><i class="bi bi-graph-up"></i> Reportes</a></li>
           <li class="nav-item"><a class="nav-link" href="/contacto.php"><i class="bi bi-envelope"></i> Contacto</a></li>
+          <li class="nav-item"><a class="nav-link" href="/views/miPerfil.php"><i class="bi bi-person-circle"></i> Mi Perfil</a></li>
           <li class="nav-item"><a class="nav-link text-danger" href="/views/auth/logout.php"><i class="bi bi-box-arrow-right"></i> Cerrar Sesión</a></li>
 
         <?php elseif ($_SESSION['tipoUsuario'] === 'admin'): ?>

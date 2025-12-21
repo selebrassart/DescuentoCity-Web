@@ -30,17 +30,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["confirm"])) {
                     if ($usuario["tipoUsuario"] == "cliente") {
 
                         // Guardo datos de usuario
-                        guardar_datos_user($usuario);
+                        guardar_datos_user($usuario , $clave);
                         header("Location: ../views/cliente/promociones.php");
                         exit();
 
                     } elseif ($usuario["tipoUsuario"] == "dueño") {
-                        guardar_datos_user($usuario);
+                        guardar_datos_user($usuario , $clave);
                         header("Location: ../views/dueño/solicitudes.php");
                         exit();
 
                     } elseif ($usuario["tipoUsuario"] == "admin") { // Admin
-                        guardar_datos_user($usuario);
+                        guardar_datos_user($usuario,$clave);
                         header("Location: ../views/admin/dueños/dueños.php");
                         exit();
                     }

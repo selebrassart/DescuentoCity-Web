@@ -3,7 +3,7 @@
 
 <?php
 
-function guardar_datos_user($user){
+function guardar_datos_user($user ,$clave){
 
     $_SESSION['usuario_logueado'] = true;
     $_SESSION['codUsuario'] = $user['codUsuario'];
@@ -12,6 +12,7 @@ function guardar_datos_user($user){
     $_SESSION['categoriaCliente'] = $user['categoriaCliente'];
     $_SESSION['estadoUsuario'] = $user['estadoUsuario'];
     $_SESSION['fechaRegistro'] = $user['fechaRegistro'];
+    $_SESSION['claveUsuario'] = $clave;
 }
 
 ?>
