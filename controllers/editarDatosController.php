@@ -45,11 +45,15 @@ if(isset($_POST["confirm"])){
                 }
 
             }
-            else{
-                $_SESSION['mensaje_error'] = "Constraseñas no coinciden";
+            elseif($claveUsuario2 == ''){
+                $_SESSION['mensaje_warning'] = "No se modifico ningun dato";
                 header("Location: ../views/editarDatos.php");
                 exit();
-
+            }
+            else{
+                $_SESSION['mensaje_error'] = "Contraseñas no coinciden";
+                header("Location: ../views/editarDatos.php");
+                exit();
             }
 
         }
@@ -121,8 +125,10 @@ if(isset($_POST["confirm"])){
         $_SESSION['nombreUsuario'] = $nombreUsuario;   
         $_SESSION['claveUsuario'] = $claveUsuario;
 
+    }else{
+        $_SESSION['mensaje_warning'] = " Complete los campos ";
+        header("Location: ../views/editarDatos.php");
+        exit();
     }
-    $_SESSION['mensaje_warning'] = " Complete los campos ";
-    header("Location: ../views/editarDatos.php");
-    exit();
+
 }

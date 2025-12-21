@@ -64,14 +64,14 @@ $breadcrumb_titulo_activo = 'Mi perfil';
     //Mensajes
     if(isset($_SESSION['mensaje_exito'])){
         echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>";
-        echo "<i class='bi bi-check-circle'></i> " .$_SESSION['mensaje_exito'];
-        echo "<button type='button' class='btn-close' data-bs-dismiss='alert'></button>";
+        echo "<i class='bi bi-check-circle'> </i> " .$_SESSION['mensaje_exito'];
+        echo "<button type='button' class='btn-close' data-bs-dismiss='alert'> </button>";
         echo "</div>";
         unset($_SESSION['mensaje_exito']);
     }
     if(isset($_SESSION['mensaje_error'])){
         echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>";
-        echo "<i class='bi bi-exclamation-circle-fill'></i> " .$_SESSION['mensaje_error'];
+        echo "<i class='bi bi-exclamation-circle-fill'> </i> &nbsp;" .$_SESSION['mensaje_error'];
         echo "<button type='button' class='btn-close' data-bs-dismiss='alert'></button>";
         echo "</div>";
         unset($_SESSION['mensaje_error']);
@@ -85,7 +85,7 @@ $breadcrumb_titulo_activo = 'Mi perfil';
     }
     if(isset($_SESSION['mensaje_info'])){
         echo "<div class='alert alert-info alert-dismissible fade show' role='alert'>";
-        echo "<i class='bi bi-info-circle-fill'></i> " .$_SESSION['mensaje_info'];
+        echo "<i class='bi bi-info-circle-fill'> </i> " .$_SESSION['mensaje_info'];
         echo "<button type='button' class='btn-close' data-bs-dismiss='alert'></button>";
         echo "</div>";
         unset($_SESSION['mensaje_info']);
@@ -144,7 +144,7 @@ $breadcrumb_titulo_activo = 'Mi perfil';
 
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                         <a href="miPerfil.php" class="btn btn-secondary me-md-2">
-                            <i class="bi bi-arrow-left"></i> Cancelar
+                            <i class="bi bi-arrow-left"></i> Volver
                         </a>
                         <button type="submit" name="confirm" class="btn btn-primary">
                             <i class="bi bi-save"></i> Guardar Cambios
