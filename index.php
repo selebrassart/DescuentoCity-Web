@@ -285,7 +285,7 @@ $resultado_locales = mysqli_query($conexion, $sql_locales);
     <section class="py-5 text-center text-black servicios-container">
     <div class="container">
         <h2 class="fw-bold mb-4">SERVICIOS</h2>
-        <p class="text-light mb-5">Estamos listos para recibirte</p>
+        <p class="text-light mb-5">Estamos listos para recibirte</p> <!-- Cambiar texto light por dark (no se lee) -->
 
         <div class="row g-4 justify-content-center">
 
