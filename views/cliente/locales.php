@@ -1,8 +1,6 @@
 <?php
 session_start();
 
-
-
 // Verificar si el usuario está logueado y es cliente
 if (!isset($_SESSION['tipoUsuario']) || $_SESSION['tipoUsuario'] !== 'cliente') {
     // Debug adicional

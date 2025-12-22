@@ -4,7 +4,7 @@ session_start();
 include("conexionBD.php");
 
 // Variable para breadcrumb
-$breadcrumb_titulo_activo = 'Contacto';
+
 
 
 ?>
@@ -21,8 +21,11 @@ $breadcrumb_titulo_activo = 'Contacto';
     <link rel="icon" type="image/png" href="/assets/img/logo-ventana/logo-fondo-b-circular.png"/>
 </head>
 <body>
+    
 
-    <?php
+    <?php   
+    
+    $breadcrumb_titulo_activo = 'Contacto';
     // Verificar si el usuario está logueado y qué tipo de usuario es
     $usuario_logueado = isset($_SESSION['usuario_logueado']) && $_SESSION['usuario_logueado'] === true;
     $tipo_usuario = isset($_SESSION['tipoUsuario']) ? $_SESSION['tipoUsuario'] : null;
@@ -46,10 +49,10 @@ $breadcrumb_titulo_activo = 'Contacto';
         include("includes/navbar.php"); 
     }
     ?>
-        <!--ruta de navegacion -->
-        <div class="container mt-3 small">
-                <?php include 'includes/breadcrumb.php'; ?> 
-        </div>
+    <!--ruta de navegacion -->
+    <div class="container mt-3 small">
+            <?php include 'includes/breadcrumb.php'; ?> 
+    </div>
         
 
 

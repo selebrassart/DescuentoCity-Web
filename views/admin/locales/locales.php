@@ -22,6 +22,16 @@ require("../../../funciones/funcionesSQL.php");
     
     <?php include("../../../includes/navbar.php");
 
+    $breadcrumb_titulo_activo = 'Locales';
+
+    ?>
+
+    <div class="container mt-3">
+        <?php include '../../../includes/breadcrumb.php'; ?>
+    </div>
+    
+    <?php
+
         //paginacion
 
         $cant_por_pag =3;

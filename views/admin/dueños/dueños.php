@@ -12,6 +12,11 @@ if (!isset($_SESSION['tipoUsuario']) || $_SESSION['tipoUsuario'] !== 'admin') {
 
 include("../../../conexionBD.php");
 
+$breadcrumb_titulo_activo = 'Dueños';
+
+
+
+
 //llamo a funcion consultDueños.Donde selecciono dueños que esten pendientes.
 //$listaDueños = consultaDueños($conexion);
 
@@ -55,6 +60,11 @@ $total_paginas = ceil($total_registros / $cant_por_pag);
 </head>
 <body>
     <?php include("../../../includes/navbar.php");?>
+
+    <div class="container mt-3">
+        <?php include '../../../includes/breadcrumb.php'; ?>
+    </div>
+
 
     <!-- Mensajes de alerta -->
     <div class="container mt-3">

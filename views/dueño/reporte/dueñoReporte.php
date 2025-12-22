@@ -4,7 +4,7 @@ session_start();
 
 include("../../../conexionBD.php");
 
-
+$breadcrumb_titulo_activo = 'Reportes';
 
 
 //Consulto para informacion general
@@ -61,6 +61,10 @@ $totalSolcitudes = mysqli_fetch_assoc($resultadoSolicitudes)["totalSol"];
 <body>
 
     <?php include("../../../includes/dueño/dueñoHeader.php");?>
+
+    <div class="container mt-3">
+        <?php include '../../../includes/breadcrumb.php'; ?>
+    </div>
 
     <div class="container my-4">
         <h1 class="text-center mb-4">REPORTES</h1>
@@ -276,5 +280,9 @@ $totalSolcitudes = mysqli_fetch_assoc($resultadoSolicitudes)["totalSol"];
             <i class="bi bi-bookmark-fill"></i> Imprimir / Descargar
         </a>
     </div>
+
+    <?php include("../../../includes/footer.php"); ?>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

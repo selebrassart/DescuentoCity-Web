@@ -67,7 +67,15 @@ include("../../conexionBD.php");
 </head>
 <body>
 
-    <?php include("../../includes/navbar.php"); ?>
+    <?php include("../../includes/navbar.php");
+
+    $breadcrumb_titulo_activo = 'Mis promos';
+
+    ?>
+
+    <div class="container mt-3">
+        <?php include '../../includes/breadcrumb.php'; ?>
+    </div>
 
     <!-- Mensajes de alerta -->
     <div class="container mt-3">

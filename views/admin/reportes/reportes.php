@@ -48,6 +48,13 @@ $totalPromos = mysqli_fetch_assoc($resultadoPromos)['totalPromos'];
     <link rel="icon" type="image/png" href="/assets/img/logo-ventana/logo-fondo-b-circular.png"/>
 </head>
 <body>
+
+    <?php include("../../../includes/navbar.php");?>
+
+    <div class="container mt-3">
+        <?php include '../../../includes/breadcrumb.php'; ?>
+    </div>
+
     <div class="container my-4">
         <h1 class="text-center mb-4">REPORTES</h1>
         
@@ -235,6 +242,10 @@ $totalPromos = mysqli_fetch_assoc($resultadoPromos)['totalPromos'];
         </div>
 
     </div>
+
+    <?php include("../../../includes/footer.php"); ?>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
 

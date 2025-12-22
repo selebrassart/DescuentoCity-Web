@@ -10,19 +10,30 @@ $ignore_segments = [
     'views',
     'auth',
     'cliente',
+    'dueños',
     'dueño',
     'admin',
+    'locales',
+    'promociones',
+    'novedades',
+    'reportes',
+    'reporte',
+
 ];
 
-$segments = array_filter(explode('/', $path));
+$segments = array_filter(array_map('rawurldecode', explode('/', $path)));
+
+
 
 $segments_filtrados = [];
 foreach ($segments as $segment) {
-    // Compara el segmento en minúsculas con la lista de ignorados
-    if (!in_array(strtolower($segment), $ignore_segments)) {
-        $segments_filtrados[] = $segment;
+    $seg = rawurldecode($segment);
+    if (!in_array(mb_strtolower($seg, 'UTF-8'), $ignore_segments)) {
+        $segments_filtrados[] = $seg;
     }
 }
+
+
 
 $segments = $segments_filtrados; // lista limpia
 
@@ -36,7 +47,7 @@ if (empty($segments)) {
     return;
 }
 
-// Función para crear enlaces inteligentes
+// Función para crear enlaces 
 function crear_enlace_breadcrumb($segments, $index) {
     global $path;
     
@@ -57,10 +68,11 @@ function crear_enlace_breadcrumb($segments, $index) {
         // Para páginas de dueño
         switch(strtolower($segments[$index])) {
             case 'mis_promos':
-            case 'promociones':
                 return '/views/dueño/mis_promos.php';
             case 'solicitudes':
                 return '/views/dueño/solicitudes.php';
+            case 'reporte':
+                return '/views/dueño/reporte/dueñoReporte.php';
             default:
                 return '/index.php';
         }

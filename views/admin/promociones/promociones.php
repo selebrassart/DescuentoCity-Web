@@ -59,7 +59,16 @@ include("../../../conexionBD.php");
     <link rel="icon" type="image/png" href="/assets/img/logo-ventana/logo-fondo-b-circular.png"/>
 </head>
 <body>
-    <?php include("../../../includes/navbar.php");?>
+    <?php include("../../../includes/navbar.php");
+
+    $breadcrumb_titulo_activo = 'Promociones';
+
+    ?>
+
+    <div class="container mt-3">
+        <?php include '../../../includes/breadcrumb.php'; ?>
+    </div>
+    
 
     <!-- Mensajes de alerta -->
     <div class="container mt-3">

@@ -108,7 +108,16 @@ $total_paginas = ceil($total_registros / $cant_por_pag);
     <link rel="icon" type="image/png" href="/assets/img/logo-ventana/logo-fondo-b-circular.png"/>
 </head>
 <body>
-    <?php include("../../includes/navbar.php");?>
+    <?php include("../../includes/navbar.php");
+
+
+    $breadcrumb_titulo_activo = 'Mis uso Promociones';
+
+    ?>
+
+    <div class="container mt-3">
+        <?php include '../../includes/breadcrumb.php'; ?>
+    </div>
 
     <!-- Mensajes de alerta -->
     <div class="container mt-3">

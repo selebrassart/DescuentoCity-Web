@@ -136,9 +136,12 @@ $breadcrumb_titulo_activo = 'Mi perfil';
                             <span class="input-group-text"><i class="bi bi-lock"></i></span>
                             <input type="password" 
                                    name="claveUsuario2" 
-                                   id="clave" 
+                                   id="claveUsuario2" 
                                    class="form-control"
                                    placeholder="Ingrese nuevamente la contraseña" >
+                                    <button class="btn btn-outline-secondary toggle-password" type="button" data-target="claveUsuario2">
+                                        <i class="bi bi-eye-slash-fill"></i> 
+                                    </button>
                         </div>
                     </div>
 
