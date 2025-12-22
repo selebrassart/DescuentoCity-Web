@@ -15,7 +15,7 @@ $codDueño = $_SESSION["codUsuario"];
 $consultaPromos= "SELECT COUNT(*) as totalPromosCre
                     FROM promociones p 
                     JOIN locales l ON p.codLocal = l.codLocal
-                    WHERE l.codUsuario = '$codDueño' AND p.estadoPromo = 'aprobada'";
+                    WHERE l.codUsuario = '$codDueño' AND p.estadoPromo = 'aprobada' OR p.estadoPromo ='pendiente' OR p.estadoPromo ='denegada'";
 
 $resultadoPromos = mysqli_query($conexion,$consultaPromos);
 $totalPromos = mysqli_fetch_assoc($resultadoPromos)['totalPromosCre'];
@@ -25,7 +25,7 @@ $consultaLocales = "SELECT COUNT(*) as totalPromosVig
                         FROM promociones p
                         JOIN locales l on p.codLocal = l.codLocal
                         WHERE l.codUsuario = '$codDueño' 
-                        AND p.fechaHastaPromo >= CURDATE()";
+                        AND p.fechaHastaPromo >= CURDATE() AND p.estadoPromo = 'aprobada'";
 $resultadoPromosV =  mysqli_query($conexion,$consultaLocales);
 $totalPromosV = mysqli_fetch_assoc($resultadoPromosV)["totalPromosVig"];
 
