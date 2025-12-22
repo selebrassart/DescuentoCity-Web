@@ -6,7 +6,6 @@ include("../../../conexionBD.php");
 
 
 
-
 //Consulto para informacion general
 
 $codDueño = $_SESSION["codUsuario"];
@@ -57,10 +56,9 @@ $totalSolcitudes = mysqli_fetch_assoc($resultadoSolicitudes)["totalSol"];
     <link rel="icon" type="image/png" href="/assets/img/logo-ventana/logo-fondo-b-circular.png"/>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="/assets/css/imprimir.css" media="print">
 </head>
 <body>
-
-    <?php include("../../../includes/dueño/dueñoHeader.php");?>
 
     <div class="container my-4">
         <h1 class="text-center mb-4">REPORTES</h1>
@@ -170,7 +168,6 @@ $totalSolcitudes = mysqli_fetch_assoc($resultadoSolicitudes)["totalSol"];
                                 <th>Vigencia</th>
                                 <th>Dias disponble</th>            
                                 <th>Usos</th>
-                                <th>Accion</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -233,13 +230,6 @@ $totalSolcitudes = mysqli_fetch_assoc($resultadoSolicitudes)["totalSol"];
                                             <i class="bi bi-graph-up"></i> <?= $reporte["totalUsos"] ?> usos
                                         </span>
                                     </td>
-                                    <td>
-                                        <a href="reporteDetallesDueño.php?codLocal=<?= $reporte["codLocal"] ?>&codPromo=<?= $reporte['codPromo'] ?>" 
-                                        class="btn btn-outline-secondary btn-sm rounded-pill px-3" 
-                                        title="Inspeccionar reporte promoción">
-                                            <i class="bi bi-search"></i> Ver detalles
-                                        </a>
-                                    </td>
                                 </tr>
                             <?php endwhile; ?>
                         </tbody>
@@ -272,9 +262,19 @@ $totalSolcitudes = mysqli_fetch_assoc($resultadoSolicitudes)["totalSol"];
             ?>
         </div>
         
-        <a href="imprimirReporte.php" class="btn btn-warning btn-sm mt-3 " title="Imprimir página">
-            <i class="bi bi-bookmark-fill"></i> Imprimir / Descargar
-        </a>
+        <div class="container">
+            <a href="GenerarExcel.php" class="btn btn-success btn-sm mt-3 boton"  title="Descargar excel">
+                <i class="bi bi-arrow-down"></i> Excel
+            </a>
+            <a href="" class="btn btn-warning btn-sm mt-3 boton" onclick="window.print()" title="Imprimir página">
+                <i class="bi bi-printer-fill"></i> Imprimir
+            </a>
+            <a href="dueñoReporte.php" class="btn btn-secondary btn-sm mt-3 ms-3  boton" title="Volver">
+                <i class="bi bi-arrow-left"></i> volver
+            </a>
+
+        </div>
+
     </div>
 </body>
 </html>

@@ -8,6 +8,7 @@
     <link rel="icon" type="image/png" href="/assets/img/logo-ventana/logo-fondo-b-circular.png"/>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="/assets/css/imprimir.css" media="print">
     <title>Detalles Reporte - Dueño</title>
 </head>
 <body>
@@ -155,11 +156,7 @@
                                 <td><?= htmlspecialchars($usuario['nombreUsuario']) ?></td>
                                 <td><?= date('d/m H:i', strtotime($usuario['fechaUsoPromo'])) ?></td>
                                 <td>
-
-                                    <span class="bg 
-                                        <?= $usuario['estado'] == 'aceptada' ? 'success' : 'danger' ?>">
-                                        <?= ucfirst($usuario['estado']) ?>
-                                    </span>
+                                    <?= ucfirst($usuario['estado']) ?>
                                 </td>
                             </tr>
                             <?php 
@@ -176,11 +173,14 @@
 
 
         <div class="text-center mt-4">
-            <a href="imprimirReporteDetalles.php?codLocal=<?= urlencode($codLocal) ?>&codPromo=<?= urlencode($codPromo) ?>" class="btn btn-warning btn-sm mt-3" title="Imprimir página">
-                <i class="bi bi-printer-fill"></i> Imprimir o descargar
+            <a href="" class="btn btn-warning btn-sm mt-3 boton" onclick="window.print()" title="Imprimir página">
+                <i class="bi bi-printer-fill"></i> Imprimir
+            </a>
+            <a href="GenerarExcelDetalles.php?codLocal=<?= urlencode($codLocal) ?>&codPromo=<?= urlencode($codPromo) ?>" class="btn btn-success btn-sm mt-3 boton"  title="Descargar excel">
+                <i class="bi bi-arrow-down"></i> Excel
             </a>
         </div>
-        <div class="text-center mt-4">
+        <div class="text-center mt-4 boton">
             <a href="DueñoReporte.php" class="btn btn-secondary">
                 <i class="bi bi-arrow-left"></i> Volver a Reportes
             </a>
@@ -190,6 +190,5 @@
 
     <?php mysqli_close($conexion); ?>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
