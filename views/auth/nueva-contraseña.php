@@ -1,6 +1,7 @@
 <?php
 // Iniciar sesión para poder leer los mensajes del controlador
 session_start(); 
+
 ?>
 
 <!DOCTYPE html>
@@ -39,28 +40,34 @@ session_start();
                 <form action="../../controllers/contraseñaController.php" method="POST" class="p-4 border rounded shadow-sm bg-white">
                     
                     <div class="mb-3">
-                        <label for="token_code" class="form-label">Codigo de verificación</label>
+                        <label for="token_code" class="form-label fw-bold">Codigo de verificación</label>
                         <input type="text" class="form-control" name="token_code" id="token_code" placeholder="Ingrese el código recibido por mail" required>
                     </div>
 
                     <div class="mb-3">
-                        <label for="new_clave" class="form-label">Nueva contraseña</label>
+                        <label for="new_clave" class="form-label fw-bold">Nueva contraseña</label>
                         <input type="password" class="form-control" name="new_clave" id="new_clave" placeholder="Ingrese nueva contraseña" required>
                     </div>
 
                     <div class="mb-3">
-                        <label for="confirm_clave" class="form-label">Confirmar contraseña</label>
+                        <label for="confirm_clave" class="form-label fw-bold">Confirmar contraseña</label>
                         <input type="password" class="form-control" name="confirm_clave" id="confirm_clave"  placeholder="Confirme su contraseña" required>
                     </div>
                     
-                    <div class="d-grid">
-                        <button type="submit" class="btn btn-primary btn-lg" name="restablecer">Cambiar contraseña</button>
+                    <div class="d-grid mb-3">
+                        <button type="submit" class="btn btn-primary btn-sm" name="restablecer">Cambiar contraseña</button>
                     </div>
-                
+
+                    <div class="d-grid mb-2">
+                        <a href="restablecer-contraseña.php" class="btn btn-outline-secondary btn-sm"><i class="bi bi-arrow-left"></i>Volver</a>
+                    </div>
+
                 </form>
             </div>
         </div>
     </div>
 
     <?php include("../../includes/footer.php"); ?>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 </body>

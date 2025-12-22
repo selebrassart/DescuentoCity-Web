@@ -96,8 +96,8 @@ $breadcrumb_titulo_activo = 'Contacto';
 
                 <form action="controllers/contactoController.php" method="POST" class="p-4 border rounded shadow-sm bg-white">
                     
-                    <div class="input-group mb-3">
-                        <span class="input-group-text" id="basic-addon1">👤</span>
+                    <div class="mb-3">
+                        <label for="nombre" class="form-label fw-bold">Nombre y apellido</label>
                         <input type="text" class="form-control" name="nombre" placeholder="Nombre completo" aria-label="Nombre" aria-describedby="basic-addon1" required>
                     </div>
                     

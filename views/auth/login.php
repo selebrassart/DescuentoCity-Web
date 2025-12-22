@@ -108,7 +108,7 @@ $breadcrumb_titulo_activo = 'Iniciar Sesión';
                     
                     <div class="mb-3 text-center"> 
                         <span class="small text-muted">¿Olvidó su contraseña? </span>
-                        <a href="/views/auth/restablecer-contraseña.php" class="text-primary">
+                        <a href="/views/auth/restablecer-contraseña.php" class="text-primary" style="text-decoration:none;">
                             Restablecer contraseña
                         </a>
                     </div>
@@ -119,7 +119,7 @@ $breadcrumb_titulo_activo = 'Iniciar Sesión';
                     
                     <div class="text-center">
                         <span class="text-muted">¿No tiene cuenta? </span>
-                        <a href="/views/auth/registro.php" class="text-primary">Crear una</a>
+                        <a href="/views/auth/registro.php" class="text-primary" style="text-decoration:none;">Crear una</a>
                     </div>
                 </form>
             </div>

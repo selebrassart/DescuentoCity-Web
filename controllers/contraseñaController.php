@@ -1,5 +1,6 @@
 <?php
 session_start();
+
 include("../conexionBD.php");
 
 
@@ -22,14 +23,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["enviar"])) {
         if ($resultado && mysqli_num_rows($resultado) > 0) {
             $usuario = mysqli_fetch_assoc($resultado);
             $user_id = $usuario['codUsuario'];
-
+    
             // Generar, guardar y enviar el TOKEN
-         if (generar_y_enviar_token($conexion, $user_id, $email)) {
-    $_SESSION['mensaje_success'] = "Se ha enviado un código de restablecimiento a su email.";
-} else {
-    $_SESSION['mensaje_error'] = "Hubo un error al generar o enviar el token.";
-}
-
+            if (generar_y_enviar_token($conexion, $user_id, $email)) {
+                $_SESSION['mensaje_exito'] = "Se ha enviado un código de restablecimiento a su email.";
+            } 
+            else {
+                $_SESSION['mensaje_error'] = "Hubo un error al generar o enviar el token.";
+            }
 
         } else {
             // Email no encontrado: mensaje genérico
@@ -46,10 +47,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["enviar"])) {
     exit();
 }
 
-  
  //Ahora cuando ingresa LA NUEVA CONTRASEÑA (click en boton REESTABLECER en pagina views/nueva-contraseña.php)
  //donde el usuario ingresa el token recibido por mail y la nueva contraseña elegida
- elseif ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["restablecer"])) {
+elseif ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["restablecer"])) {
 
     //  Verificar que todos los campos POST estén completos
     if (empty($_POST["token_code"]) || empty($_POST["new_clave"]) || empty($_POST["confirm_clave"])) {
@@ -93,4 +93,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["enviar"])) {
 
 
 mysqli_close($conexion);
+
 ?>

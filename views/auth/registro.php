@@ -82,19 +82,45 @@ $breadcrumb_titulo_activo = 'Registro';
                 <form action="../../controllers/registroController.php" method="POST" class="p-4 border rounded shadow-sm bg-white">
                     
                     <div class="input-group mb-3">
-                        <span class="input-group-text"><i class="bi bi-envelope"></i></span>
-                        <input type="email" class="form-control" name="email" placeholder="example@gmail.com" aria-label="Email" required>
+                        <label for="email" class="form-label fw-bold">Email</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+                            <input type="email" class="form-control" name="email" placeholder="example@gmail.com" aria-label="Email" required>
+                        </div>
                     </div>
                     
                     <div class="input-group mb-3">
-                        <span class="input-group-text"><i class="bi bi-lock"></i></span>
-                        <input type="password" class="form-control" name="clave" placeholder="Contraseña" aria-label="Contraseña" required>
+                        <label for="clave" class="form-label fw-bold">Contraseña</label>
+                        <div class="input-group">                    
+                            <span class="input-group-text"><i class="bi bi-lock"></i></span>
+                            <input type="password" 
+                                    name="clave" 
+                                    id="clave" 
+                                    class="form-control" 
+                                    placeholder="Contraseña" 
+                                    required>
+                            <button class="btn btn-outline-secondary toggle-password" type="button" data-target="clave">
+                                <i class="bi bi-eye-slash-fill"></i> 
+                            </button>
+                        </div>
                     </div>
                     
                     <div class="input-group mb-3">
-                        <span class="input-group-text"><i class="bi bi-lock-fill"></i></span>
-                        <input type="password" class="form-control" name="claveConfirm" placeholder="Confirmar contraseña" aria-label="Confirmar Contraseña" required>
+                        <label for="clave" class="form-label fw-bold">Confirmar contraseña</label>
+                        <div class="input-group"> 
+                            <span class="input-group-text"><i class="bi bi-lock-fill"></i></span>
+                            <input type="password" 
+                                    name="claveConfirm" 
+                                    id="claveConfirm" 
+                                    class="form-control" 
+                                    placeholder="Confirmar contraseña" 
+                                    required>
+                            <button class="btn btn-outline-secondary toggle-password" type="button" data-target="claveConfirm">
+                                <i class="bi bi-eye-slash-fill"></i> 
+                            </button>
+                        </div>
                     </div>
+
                     
                     <div class="mb-3">
                         <label class="form-label fw-bold">Tipo de cuenta</label>
@@ -104,6 +130,7 @@ $breadcrumb_titulo_activo = 'Registro';
                                 <i class="bi bi-person"></i> Cliente
                             </label>
                         </div>
+
                         <div class="form-check">
                             <input class="form-check-input" type="radio" name="rol" value="dueño" id="dueño" required>
                             <label class="form-check-label" for="dueño">
@@ -118,7 +145,7 @@ $breadcrumb_titulo_activo = 'Registro';
                     
                     <div class="text-center">
                         <span class="text-muted">¿Ya estás registrado? </span>
-                        <a href="/views/auth/login.php" class="text-primary">Iniciar Sesión</a>
+                        <a href="/views/auth/login.php" class="text-primary" style="text-decoration:none;">Iniciar Sesión</a>
                     </div>
                 </form>
             </div>
@@ -128,6 +155,31 @@ $breadcrumb_titulo_activo = 'Registro';
     <?php include("../../includes/footer.php"); ?>
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const toggleButtons = document.querySelectorAll('.toggle-password');
+
+            toggleButtons.forEach(button => {
+                button.addEventListener('click', function () {
+                    const targetId = this.dataset.target; 
+                    const passwordInput = document.getElementById(targetId);
+                    const icon = this.querySelector('i');
+
+                    // Alternar el atributo 'type' y el ícono
+                    if (passwordInput.getAttribute('type') === 'password') {
+                        passwordInput.setAttribute('type', 'text');
+                        icon.classList.remove('bi-eye-slash-fill');
+                        icon.classList.add('bi-eye-fill');
+                    } else {
+                        passwordInput.setAttribute('type', 'password');
+                        icon.classList.remove('bi-eye-fill');
+                        icon.classList.add('bi-eye-slash-fill');
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>
 
