@@ -1,9 +1,17 @@
 <?php
+
+header("Content-type: application/xls");
+header("Content-Disposition: attachment; filename= ReporteGeneralExcel.xls");
+header('Content-Type: text/html; charset=UTF-8');
+
 session_start();
 
 include("../../../conexionBD.php");
 
-include("../../../includes/admin/adminHeader.php");
+
+
+
+
 
 
 //Consulto para informacion general
@@ -49,49 +57,35 @@ $totalPromos = mysqli_fetch_assoc($resultadoPromos)['totalPromos'];
 </head>
 <body>
     <div class="container my-4">
-        <h1 class="text-center mb-4">REPORTES</h1>
+        <h1 class="text-center mb-4">REPORTES</h1><br>
         
         <!-- Estadísticas generales -->
-        <h4><i class="bi bi-info-circle"></i> Información general</h4>
-        <div class="row g-3 mb-5">
-            <div class="col-md-3">
-                <div class="card text-center bg-primary text-white h-100">
-                    <div class="card-body d-flex flex-column justify-content-center">
-                        <i class="bi bi-people-fill display-4 mb-2"></i>
-                        <h5 class="card-title"><?= $totalClientes ?></h5>
-                        <p class="card-text mb-0">Clientes Activos</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="card text-center bg-success text-white h-100">
-                    <div class="card-body d-flex flex-column justify-content-center">
-                        <i class="bi bi-shop display-4 mb-2"></i>
-                        <h5 class="card-title"><?= $totalLocales ?></h5>
-                        <p class="card-text mb-0">Locales Activos</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="card text-center bg-warning text-dark h-100">
-                    <div class="card-body d-flex flex-column justify-content-center">
-                        <i class="bi bi-person-badge display-4 mb-2"></i>
-                        <h5 class="card-title"><?= $totalDueños ?></h5>
-                        <p class="card-text mb-0">Dueños Activos</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="card text-center bg-info text-white h-100">
-                    <div class="card-body d-flex flex-column justify-content-center">
-                        <i class="bi bi-percent display-4 mb-2"></i>
-                        <h5 class="card-title"><?= $totalPromos ?></h5>
-                        <p class="card-text mb-0">Promociones Vigentes</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
+        <table class="table table-bordered border-primary" style="font-size:12px;">        
+            <h2>Información general</h2><br>
+            <h3> Total Activos</h3>
+            <thead>
+                <tr>
+                    <th>Clientes</th>
+                    <th>Locales</th>
+                    <th>Dueños</th>
+                    <th>Promociones</th>
+                </tr>
+            </thead>
+            <tr>
+                <td>
+                    <?= $totalClientes ?>
+                </td>
+                <td>
+                     <?= $totalLocales ?>
+                </td>
+                <td>
+                    <?= $totalDueños ?>
+                </td>
+                <td>
+                    <?= $totalPromos ?>
+                </td>
+            </tr>
+        </table><br>
 
 
         <?php
@@ -152,17 +146,16 @@ $totalPromos = mysqli_fetch_assoc($resultadoPromos)['totalPromos'];
         if($resultadoReporte && mysqli_num_rows($resultadoReporte) > 0){
             ?>
 
-            <h2 class="text-center mb-4">Uso de Promociones</h2>
+            <h3 class="text-center mb-4">Uso de Promociones</h3><br>
 
-            <div>
-                <div class="table-responsive">
-                    <table class='tabla table table-striped'>
+                    <table class="table table-bordered border-primary" style="font-size:12px;" >
                         <thead>
                             <tr>
-                                <th>Local</th>
-                                <th>Promocion</th>
+                                <th>CodigoLocal</th>
+                                <th>Nombre</th>
+                                <th>Rubro</th>
+                                <th colspan="2">Promocion</th>
                                 <th>Cantidad usos</th>            
-                                <th>Accion</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -172,26 +165,19 @@ $totalPromos = mysqli_fetch_assoc($resultadoPromos)['totalPromos'];
                                 <tr>
                                     <td>
                                         #<?=htmlspecialchars($reporte['codLocal']) ?><br>
-                                        <?= htmlspecialchars($reporte['nombreLocal']) ?><br>
-                                        <span class="badge bg-secondary rounded-pill">
-                                            <i class="bi bi-tag"></i> <?= htmlspecialchars($reporte['rubroLocal']) ?>
-                                        </span>
                                     </td>
                                     <td>
+                                        <?= htmlspecialchars($reporte['nombreLocal']) ?><br>
+                                    </td>
+                                    <td>
+                                        <?= htmlspecialchars($reporte['rubroLocal']) ?>
+                                    </td>
+                                    <td colspan="2">
                                         #<?= htmlspecialchars($reporte['codPromo']) ?><br>
                                         <?= htmlspecialchars($reporte['textoPromo']) ?>
                                     </td>
                                     <td>
-                                        <span class="badge bg-success fs-6 rounded-pill">
-                                            <i class="bi bi-graph-up"></i> <?= $reporte["totalUsos"] ?> usos
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <a href="reporteDetalles.php?codLocal=<?= $reporte['codLocal'] ?>&codPromo=<?= $reporte['codPromo'] ?>" 
-                                        class="btn btn-outline-secondary btn-sm rounded-pill px-3" 
-                                        title="Inspeccionar reporte promoción">
-                                            <i class="bi bi-search"></i> Ver detalles
-                                        </a>
+                                        <?= $reporte["totalUsos"] ?> usos
                                     </td>
                                 </tr>
                             <?php endwhile; ?>
@@ -227,12 +213,6 @@ $totalPromos = mysqli_fetch_assoc($resultadoPromos)['totalPromos'];
             ?>
         </div>
 
-
-        <div class="container">
-            <a href="imprimirReporte.php" class="btn btn-warning mt-3"  title="Imprimir página">
-                <i class="bi bi-bookmark-fill"></i> Imprimir o Descargar
-            </a>
-        </div>
 
     </div>
 </body>

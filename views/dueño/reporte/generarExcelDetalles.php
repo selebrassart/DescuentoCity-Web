@@ -119,7 +119,7 @@ include("../../../conexionBD.php");
         <table class="table table-bordered border-primary" style="font-size:12px">
             <thead>
                 <tr>
-                    <th>Usuario</th>
+                    <th colspan="2">Usuario</th>
                     <th>Fecha</th>
                     <th>Estado</th>
                 </tr>
@@ -130,8 +130,8 @@ include("../../../conexionBD.php");
                     while($usuario = mysqli_fetch_assoc($resultadoUsuarios)): 
                 ?>
                 <tr>
-                    <td><?= htmlspecialchars($usuario['nombreUsuario']) ?></td>
-                    <td><?= date('d/m H:i', strtotime($usuario['fechaUsoPromo'])) ?></td>
+                    <td colspan="2"><?= htmlspecialchars($usuario['nombreUsuario']) ?></td>
+                    <td><?= date('d/m/Y', strtotime($usuario['fechaUsoPromo'])) ?></td>
                     <td>
 
                         <span class="bg 

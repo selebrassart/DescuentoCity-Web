@@ -102,7 +102,8 @@
                     </tr>
                 </table>
                 
-            <div class="col-md-6">
+            <div class="col-md-6 mb-3">
+                
                 <h6><i class="bi bi-graph-up"></i> Estadísticas de Uso</h6>
                 <div class="row g-2 mb-4">
                     <div class="col-6">

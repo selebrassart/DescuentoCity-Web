@@ -250,7 +250,7 @@ $totalSolcitudes = mysqli_fetch_assoc($resultadoSolicitudes)["totalSol"];
 
         mysqli_close($conexion);?>
 
-        <div class='paginacion mt-3'>
+        <div class='paginacion mt-3 boton'>
             <?php
             for($i = 1; $i <= $total_paginas; $i++){
                 if($pagina == $i){
@@ -263,11 +263,11 @@ $totalSolcitudes = mysqli_fetch_assoc($resultadoSolicitudes)["totalSol"];
         </div>
         
         <div class="container">
-            <a href="GenerarExcel.php" class="btn btn-success btn-sm mt-3 boton"  title="Descargar excel">
-                <i class="bi bi-arrow-down"></i> Excel
-            </a>
             <a href="" class="btn btn-warning btn-sm mt-3 boton" onclick="window.print()" title="Imprimir página">
                 <i class="bi bi-printer-fill"></i> Imprimir
+            </a>
+            <a href="GenerarExcel.php" class="btn btn-success btn-sm mt-3 boton"  title="Descargar excel">
+               <i class="bi bi-file-earmark-excel"></i> Excel
             </a>
             <a href="dueñoReporte.php" class="btn btn-secondary btn-sm mt-3 ms-3  boton" title="Volver">
                 <i class="bi bi-arrow-left"></i> volver

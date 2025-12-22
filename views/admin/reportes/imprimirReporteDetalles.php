@@ -61,15 +61,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/png" href="/assets/img/logo-ventana/logo-fondo-b-circular.png"/>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     <link rel="icon" type="image/png" href="/assets/img/logo-ventana/logo-fondo-b-circular.png"/>
+    <link rel="stylesheet" href="/assets/css/imprimir.css" media="print">
     <title>Detalles Reporte - Admin</title>
 </head>
 <body>
     <div class="container my-4">
-        <h1 class="text-center mb-4">Detalles de Promoción</h1>
+        <h1 class="text-center mb-4">Detalle de Promoción</h1>
 
         <!--  -->
         <div class="row">
@@ -93,68 +93,70 @@
                 </table>
             </div>
 
-            <div class="col-md-6">
-                <h6 class="mb-2"><i class="bi bi-graph-up"></i> Estadísticas de Uso</h6>
-                <div class="row g-2 mb-5">
-                    <div class="col-6">
-                        <div class="card bg-success text-white text-center">
-                            <div class="card-body p-2">
-                                <h5 class="mb-0"><?= $aceptadas?></h5>
-                                <small>Aceptados</small>
-                            </div>
+            <h6 class="mb-2"><i class="bi bi-graph-up"></i> Estadísticas de Uso</h6>
+            <div class="row g-2 mb-3">
+                <div class="col-3">
+                    <div class="card bg-success text-white text-center">
+                        <div class="card-body p-2">
+                            <h5 class="mb-0"><?= $aceptadas?></h5>
+                            <small>Aceptados</small>
                         </div>
                     </div>
-                    <div class="col-6">
-                        <div class="card bg-danger text-white text-center">
-                            <div class="card-body p-2">
-                                <h5 class="mb-0"><?= $rechazadas ?></h5>
-                                <small>Rechazados</small>
-                            </div>
+                </div>
+                <div class="col-3">
+                    <div class="card bg-danger text-white text-center">
+                        <div class="card-body p-2">
+                            <h5 class="mb-0"><?= $rechazadas ?></h5>
+                            <small>Rechazados</small>
                         </div>
                     </div>
-                </div><br>
+                </div>
+            </div><br>
 
                 
-                <h6><i class="bi bi-people"></i> Últimos Usuarios (<?= mysqli_num_rows($resultadoUsuarios) ?>)</h6>
-                <div style="max-height: 200px; overflow-y: auto;" >
-                    <table class="table table-sm">
-                        <thead>
-                            <tr>
-                                <th>Usuario</th>
-                                <th>Fecha</th>
-                                <th>Estado</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php 
-                            if (mysqli_num_rows($resultadoUsuarios) > 0) {
-                                while($usuario = mysqli_fetch_assoc($resultadoUsuarios)): 
-                            ?>
-                            <tr>
-                                <td><?= htmlspecialchars($usuario['nombreUsuario']) ?></td>
-                                <td><?= date('d/m H:i', strtotime($usuario['fechaUsoPromo'])) ?></td>
-                                <td>
-                                    <?= ucfirst($usuario['estado']) ?>
-                                </td>
-                            </tr>
-                            <?php 
-                                endwhile;
-                            } else {
-                                echo '<tr><td colspan="4" class="text-center text-muted">No hay registros de uso</td></tr>';
-                            }
-                            ?>
-                        </tbody>
-                    </table>
-                </div>
+            <h6><i class="bi bi-people"></i> Últimos Usuarios (<?= mysqli_num_rows($resultadoUsuarios) ?>)</h6>
+            <div style="max-height: 200px; overflow-y: auto;">
+                <table class="table table-sm">
+                    <thead>
+                        <tr>
+                            <th>Usuario</th>
+                            <th>Fecha</th>
+                            <th>Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php 
+                        if (mysqli_num_rows($resultadoUsuarios) > 0) {
+                            while($usuario = mysqli_fetch_assoc($resultadoUsuarios)): 
+                        ?>
+                        <tr>
+                            <td><?= htmlspecialchars($usuario['nombreUsuario']) ?></td>
+                            <td><?= date('d/m/Y', strtotime($usuario['fechaUsoPromo'])) ?></td>
+                            <td>
+                                <?= ucfirst($usuario['estado']) ?>
+                            </td>
+                        </tr>
+                        <?php 
+                            endwhile;
+                        } else {
+                            echo '<tr><td colspan="4" class="text-center text-muted">No hay registros de uso</td></tr>';
+                        }
+                        ?>
+                    </tbody>
+                </table>
+            </div>
             </div>
         </div>
 
         <!-- Botón para volver -->
         <div class="text-center mt-4">
-            <a href="imprimirReporteDetalles.php?codLocal=<?= urlencode($codLocal) ?>&codPromo=<?= urlencode($codPromo) ?>" class="btn btn-warning btn-sm mt-3" title="Imprimir página">
-                <i class="bi bi-printer-fill"></i> Imprimir o descargar
+            <a href="" class="btn btn-warning btn-sm mt-3 boton" onclick="window.print()" title="Imprimir página">
+                <i class="bi bi-printer-fill"></i> Imprimir
             </a>
-            <a href="reportes.php" class="btn btn-secondary btn-sm mt-3">
+            <a href="GenerarExcelDetalles.php?codLocal=<?= urlencode($codLocal) ?>&codPromo=<?= urlencode($codPromo) ?>" class="btn btn-success btn-sm mt-3 boton"  title="Descargar excel">
+               <i class="bi bi-file-earmark-excel"></i> Excel
+            </a>
+            <a href="reportes.php" class="btn btn-secondary btn-sm mt-3 ms-2 boton">
                 <i class="bi bi-arrow-left"></i> Volver
             </a>
         </div>

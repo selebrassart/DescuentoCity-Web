@@ -68,8 +68,7 @@ $totalSolcitudes = mysqli_fetch_assoc($resultadoSolicitudes)["totalSol"];
 <body>
 
     <div class="container my-4">
-        <h3 class="text-center mb-4">REPORTES</h3>
-        
+        <h3 class="text-center mb-4">REPORTES</h3><br>
         <!-- Estadísticas generales -->
         <table class="table table-bordered border-primary">        
             <h4>Información general promociones</h4><br>
@@ -154,11 +153,13 @@ $totalSolcitudes = mysqli_fetch_assoc($resultadoSolicitudes)["totalSol"];
         if($resultadoReporte && mysqli_num_rows($resultadoReporte) > 0){
         ?>
 
+        <h4>Uso de promociones</h4>
+
         <table class="table table-bordered border-primary">
             <thead>
                 <tr style="font-size: 10px;">
                     <th>Promocion</th>
-                    <th>Texto</th>
+                    <th colspan="2">Descripcion</th>
                     <th>Categoria</th>
                     <th>Vigencia</th>
                     <th>Dias disponble</th>            
@@ -172,7 +173,7 @@ $totalSolcitudes = mysqli_fetch_assoc($resultadoSolicitudes)["totalSol"];
                         <td>
                             #<?=htmlspecialchars($reporte['codPromo']) ?>
                         </td>
-                        <td>
+                        <td colspan="2">
                             <?= htmlspecialchars($reporte['textoPromo']) ?><br>
                         </td>
                         <td>

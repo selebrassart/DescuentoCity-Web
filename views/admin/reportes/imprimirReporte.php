@@ -3,7 +3,6 @@ session_start();
 
 include("../../../conexionBD.php");
 
-include("../../../includes/admin/adminHeader.php");
 
 
 //Consulto para informacion general
@@ -42,10 +41,10 @@ $totalPromos = mysqli_fetch_assoc($resultadoPromos)['totalPromos'];
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/assets/css/estilos.css">
     <title>Reportes Gerenciales - Admin</title>
-    <link rel="icon" type="image/png" href="/assets/img/logo-ventana/logo-fondo-b-circular.png"/>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     <link rel="icon" type="image/png" href="/assets/img/logo-ventana/logo-fondo-b-circular.png"/>
+    <link rel="stylesheet" href="/assets/css/imprimir.css" media="print">
 </head>
 <body>
     <div class="container my-4">
@@ -162,7 +161,7 @@ $totalPromos = mysqli_fetch_assoc($resultadoPromos)['totalPromos'];
                                 <th>Local</th>
                                 <th>Promocion</th>
                                 <th>Cantidad usos</th>            
-                                <th>Accion</th>
+                                <th class="boton">Accion</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -186,7 +185,7 @@ $totalPromos = mysqli_fetch_assoc($resultadoPromos)['totalPromos'];
                                             <i class="bi bi-graph-up"></i> <?= $reporte["totalUsos"] ?> usos
                                         </span>
                                     </td>
-                                    <td>
+                                    <td class="boton">
                                         <a href="reporteDetalles.php?codLocal=<?= $reporte['codLocal'] ?>&codPromo=<?= $reporte['codPromo'] ?>" 
                                         class="btn btn-outline-secondary btn-sm rounded-pill px-3" 
                                         title="Inspeccionar reporte promoción">
@@ -215,7 +214,7 @@ $totalPromos = mysqli_fetch_assoc($resultadoPromos)['totalPromos'];
 
         mysqli_close($conexion);?>
 
-        <div class='paginacion mt-3'>
+        <div class='paginacion mt-3 boton'> 
             <?php
             for($i = 1; $i <= $total_paginas; $i++){
                 if($pagina == $i){
@@ -229,12 +228,18 @@ $totalPromos = mysqli_fetch_assoc($resultadoPromos)['totalPromos'];
 
 
         <div class="container">
-            <a href="imprimirReporte.php" class="btn btn-warning mt-3"  title="Imprimir página">
-                <i class="bi bi-bookmark-fill"></i> Imprimir o Descargar
+            <a href="generarExcel.php" class="btn btn-success btn-sm mt-3 boton"  title="Descargar excel">
+               <i class="bi bi-file-earmark-excel"></i> Excel
             </a>
+            <a href="" class="btn btn-warning btn-sm mt-3 boton" onclick="window.print()" title="Imprimir página">
+                <i class="bi bi-printer-fill"></i> Imprimir
+            </a>
+            <a href="reportes.php" class="btn btn-secondary btn-sm mt-3 ms-3  boton" title="Volver">
+                <i class="bi bi-arrow-left"></i> volver
+            </a>
+
         </div>
 
     </div>
 </body>
 </html>
-

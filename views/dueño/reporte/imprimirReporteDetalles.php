@@ -103,7 +103,7 @@
                     </tr>
                 </table>
                 
-            <div class="col-md-6">
+            <div class="col-md-6 mb-4">
                 <h6><i class="bi bi-graph-up"></i> Estadísticas de Uso</h6>
                 <div class="row g-2 mb-4">
                     <div class="col-6">
@@ -154,7 +154,7 @@
                             ?>
                             <tr>
                                 <td><?= htmlspecialchars($usuario['nombreUsuario']) ?></td>
-                                <td><?= date('d/m H:i', strtotime($usuario['fechaUsoPromo'])) ?></td>
+                                <td><?= date('d/m/Y', strtotime($usuario['fechaUsoPromo'])) ?></td>
                                 <td>
                                     <?= ucfirst($usuario['estado']) ?>
                                 </td>
@@ -177,7 +177,7 @@
                 <i class="bi bi-printer-fill"></i> Imprimir
             </a>
             <a href="GenerarExcelDetalles.php?codLocal=<?= urlencode($codLocal) ?>&codPromo=<?= urlencode($codPromo) ?>" class="btn btn-success btn-sm mt-3 boton"  title="Descargar excel">
-                <i class="bi bi-arrow-down"></i> Excel
+               <i class="bi bi-file-earmark-excel"></i> Excel
             </a>
         </div>
         <div class="text-center mt-4 boton">
