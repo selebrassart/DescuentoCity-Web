@@ -50,21 +50,25 @@ Para ejecutar el proyecto en un entorno de desarrollo local, se requieren herram
 A continuacion ajunto capturas de pantalla del diseño responsive y parte de la interfaz del sistema:
 
 ### Vista de Promociones (General)
-![Vista de Promociones](https://raw.githubusercontent.com/selebrassart/img-vista-previa-descuentocity/main/promociones.png)
+![Vista de Promociones](https://raw.githubusercontent.com/selebrassart/img-vista-previa-descuentocity/main/Administrador-promociones.png)
 
 ### Control de Acceso (Inicio de Sesion)
-![Inicio de Sesion](https://raw.githubusercontent.com/selebrassart/img-vista-previa-descuentocity/main/login.png)
+![Inicio de Sesion](https://raw.githubusercontent.com/selebrassart/img-vista-previa-descuentocity/main/iniciar-sesion.png)
 
 ### Modulo del Administrador: Gestion de Locales y Creacion
-![Gestion de Locales](https://raw.githubusercontent.com/selebrassart/img-vista-previa-descuentocity/main/locales-admin.png)
+![Gestion de Locales](https://raw.githubusercontent.com/selebrassart/img-vista-previa-descuentocity/main/Administrador-crear-local.png)
 
 ### Modulo del Administrador: Solicitudes de Registro de Dueños
-![Solicitudes de Dueños](https://raw.githubusercontent.com/selebrassart/img-vista-previa-descuentocity/main/solicitudes-duenos.png)
+![Solicitudes de Dueños](https://raw.githubusercontent.com/selebrassart/img-vista-previa-descuentocity/main/solicitudes-dueños.png)
 
 ### Modulo del Administrador: Aprobacion de Promociones
-![Solicitudes de Promociones](https://raw.githubusercontent.com/selebrassart/img-vista-previa-descuentocity/main/solicitudes-promociones.png)
+![Solicitudes de Promociones](https://raw.githubusercontent.com/selebrassart/img-vista-previa-descuentocity/main/pagina-promociones.png)
 
 ### Modulo del Administrador: Estadisticas y Reportes de Uso
-![Reportes de Administrador](https://raw.githubusercontent.com/selebrassart/img-vista-previa-descuentocity/main/reportes-admin.png)
+![Reportes de Administrador](https://raw.githubusercontent.com/selebrassart/img-vista-previa-descuentocity/main/Administrador-reportes.png)
+
+### Formulario de Contacto
+
+![Formulario de Contacto](https://raw.githubusercontent.com/selebrassart/img-vista-previa-descuentocity/main/formulario-contacto.png)
 
 ---
