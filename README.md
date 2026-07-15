@@ -58,6 +58,9 @@ A continuacion ajunto capturas de pantalla del diseño responsive y parte de la 
 ### Modulo del Administrador: Gestion de Locales y Creacion
 ![Gestion de Locales](https://raw.githubusercontent.com/selebrassart/img-vista-previa-descuentocity/main/Administrador-crear-local.png)
 
+### Modulo del Administrador: Gestion de Locales
+![Gestion de Locales](https://raw.githubusercontent.com/selebrassart/img-vista-previa-descuentocity/main/pagina-locales.png)
+
 ### Modulo del Administrador: Solicitudes de Registro de Dueños
 ![Solicitudes de Dueños](https://raw.githubusercontent.com/selebrassart/img-vista-previa-descuentocity/main/solicitudes-dueños.png)
 
