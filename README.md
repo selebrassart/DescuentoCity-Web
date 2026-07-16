@@ -52,14 +52,15 @@ A continuacion ajunto capturas de pantalla del diseño responsive y parte de la 
 ### Vista de Promociones (General)
 ![Solicitudes de Promociones](https://raw.githubusercontent.com/selebrassart/img-vista-previa-descuentocity/main/pagina-promociones.png)
 
+### Vista de locales (general)
+![Gestion de Locales](https://raw.githubusercontent.com/selebrassart/img-vista-previa-descuentocity/main/pagina-locales.png)
+
 ### Control de Acceso (Inicio de Sesion)
 ![Inicio de Sesion](https://raw.githubusercontent.com/selebrassart/img-vista-previa-descuentocity/main/iniciar-sesion.png)
 
 ### Modulo del Administrador: Gestion de Locales y Creacion
 ![Gestion de Locales](https://raw.githubusercontent.com/selebrassart/img-vista-previa-descuentocity/main/administrador-crear-local.png)
 
-### Modulo del Administrador: Gestion de Locales
-![Gestion de Locales](https://raw.githubusercontent.com/selebrassart/img-vista-previa-descuentocity/main/pagina-locales.png)
 
 ### Modulo del Administrador: Solicitudes de Registro de Dueños
 ![Solicitudes de Dueños](https://raw.githubusercontent.com/selebrassart/img-vista-previa-descuentocity/main/solicitudes-dueños.png)
