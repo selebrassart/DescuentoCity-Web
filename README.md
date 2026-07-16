@@ -50,7 +50,7 @@ Para ejecutar el proyecto en un entorno de desarrollo local, se requieren herram
 A continuacion ajunto capturas de pantalla del diseño responsive y parte de la interfaz del sistema:
 
 ### Vista de Promociones (General)
-![Vista de Promociones](https://raw.githubusercontent.com/selebrassart/img-vista-previa-descuentocity/main/Administrador-promociones.png)
+![Solicitudes de Promociones](https://raw.githubusercontent.com/selebrassart/img-vista-previa-descuentocity/main/pagina-promociones.png)
 
 ### Control de Acceso (Inicio de Sesion)
 ![Inicio de Sesion](https://raw.githubusercontent.com/selebrassart/img-vista-previa-descuentocity/main/iniciar-sesion.png)
@@ -65,7 +65,8 @@ A continuacion ajunto capturas de pantalla del diseño responsive y parte de la 
 ![Solicitudes de Dueños](https://raw.githubusercontent.com/selebrassart/img-vista-previa-descuentocity/main/solicitudes-dueños.png)
 
 ### Modulo del Administrador: Aprobacion de Promociones
-![Solicitudes de Promociones](https://raw.githubusercontent.com/selebrassart/img-vista-previa-descuentocity/main/pagina-promociones.png)
+![Vista de Promociones](https://raw.githubusercontent.com/selebrassart/img-vista-previa-descuentocity/main/Administrador-promociones.png)
+
 
 ### Modulo del Administrador: Estadisticas y Reportes de Uso
 ![Reportes de Administrador](https://raw.githubusercontent.com/selebrassart/img-vista-previa-descuentocity/main/Administrador-reportes.png)
